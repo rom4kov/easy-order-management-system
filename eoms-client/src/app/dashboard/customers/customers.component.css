@@ -1,0 +1,16 @@
+table {
+  width: 100%;
+}
+
+.customer-row {
+  transition: 200ms ease-out;
+}
+
+.customer-row:hover {
+  background: #eee;
+  transition: 200ms ease-out;
+}
+
+.customer-row-edit-button {
+  text-align: end;
+}
