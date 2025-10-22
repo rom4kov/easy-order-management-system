@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
 export class CustomersComponent implements OnInit {
   displayedColumns: string[] = [
     'name',
-    'contact_name',
+    'contactName',
     'phone',
     'email',
     'orders',
@@ -28,6 +28,7 @@ export class CustomersComponent implements OnInit {
 
   ngOnInit(): void {
     this.customerService.getCustomers().subscribe((customers) => {
+      console.log(customers);
       this.customers = customers;
     });
   }

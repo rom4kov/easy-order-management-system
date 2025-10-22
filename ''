@@ -21,7 +21,7 @@
         <input
           matInput
           placeholder="Kontaktperson"
-          formControlName="contactName"
+          formControlName="contact_person"
           required
         />
         <!-- @if (name.invalid) { -->
@@ -52,7 +52,7 @@
           required
         />
         @if (customerForm.get('email')?.invalid) {
-          <mat-error>Kein gültige Email</mat-error>
+          <mat-error>{{customerForm.getError('email')}}</mat-error>
         }
       </mat-form-field>
     </div>
@@ -131,7 +131,7 @@
 
       <mat-form-field>
         <mat-label>Kunde seit</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="firstOrderDate">
+        <input matInput [matDatepicker]="picker" formControlName="first_order_date">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>

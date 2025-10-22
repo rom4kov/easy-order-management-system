@@ -21,7 +21,8 @@ export class CustomersService {
     return this.customers.find(res => res.id === id);
   }
 
-  addCustomer(customer: Customer): void {
-    this.customers.push(customer);
+  addCustomer(customer: Customer): Observable<void> {
+    console.log(customer);
+    return this.http.post<void>(this.apiUrl + "/customers", customer);
   }
 }

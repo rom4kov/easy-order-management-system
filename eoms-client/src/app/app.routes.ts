@@ -13,6 +13,10 @@ export const routes: Routes = [
         component: CustomersComponent,
       },
       {
+        path: 'customers/new',
+        component: CustomerFormComponent,
+      },
+      {
         path: 'customers/edit/:id',
         component: CustomerFormComponent,
       },

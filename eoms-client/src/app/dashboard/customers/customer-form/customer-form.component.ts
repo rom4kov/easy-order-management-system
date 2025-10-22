@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomersService } from '../customers.service';
 // import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   Validators,
@@ -18,7 +19,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 @Component({
   selector: 'app-customer-form',
   standalone: true,
-  providers: [provideNativeDateAdapter()],
+  providers: [provideNativeDateAdapter(), CustomersService],
   imports: [
     MatFormFieldModule,
     MatInputModule,
@@ -36,7 +37,10 @@ export class CustomerFormComponent implements OnInit {
 
   customerForm: FormGroup = new FormGroup({});
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private customerService: CustomersService
+  ) {
     // merge(this.email.statusChanges, this.email.valueChanges)
     //   .pipe(takeUntilDestroyed())
     //   .subscribe(() => this.updateErrorMessage());
@@ -45,7 +49,7 @@ export class CustomerFormComponent implements OnInit {
   ngOnInit(): void {
     this.customerForm = this.formBuilder.group({
       name: ['', Validators.required],
-      contact_person: ['', Validators.required],
+      contactName: ['', Validators.required],
       phone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       street: ['', Validators.required],
@@ -53,14 +57,16 @@ export class CustomerFormComponent implements OnInit {
       city: ['', Validators.required],
       industry: ['', Validators.required],
       type: ['', Validators.required],
-      first_order_date: ['', Validators.required],
+      firstOrderDate: ['', Validators.required],
       status: ['', Validators.required],
     });
   }
 
   onSubmit() {
     if (this.customerForm.valid) {
-      console.log('valid');
+      this.customerService.addCustomer(this.customerForm.value).subscribe(res => {
+        console.log(res);
+      });
     }
   }
 }
