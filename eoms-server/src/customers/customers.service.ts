@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { InsertResult } from 'typeorm';
+import { InsertResult, DeleteResult } from 'typeorm';
 import { Repository } from 'typeorm';
 import { Customer } from './customer.entity';
+import { CreateCustomerDto } from './dto/create-customer.dto';
 import { customers } from '../customers';
 
 @Injectable()
@@ -13,9 +14,6 @@ export class CustomersService {
   ) {}
 
   async seedCustomers(): Promise<InsertResult> {
-    // const customersJSON: string = JSON.stringify(customers);
-    // const customersArray: Customer[] = JSON.parse(customersJSON);
-
     return await this.customersRepository
       .createQueryBuilder()
       .insert()
@@ -24,11 +22,65 @@ export class CustomersService {
       .execute();
   }
 
-  getCustomers(): Promise<Customer[] | []> {
-    return this.customersRepository.find();
+  async getCustomers(query: string, page: number): Promise<Customer[] | []> {
+    const result = await this.customersRepository
+      .createQueryBuilder()
+      .take(10)
+      .skip(page * 10)
+      .where('"Customer".name ilike :query', {
+        query: `%${query}%`,
+      })
+      .getMany();
+    // console.log(result);
+    return result;
   }
 
-  addCustomer(customer: Customer): Promise<InsertResult> {
-    return this.customersRepository.insert(customer);
+  async getNumOfCustomers(query: string): Promise<number> {
+    const result = await this.customersRepository
+      .createQueryBuilder()
+      .where('"Customer".name ilike :query', {
+        query: `%${query}%`,
+      })
+      .getCount();
+    // console.log(result);
+    return result;
+  }
+
+  getCustomer(id: number): Promise<Customer | null> {
+    return this.customersRepository.findOneBy({
+      id: id,
+    });
+  }
+
+  async addCustomer(customer: CreateCustomerDto): Promise<InsertResult> {
+    const response = this.customersRepository.insert(customer);
+    return response;
+  }
+
+  async updateCustomer(customer: Customer): Promise<Customer | null> {
+    const customerToUpdate = await this.customersRepository.findOneBy({
+      id: Number(customer.id),
+    });
+    if (customerToUpdate) {
+      customerToUpdate.id = Number(customer.id);
+      customerToUpdate.name = customer.name;
+      customerToUpdate.contactName = customer.contactName;
+      customerToUpdate.phone = customer.phone;
+      customerToUpdate.email = customer.email;
+      customerToUpdate.street = customer.street;
+      customerToUpdate.zipcode = customer.zipcode;
+      customerToUpdate.city = customer.city;
+      customerToUpdate.industry = customer.industry;
+      customerToUpdate.type = customer.type;
+      customerToUpdate.firstOrderDate = customer.firstOrderDate;
+      customerToUpdate.status = customer.status;
+      return await this.customersRepository.save(customerToUpdate);
+    }
+    return null;
+  }
+
+  async deleteCustomer(id: number): Promise<DeleteResult> {
+    const response = await this.customersRepository.delete(id);
+    return response;
   }
 }

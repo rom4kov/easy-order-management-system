@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomersService } from '../customers.service';
+import { Router, ActivatedRoute } from '@angular/router';
 // import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   Validators,
@@ -14,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { Customer } from '../../../models/customer';
 // import { merge } from 'rxjs';
 
 @Component({
@@ -39,7 +41,9 @@ export class CustomerFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private customerService: CustomersService
+    private customerService: CustomersService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {
     // merge(this.email.statusChanges, this.email.valueChanges)
     //   .pipe(takeUntilDestroyed())
@@ -60,13 +64,39 @@ export class CustomerFormComponent implements OnInit {
       firstOrderDate: ['', Validators.required],
       status: ['', Validators.required],
     });
+
+    let id = this.activatedRoute.snapshot.paramMap.get('id');
+    console.log(id);
+
+    if (id) {
+      this.customerService.getCustomer(id)?.subscribe(res => {
+        console.log(res);
+        this.customerForm.patchValue(res.data);
+      });
+    }
+
   }
 
   onSubmit() {
     if (this.customerForm.valid) {
-      this.customerService.addCustomer(this.customerForm.value).subscribe(res => {
-        console.log(res);
-      });
+      let id = this.activatedRoute.snapshot.paramMap.get('id');
+      console.log(id);
+
+      if (id) {
+        const customer: Customer = this.customerForm.value;
+        customer.id = id;
+        this.customerService.updateCustomer(this.customerForm.value).subscribe(res => {
+          if (res) {
+            this.router.navigate(['/dashboard/customers']);
+          }
+        })
+      } else {
+        this.customerService.addCustomer(this.customerForm.value).subscribe(res => {
+          if (res) {
+            this.router.navigate(['/dashboard/customers']);
+          }
+        });
+      }
     }
   }
 }

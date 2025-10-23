@@ -1,8 +1,30 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Body,
+  Param,
+  Query,
+  UseInterceptors,
+} from '@nestjs/common';
 import { Customer } from './customer.entity';
 import { CustomersService } from './customers.service';
-import { InsertResult } from 'typeorm';
+import { InsertResult, DeleteResult } from 'typeorm';
+import { ApiCreatedResponse } from '@nestjs/swagger';
+import { TransformInterceptor } from 'src/interceptors/transform.interceptor';
 
+interface Params {
+  id?: number;
+  query?: string;
+}
+
+interface Query {
+  search: string;
+}
+
+@UseInterceptors(TransformInterceptor)
 @Controller('customers')
 export class CustomersController {
   constructor(private readonly customerService: CustomersService) {}
@@ -13,13 +35,49 @@ export class CustomersController {
   }
 
   @Get()
-  getCustomers(): Promise<Customer[]> {
-    return this.customerService.getCustomers();
+  getCustomers(
+    @Query('search') query: string,
+    @Query('page') page: number,
+  ): Promise<Customer[]> {
+    console.log('controller:', query);
+    console.log('page:', page);
+    return this.customerService.getCustomers(query, page);
+  }
+
+  @Get('count')
+  getCount(@Query() query: Query): Promise<number> {
+    return this.customerService.getNumOfCustomers(query.search);
+  }
+
+  @Get(':id')
+  getCustomer(@Param() params: Params): Promise<Customer | null> {
+    return this.customerService.getCustomer(Number(params.id));
   }
 
   @Post()
-  addCustomer(@Body() customer: Customer): Promise<InsertResult> {
-    // console.log(customer);
-    return this.customerService.addCustomer(customer);
+  @ApiCreatedResponse({
+    description: 'The record has been successfully created.',
+  })
+  async addCustomer(
+    @Body() createCustomerDto: Customer,
+  ): Promise<InsertResult> {
+    const response = await this.customerService.addCustomer(createCustomerDto);
+    return response;
+  }
+
+  @Put()
+  async updateCustomer(
+    @Body() createCustomerDto: Customer,
+  ): Promise<Customer | null> {
+    const response =
+      await this.customerService.updateCustomer(createCustomerDto);
+    return response;
+  }
+
+  @Delete(':id')
+  async deleteCustomer(@Param('id') id: string): Promise<DeleteResult> {
+    console.log(id);
+    const response = await this.customerService.deleteCustomer(Number(id));
+    return response;
   }
 }

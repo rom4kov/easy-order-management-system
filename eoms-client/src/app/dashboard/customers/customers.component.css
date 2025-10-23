@@ -12,5 +12,35 @@ table {
 }
 
 .customer-row-edit-button {
+  max-width: 60px;
   text-align: end;
+}
+
+.customer-row-trash-button {
+  padding-inline: 2px;
+}
+
+.mat-icon-btn {
+  width: 35px;
+  height: 35px;
+  padding: 6px 8px 10px 9px;
+}
+
+#new-customer-button {
+  color: white;
+}
+
+.search-input {
+  min-width: 120px;
+  max-width: 400px;
+  width: 100%;
+}
+
+.search-input-full-width {
+  width: 100%;
+}
+
+.trash-column td {
+  max-width: 50px;
+  padding-inline: 5px;
 }
