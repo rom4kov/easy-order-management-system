@@ -13,4 +13,5 @@ export interface Customer {
   invoices?: string;
   firstOrderDate: Date;
   status: string;
+  notes: string;
 }

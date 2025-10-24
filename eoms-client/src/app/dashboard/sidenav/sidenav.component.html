@@ -1,24 +1,47 @@
 <div class="w-48 h-full bg-indigo-200">
-  <div class="pt-3">
-    <a
+  <div class="pt-4 flex flex-col justify-start gap-5">
+    <button
+      mat-flat-button extended
+      [color]="updateActiveRoute() === 'customers' ? 'white' : 'primary'"
+      [style.color]="updateActiveRoute() === 'customers' ? '#9fa8da' : 'white'"
+      class="mx-3 p-3 sidenav-button-link"
       [routerLink]="['/dashboard/customers']"
-      class="p-3 w-full text-center text-xl block text-white hover:bg-indigo-300"
-      >Kunden</a
+      value='customers'
     >
-    <a
-      [routerLink]="['dashboard/orders']"
-      class="p-3 w-full text-center text-xl block text-white hover:bg-indigo-300"
-      >Aufträge</a
+      Kunden
+      <mat-icon>person</mat-icon>
+    </button>
+    <button
+      mat-flat-button extended
+      [color]="updateActiveRoute() === 'orders' ? 'white' : 'primary'"
+      [style.color]="updateActiveRoute() === 'orders' ? '#9fa8da' : 'white'"
+      class="mx-3 p-3 sidenav-button-link"
+      [routerLink]="['/dashboard/orders']"
+      value='orders'
     >
-    <a
-      [routerLink]="['dashboard/invoices']"
-      class="p-3 w-full text-center text-xl block text-white hover:bg-indigo-300"
-      >Rechnungen</a
+      Aufträge
+      <mat-icon>list_alt</mat-icon>
+    </button>
+    <button
+      mat-flat-button extended
+      [color]="updateActiveRoute() === 'invoices' ? 'white' : 'primary'"
+      [style.color]="updateActiveRoute() === 'invoices' ? '#9fa8da' : 'white'"
+      class="mx-3 p-3 sidenav-button-link"
+      [routerLink]="['/dashboard/invoices']"
+      value='invoices'
     >
-    <a
-      [routerLink]="['dashboard/statistics']"
-      class="p-3 w-full text-center text-xl block text-white hover:bg-indigo-300"
-      >Statistik</a
+      Rechnungen
+      <mat-icon>receipt_long</mat-icon>
+    </button>
+    <button
+      mat-flat-button extended
+      [color]="updateActiveRoute() === 'invoices' ? 'white' : 'primary'"
+      [style.color]="updateActiveRoute() === 'invoices' ? '#9fa8da' : 'white'"
+      class="mx-3 p-3 sidenav-button-link"
+      [routerLink]="['/dashboard/invoices']"
     >
+      Analyse
+      <mat-icon>bar_chart</mat-icon>
+    </button>
   </div>
 </div>

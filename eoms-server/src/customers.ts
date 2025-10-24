@@ -16,6 +16,7 @@ export const customers: Customer[] = [
     invoices: "['Rechnung #1', 'Rechnung #2', 'Rechnung #3']",
     firstOrderDate: new Date(),
     status: 'aktiv',
+    notes: 'Bitte nur per E-Mail kontaktieren.',
   },
   {
     id: 2,
@@ -32,6 +33,8 @@ export const customers: Customer[] = [
     invoices: "['Rechnung #1', 'Rechnung #2']",
     firstOrderDate: new Date(),
     status: 'aktiv',
+    notes:
+      'Frau Rieger im Juli nicht erreichbar, Ansprechpartner: Herr Baumgart.',
   },
   {
     id: 3,
@@ -48,6 +51,7 @@ export const customers: Customer[] = [
     invoices: "['Rechnung #1', 'Rechnung #2', 'Rechnung #3', 'Rechnung #4']",
     firstOrderDate: new Date(),
     status: 'aktiv',
+    notes: 'Langjähriger Kunde, Sonderkonditionen vereinbart.',
   },
   {
     id: 4,
@@ -64,6 +68,8 @@ export const customers: Customer[] = [
     invoices: "['Rechnung #1', 'Rechnung #2']",
     firstOrderDate: new Date(),
     status: 'aktiv',
+    notes:
+      'Letzte Lieferung verspätet – Kunde unzufrieden, Gutschrift angeboten.',
   },
   {
     id: 5,
@@ -80,6 +86,7 @@ export const customers: Customer[] = [
     invoices: "['Rechnung #1', 'Rechnung #2', 'Rechnung #3']",
     firstOrderDate: new Date(),
     status: 'aktiv',
+    notes: 'Support-Anfrage bzgl. Rechnung #3 noch offen.',
   },
   {
     id: 6,
@@ -96,6 +103,7 @@ export const customers: Customer[] = [
     invoices: "['Rechnung #1', 'Rechnung #2']",
     firstOrderDate: new Date(),
     status: 'aktiv',
+    notes: 'Interesse an Cloud-Service geäußert.',
   },
   {
     id: 7,
@@ -112,6 +120,7 @@ export const customers: Customer[] = [
     invoices: "['Rechnung #1', 'Rechnung #2', 'Rechnung #3']",
     firstOrderDate: new Date(),
     status: 'aktiv',
+    notes: 'Kunde wird von Account Managerin Lisa betreut.',
   },
   {
     id: 8,
@@ -128,6 +137,7 @@ export const customers: Customer[] = [
     invoices: "['Rechnung #1', 'Rechnung #2', 'Rechnung #3']",
     firstOrderDate: new Date(),
     status: 'aktiv',
+    notes: 'Wartungsvertrag läuft bis 30.06.2026.',
   },
   {
     id: 9,
@@ -144,6 +154,7 @@ export const customers: Customer[] = [
     invoices: "['Rechnung #1', 'Rechnung #2']",
     firstOrderDate: new Date(),
     status: 'aktiv',
+    notes: 'Termin am Montag auf Mittwoch, 16 Uhr verschoben.',
   },
   {
     id: 10,
@@ -160,6 +171,7 @@ export const customers: Customer[] = [
     invoices: "['Rechnung #1', 'Rechnung #2', 'Rechnung #3']",
     firstOrderDate: new Date(),
     status: 'aktiv',
+    notes: 'Rechnung #3 musste nachkorrigiert werden (falsche MwSt)',
   },
   {
     id: 11,
@@ -176,6 +188,7 @@ export const customers: Customer[] = [
     invoices: "['Rechnung #1', 'Rechnung #2', 'Rechnung #3']",
     firstOrderDate: new Date(),
     status: 'aktiv',
+    notes: 'Besonderer Rabattvertrag über 10 % bis Ende 2025.',
   },
   {
     id: 12,
@@ -192,6 +205,7 @@ export const customers: Customer[] = [
     invoices: "['Rechnung #1', 'Rechnung #2']",
     firstOrderDate: new Date(),
     status: 'aktiv',
+    notes: 'Neue Filiale eröffnet im März 2025 – evtl. Zusatzauftrag.',
   },
   {
     id: 13,
@@ -208,5 +222,24 @@ export const customers: Customer[] = [
     invoices: "['Rechnung #1']",
     firstOrderDate: new Date(),
     status: 'aktiv',
+    notes: 'Kunde ruft bevorzugt vormittags an.',
+  },
+  {
+    id: 14,
+    name: 'Meyer Bauunternehmen GmbH',
+    contactName: 'Johannes Meyer',
+    phone: 1712345678,
+    email: 'j.meyer@meyerbau.de',
+    street: 'Bauhofstraße 9',
+    city: 'Dortmund',
+    zipcode: 44137,
+    industry: 'Bauwirtschaft',
+    type: 'firma',
+    orders: "['Zeiterfassung', 'Serverumzug']",
+    invoices: "['Rechnung #1', 'Rechnung #2']",
+    firstOrderDate: new Date(),
+    status: 'aktiv',
+    notes:
+      'Langjähriger Kunde. Hat Interesse an digitalem Baustellenmanagement geäußert.',
   },
 ];

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomersService } from '../customers.service';
 import { Router, ActivatedRoute } from '@angular/router';
-// import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   Validators,
   FormsModule,
@@ -16,7 +15,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Customer } from '../../../models/customer';
-// import { merge } from 'rxjs';
 
 @Component({
   selector: 'app-customer-form',
@@ -45,9 +43,6 @@ export class CustomerFormComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
   ) {
-    // merge(this.email.statusChanges, this.email.valueChanges)
-    //   .pipe(takeUntilDestroyed())
-    //   .subscribe(() => this.updateErrorMessage());
   }
 
   ngOnInit(): void {
@@ -63,24 +58,21 @@ export class CustomerFormComponent implements OnInit {
       type: ['', Validators.required],
       firstOrderDate: ['', Validators.required],
       status: ['', Validators.required],
+      notes: ['', Validators.required],
     });
 
     let id = this.activatedRoute.snapshot.paramMap.get('id');
-    console.log(id);
 
     if (id) {
       this.customerService.getCustomer(id)?.subscribe(res => {
-        console.log(res);
         this.customerForm.patchValue(res.data);
       });
     }
-
   }
 
   onSubmit() {
     if (this.customerForm.valid) {
       let id = this.activatedRoute.snapshot.paramMap.get('id');
-      console.log(id);
 
       if (id) {
         const customer: Customer = this.customerForm.value;

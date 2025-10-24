@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Customer } from '../../models/customer';
 import { CustomersService } from './customers.service';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatChipsModule} from '@angular/material/chips';
 import { FormsModule } from '@angular/forms';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -24,6 +25,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     MatIconModule,
     MatInputModule,
     MatFormFieldModule,
+    MatChipsModule,
     FormsModule,
     MatPaginatorModule,
     AngularSvgIconModule,
@@ -45,7 +47,10 @@ export class CustomersComponent implements OnInit {
   customers: Customer[] = [];
   numOfCustomers: number = 0;
 
-  constructor(private customerService: CustomersService) {}
+  constructor(
+    private customerService: CustomersService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.customerService.getCustomers("", 0).subscribe((response) => {
@@ -118,5 +123,9 @@ export class CustomersComponent implements OnInit {
       });
       this.customers = customers;
     });
+  }
+
+  goToCustomerView(id: number) {
+    this.router.navigate(['/dashboard/customers/' + id]);
   }
 }

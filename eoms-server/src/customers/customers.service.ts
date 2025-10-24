@@ -31,7 +31,6 @@ export class CustomersService {
         query: `%${query}%`,
       })
       .getMany();
-    // console.log(result);
     return result;
   }
 
@@ -42,7 +41,6 @@ export class CustomersService {
         query: `%${query}%`,
       })
       .getCount();
-    // console.log(result);
     return result;
   }
 
@@ -53,7 +51,9 @@ export class CustomersService {
   }
 
   async addCustomer(customer: CreateCustomerDto): Promise<InsertResult> {
-    const response = this.customersRepository.insert(customer);
+    console.log('service:', customer);
+    const response = await this.customersRepository.insert(customer);
+    console.log(response);
     return response;
   }
 

@@ -47,4 +47,9 @@ export class Customer {
 
   @Column()
   status: string;
+
+  @Column({
+    nullable: true,
+  })
+  notes: string;
 }

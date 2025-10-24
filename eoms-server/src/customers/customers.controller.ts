@@ -39,8 +39,6 @@ export class CustomersController {
     @Query('search') query: string,
     @Query('page') page: number,
   ): Promise<Customer[]> {
-    console.log('controller:', query);
-    console.log('page:', page);
     return this.customerService.getCustomers(query, page);
   }
 
@@ -61,7 +59,9 @@ export class CustomersController {
   async addCustomer(
     @Body() createCustomerDto: Customer,
   ): Promise<InsertResult> {
+    console.log(createCustomerDto);
     const response = await this.customerService.addCustomer(createCustomerDto);
+    console.log('response:', response);
     return response;
   }
 
@@ -76,7 +76,6 @@ export class CustomersController {
 
   @Delete(':id')
   async deleteCustomer(@Param('id') id: string): Promise<DeleteResult> {
-    console.log(id);
     const response = await this.customerService.deleteCustomer(Number(id));
     return response;
   }
