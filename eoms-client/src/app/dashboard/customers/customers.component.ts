@@ -54,7 +54,6 @@ export class CustomersComponent implements OnInit {
 
   ngOnInit(): void {
     this.customerService.getCustomers("", 0).subscribe((response) => {
-      console.log(response);
       const customers = response.data;
       customers.forEach((customer) => {
         const ordersSanitized = customer.orders?.replace(/'/g, '"');
@@ -68,14 +67,11 @@ export class CustomersComponent implements OnInit {
   }
 
   applyFilter(event: Event): void {
-    console.log(event);
     let searchTerm = (event.target as HTMLInputElement).value;
-    console.log(searchTerm);
 
     this.getCount(searchTerm);
 
     this.customerService.getCustomers(searchTerm, 0).subscribe((response) => {
-      console.log(response);
       const customers = response.data;
       customers.forEach((customer) => {
         const ordersSanitized = customer.orders?.replace(/'/g, '"');

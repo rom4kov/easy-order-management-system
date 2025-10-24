@@ -6,10 +6,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { Customer } from './customers/customer.entity';
+import { Order } from './orders/order.entity';
 
 import { CustomersController } from './customers/customers.controller';
 import { CustomersService } from './customers/customers.service';
 import { CustomersModule } from './customers/customers.module';
+import { OrdersController } from './orders/orders.controller';
+import { OrdersService } from './orders/orders.service';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -21,14 +25,15 @@ import { CustomersModule } from './customers/customers.module';
       username: 'eoms-user',
       password: '',
       database: 'eoms-db',
-      entities: [Customer],
+      entities: [Customer, Order],
       synchronize: true,
       namingStrategy: new SnakeNamingStrategy(),
     }),
     CustomersModule,
+    OrdersModule,
   ],
-  controllers: [AppController, CustomersController],
-  providers: [AppService, CustomersService],
+  controllers: [AppController, CustomersController, OrdersController],
+  providers: [AppService, CustomersService, OrdersService],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}

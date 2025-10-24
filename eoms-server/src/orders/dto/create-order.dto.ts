@@ -1,5 +1,4 @@
-export interface Order {
-  id: number;
+export class CreateOrderDto {
   title: string;
   customerId: number;
   items: string;

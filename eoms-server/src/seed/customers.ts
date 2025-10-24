@@ -1,4 +1,4 @@
-import { Customer } from './customers/customer.entity';
+import { Customer } from './../customers/customer.entity';
 
 export const customers: Customer[] = [
   {

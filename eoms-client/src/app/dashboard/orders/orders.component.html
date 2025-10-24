@@ -1,1 +1,126 @@
-<p>orders works!</p>
+<div class="m-8">
+  <div class="flex flex-row items-end">
+    <h3 class="mt-0 mb-8 ml-2 pt-2 text-4xl">Aufträge</h3>
+    <div class="w-full flex flex-row gap-8 justify-end items-end mt-2">
+      <form class="search-input">
+        <mat-form-field class="search-input-full-width mb-[6px]">
+          <mat-label>Suchen...</mat-label>
+          <input
+            type="tel"
+            matInput
+            placeholder="Suchen..."
+          />
+          <svg-icon
+            matSuffix
+            src="assets/svg/8666693_search_icon.svg"
+            [svgStyle]="{ 'width.px': 60 }"
+          ></svg-icon>
+        </mat-form-field>
+      </form>
+
+      <button
+        mat-fab extended
+        color="primary"
+        id="new-order-button"
+        class="flex flex-row -translate-y-8"
+        [routerLink]="['/dashboard', 'orders', 'new']"
+      >
+        Neuer Auftrag
+        <mat-icon>assignment_add</mat-icon>
+      </button>
+    </div>
+  </div>
+  <table
+    mat-table
+  >
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>Auftrag</th>
+      <td mat-cell *matCellDef="let order">{{ order.title }}</td>
+    </ng-container>
+
+    <!-- Contact Name Column -->
+    <ng-container matColumnDef="items">
+      <th mat-header-cell *matHeaderCellDef>Posten</th>
+      <td mat-cell *matCellDef="let order">{{ order.items }}</td>
+    </ng-container>
+
+    <!-- Phone Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Datum</th>
+      <td mat-cell *matCellDef="let order">{{ order.date }}</td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let order">
+        <mat-chip
+          *ngIf="order.status === 'aktiv'; else inactive"
+          style="background-color: #5be77550; color: #fff"
+          >{{ order.status }}</mat-chip
+        >
+        <ng-template #inactive
+          ><mat-chip>{{ order.status }}</mat-chip></ng-template
+        >
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef>Betrag</th>
+      <td mat-cell *matCellDef="let order">
+        {{ order.total }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let order" class="order-row-edit-button">
+        <button
+          mat-icon-button
+          [routerLink]="['/dashboard', 'orders', 'edit', order.id]"
+          class="p-1 border rounded cursor-pointer mat-icon-btn"
+        >
+          <svg-icon
+            matSuffix
+            src="assets/svg/edit.svg"
+            [svgStyle]="{ 'width.px': 18 }"
+          ></svg-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete" class="trash-column">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let order" class="order-row-trash-button">
+        <button
+          mat-icon-button
+          class="p-1 border rounded cursor-pointer mat-icon-btn"
+        >
+          <svg-icon
+            matSuffix
+            src="assets/svg/trash.svg"
+            [svgStyle]="{ 'width.px': 18 }"
+          ></svg-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Header and Row Definitions -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      class="order-row cursor-pointer"
+    ></tr>
+  </table>
+  <mat-paginator
+    class="mt-8 ml-auto w-96 bold text-xl"
+    id="orders-paginator"
+    [pageSize]="10"
+    aria-label="Seite auswählen"
+  ></mat-paginator>
+
+  <ng-template #noCustomers>
+    <p class="mt-8 text-xl">Keine Kund:innen gefunden</p>
+  </ng-template>
+</div>

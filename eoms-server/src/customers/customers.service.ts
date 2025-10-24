@@ -4,7 +4,7 @@ import { InsertResult, DeleteResult } from 'typeorm';
 import { Repository } from 'typeorm';
 import { Customer } from './customer.entity';
 import { CreateCustomerDto } from './dto/create-customer.dto';
-import { customers } from '../customers';
+import { customers } from '../seed/customers';
 
 @Injectable()
 export class CustomersService {
