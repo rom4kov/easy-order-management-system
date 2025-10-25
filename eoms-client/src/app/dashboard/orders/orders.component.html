@@ -9,6 +9,7 @@
             type="tel"
             matInput
             placeholder="Suchen..."
+            (keyup)="applyFilter($event)"
           />
           <svg-icon
             matSuffix
@@ -19,7 +20,8 @@
       </form>
 
       <button
-        mat-fab extended
+        mat-fab
+        extended
         color="primary"
         id="new-order-button"
         class="flex flex-row -translate-y-8"
@@ -30,9 +32,7 @@
       </button>
     </div>
   </div>
-  <table
-    mat-table
-  >
+  <table mat-table [dataSource]="orders" *ngIf="orders.length; else noOrders">
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef>Auftrag</th>
       <td mat-cell *matCellDef="let order">{{ order.title }}</td>
@@ -41,30 +41,62 @@
     <!-- Contact Name Column -->
     <ng-container matColumnDef="items">
       <th mat-header-cell *matHeaderCellDef>Posten</th>
-      <td mat-cell *matCellDef="let order">{{ order.items }}</td>
+      <td mat-cell *matCellDef="let order">{{ order.items?.length }}</td>
     </ng-container>
 
     <!-- Phone Column -->
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef>Datum</th>
-      <td mat-cell *matCellDef="let order">{{ order.date }}</td>
+    <ng-container matColumnDef="order_date">
+      <th mat-header-cell *matHeaderCellDef>Auftragsdatum</th>
+      <td mat-cell *matCellDef="let order">
+        {{ order.orderDate | date: "dd.M.yyyy" }}
+      </td>
+    </ng-container>
+
+    <!-- Phone Column -->
+    <ng-container matColumnDef="due_date">
+      <th mat-header-cell *matHeaderCellDef>Fertigstellungsdatum</th>
+      <td mat-cell *matCellDef="let order">
+        {{ order.dueDate | date: "dd.M.yyyy" }}
+      </td>
     </ng-container>
 
     <!-- Status Column -->
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef>Status</th>
       <td mat-cell *matCellDef="let order">
-        <mat-chip
-          *ngIf="order.status === 'aktiv'; else inactive"
-          style="background-color: #5be77550; color: #fff"
-          >{{ order.status }}</mat-chip
-        >
-        <ng-template #inactive
-          ><mat-chip>{{ order.status }}</mat-chip></ng-template
-        >
+        @switch (order.status) {
+          @case ("offen") {
+            <mat-chip
+              id="status-chip-created"
+              class="**:flex **:flex-row **:items-center **:gap-1"
+            >
+              <mat-icon style="scale: 0.8">create_new_folder</mat-icon>
+              <span id="status-chip-text">{{ order.status }}</span>
+            </mat-chip>
+          }
+          @case ("in Bearbeitung") {
+            <mat-chip
+              id="status-chip-progress"
+              class="**:flex **:flex-row **:items-center **:gap-1"
+            >
+              <mat-icon style="scale: 0.8">construction</mat-icon>
+              <span id="status-chip-text">{{ order.status }}</span>
+            </mat-chip>
+          }
+          @case ("abgeschlossen") {
+            <mat-chip [style.background]="'#5be77bb0'">
+              <mat-icon style="scale: 0.8">construction</mat-icon>
+              {{ order.status }}</mat-chip
+            >
+          }
+          @case ("storniert") {
+            <mat-chip [style.background-color]="'#fa8072'">{{
+              order.status
+            }}</mat-chip>
+          }
+        }
       </td>
     </ng-container>
-
 
     <ng-container matColumnDef="total">
       <th mat-header-cell *matHeaderCellDef>Betrag</th>
@@ -117,10 +149,11 @@
     class="mt-8 ml-auto w-96 bold text-xl"
     id="orders-paginator"
     [pageSize]="10"
+    [length]="numOfOrders"
     aria-label="Seite auswählen"
   ></mat-paginator>
 
-  <ng-template #noCustomers>
-    <p class="mt-8 text-xl">Keine Kund:innen gefunden</p>
+  <ng-template #noOrders>
+    <p class="mt-8 text-xl">Keine Aufträge gefunden</p>
   </ng-template>
 </div>

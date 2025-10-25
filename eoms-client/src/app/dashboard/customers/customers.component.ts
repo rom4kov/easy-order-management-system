@@ -46,6 +46,7 @@ export class CustomersComponent implements OnInit {
   ];
   customers: Customer[] = [];
   numOfCustomers: number = 0;
+  deletedCustomerId: number = 0;
 
   constructor(
     private customerService: CustomersService,
@@ -67,7 +68,7 @@ export class CustomersComponent implements OnInit {
   }
 
   applyFilter(event: Event): void {
-    let searchTerm = (event.target as HTMLInputElement).value;
+    const searchTerm = (event.target as HTMLInputElement).value;
 
     this.getCount(searchTerm);
 
@@ -84,10 +85,10 @@ export class CustomersComponent implements OnInit {
   }
 
   deleteCustomer(id: number) {
-    this.customerService.deleteCustomer(id).subscribe(res => {
-      console.log(res);
+    this.deletedCustomerId = id;
+    console.log("clicked on delete");
+    this.customerService.deleteCustomer(id).subscribe(() => {
       this.customerService.getCustomers("", 0).subscribe((response) => {
-        console.log(response);
         const customers = response.data;
         customers.forEach((customer) => {
           const ordersSanitized = customer.orders?.replace(/'/g, '"');
@@ -122,6 +123,9 @@ export class CustomersComponent implements OnInit {
   }
 
   goToCustomerView(id: number) {
-    this.router.navigate(['/dashboard/customers/' + id]);
+    if (this.deletedCustomerId !== id) {
+      this.router.navigate(['/dashboard/customers/' + id]);
+      this.deletedCustomerId = 0;
+    }
   }
 }

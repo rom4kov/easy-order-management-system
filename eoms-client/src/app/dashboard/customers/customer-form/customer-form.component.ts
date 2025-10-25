@@ -15,6 +15,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Customer } from '../../../models/customer';
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'app-customer-form',
@@ -71,6 +72,7 @@ export class CustomerFormComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.customerForm.valid);
     if (this.customerForm.valid) {
       let id = this.activatedRoute.snapshot.paramMap.get('id');
 
@@ -83,6 +85,8 @@ export class CustomerFormComponent implements OnInit {
           }
         })
       } else {
+        const newCustomer = this.customerForm.value;
+        newCustomer.id = uuid.v4();
         this.customerService.addCustomer(this.customerForm.value).subscribe(res => {
           if (res) {
             this.router.navigate(['/dashboard/customers']);

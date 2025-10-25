@@ -1,3 +1,65 @@
+table {
+  width: 100%;
+}
+
+.order-row {
+  transition: 200ms ease-out;
+}
+
+.order-row:hover {
+  background: #eee;
+  transition: 200ms ease-out;
+}
+
+.order-row-edit-button {
+  max-width: 60px;
+  text-align: end;
+}
+
+.order-row-trash-button {
+  padding-inline: 2px;
+}
+
+.mat-icon-btn {
+  width: 35px;
+  height: 35px;
+  padding: 6px 8px 10px 9px;
+}
+
 #new-order-button {
   color: white;
+}
+
+.search-input {
+  min-width: 120px;
+  max-width: 400px;
+  width: 100%;
+}
+
+.search-input-full-width {
+  width: 100%;
+  scale: 0.9;
+}
+
+.trash-column td {
+  max-width: 50px;
+  padding-inline: 5px;
+}
+
+#orders-paginator div div {
+  background-color: indigo;
+}
+
+#status-chip-completed {
+  background-color: #5be77550;
+}
+
+#status-chip-progress {
+  background-color: #ffee8c90;
+}
+
+.mdc-evolution-chip__text-label:has(#status-chip-text) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Order } from '../../models/order';
 import { OrdersService } from './orders.service';
 import { RouterLink, Router } from '@angular/router';
@@ -29,26 +29,65 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     FormsModule,
     MatPaginatorModule,
     AngularSvgIconModule,
+    DatePipe,
   ],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css'
 })
-export class OrdersComponent {
+export class OrdersComponent implements OnInit {
   displayedColumns: string[] = [
     'title',
     'items',
-    'date',
+    'order_date',
+    'due_date',
     'status',
     'total',
     'edit',
     'delete',
   ];
   orders: Order[] = [];
-  numOfCustomers: number = 0;
+  numOfOrders: number = 0;
 
   constructor(
     private ordersService: OrdersService,
     private router: Router,
   ) {}
+
+  ngOnInit(): void {
+    this.ordersService.getOrders("", 0).subscribe((response) => {
+      const orders = response.data;
+      orders.forEach((customer) => {
+        const ordersSanitized = customer.items?.replace(/'/g, '"');
+        if (ordersSanitized) {
+          customer.items = JSON.parse(ordersSanitized);
+        }
+      });
+      this.orders = orders;
+      this.getCount('');
+    });
+  }
+
+  applyFilter(event: Event): void {
+    const searchTerm = (event.target as HTMLInputElement).value;
+
+    this.getCount(searchTerm);
+
+    this.ordersService.getOrders(searchTerm, 0).subscribe((response) => {
+      const customers = response.data;
+      customers.forEach((customer) => {
+        const ordersSanitized = customer.items?.replace(/'/g, '"');
+        if (ordersSanitized) {
+          customer.items = JSON.parse(ordersSanitized);
+        }
+      });
+      this.orders = customers;
+    });
+  }
+
+  getCount(query: string): void {
+    this.ordersService.getNumOfOrders(query).subscribe((res => {
+      this.numOfOrders = res.data;
+    }))
+  }
 
 }

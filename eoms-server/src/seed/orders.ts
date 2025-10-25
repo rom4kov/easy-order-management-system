@@ -30,7 +30,7 @@ export const orders: Order[] = [
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
-    status: 'offen',
+    status: 'angelegt',
     details: '',
   },
 ];

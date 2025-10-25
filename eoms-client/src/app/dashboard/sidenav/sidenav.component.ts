@@ -24,14 +24,6 @@ export class SidenavComponent implements OnInit {
   }
 
   updateActiveRoute(): string {
-    // const span = (event.target as HTMLSpanElement);
-    // if (this.router.url.includes((span.parentElement as HTMLButtonElement).value)) {
-    //   span.style.backgroundColor = 'white';
-    //   span.style.color = '#9fa8da';
-    // } else {
-    //   span.style.backgroundColor = '#9fa8da';
-    //   span.style.color = 'white';
-    // }
     return this.router.url.split("/")[2]
   }
 }

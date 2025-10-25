@@ -21,7 +21,7 @@ export class Order {
   dueDate: Date;
 
   @Column()
-  status: 'offen' | 'in Bearbeitung' | 'abgeschlossen' | 'storniert';
+  status: 'angelegt' | 'in Bearbeitung' | 'abgeschlossen' | 'storniert';
 
   @Column({
     nullable: true,

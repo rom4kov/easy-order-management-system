@@ -27,7 +27,7 @@ export class OrdersService {
       .createQueryBuilder()
       .take(10)
       .skip(page * 10)
-      .where('"Order".name ilike :query', {
+      .where('"Order".title ilike :query', {
         query: `%${query}%`,
       })
       .getMany();
@@ -37,7 +37,7 @@ export class OrdersService {
   async getNumOfOrders(query: string): Promise<number> {
     const result = await this.ordersRepository
       .createQueryBuilder()
-      .where('"Order".name ilike :query', {
+      .where('"Order".title ilike :query', {
         query: `%${query}%`,
       })
       .getCount();
