@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Customer } from 'src/customers/customer.entity';
 
 @Entity({ name: 'orders' })
 export class Order {
@@ -8,8 +9,9 @@ export class Order {
   @Column()
   title: string;
 
-  @Column()
-  customerId: number;
+  @ManyToOne(() => Customer, (customer) => customer.orders, { eager: true })
+  @JoinColumn({ name: 'customer_id' })
+  customer: Customer;
 
   @Column()
   items: string;

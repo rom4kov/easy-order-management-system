@@ -1,7 +1,7 @@
 export interface Order {
   id: number;
   title: string;
-  customerId: number;
+  customer: number;
   items: string;
   orderDate: Date;
   dueDate: Date;

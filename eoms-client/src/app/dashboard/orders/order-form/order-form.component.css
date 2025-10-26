@@ -1,0 +1,12 @@
+#order-notes {
+  width: 100%;
+}
+
+#order-form-button {
+  margin-top: 1rem;
+  margin-left: auto;
+  display: block;
+  color: white;
+  border-radius: 1.5rem;
+}
+

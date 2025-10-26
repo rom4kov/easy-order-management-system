@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { InsertResult, DeleteResult } from 'typeorm';
 import { Repository } from 'typeorm';
 import { Customer } from './customer.entity';
-import { CreateCustomerDto } from './dto/create-customer.dto';
 import { customers } from '../seed/customers';
 
 @Injectable()
@@ -24,13 +23,15 @@ export class CustomersService {
 
   async getCustomers(query: string, page: number): Promise<Customer[] | []> {
     const result = await this.customersRepository
-      .createQueryBuilder()
-      .take(10)
-      .skip(page * 10)
+      .createQueryBuilder('Customer')
+      .leftJoinAndSelect('Customer.orders', 'Order')
       .where('"Customer".name ilike :query', {
         query: `%${query}%`,
       })
+      .take(10)
+      .skip(page * 10)
       .getMany();
+    console.log(result);
     return result;
   }
 
@@ -50,7 +51,7 @@ export class CustomersService {
     });
   }
 
-  async addCustomer(customer: CreateCustomerDto): Promise<InsertResult> {
+  async addCustomer(customer: Customer): Promise<InsertResult> {
     console.log('service:', customer);
     const response = await this.customersRepository.insert(customer);
     console.log(response);

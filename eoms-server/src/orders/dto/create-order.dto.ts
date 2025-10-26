@@ -1,6 +1,8 @@
+import { Customer } from 'src/customers/customer.entity';
+
 export class CreateOrderDto {
   title: string;
-  customerId: number;
+  customer: Customer;
   items: string;
   orderDate: Date;
   dueDate: Date;

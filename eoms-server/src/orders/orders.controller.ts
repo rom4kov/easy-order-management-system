@@ -60,6 +60,7 @@ export class OrdersController {
   })
   async addOrder(@Body() createOrderDto: Order): Promise<InsertResult> {
     const response = await this.orderService.addOrder(createOrderDto);
+    console.log('response:', response);
     return response;
   }
 

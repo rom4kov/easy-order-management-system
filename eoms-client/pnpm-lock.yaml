@@ -44,6 +44,9 @@ importers:
       angular-svg-icon:
         specifier: 17.0.0
         version: 17.0.0(@angular/common@17.3.12(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2)
+      ngx-mat-select-search:
+        specifier: ^8.0.3
+        version: 8.0.3(@angular/material@17.3.10(7638bce466a0bb409b14f5138dd8c0ed))
       postcss:
         specifier: ^8.5.6
         version: 8.5.6
@@ -3199,6 +3202,11 @@ packages:
 
   neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
+
+  ngx-mat-select-search@8.0.3:
+    resolution: {integrity: sha512-Fj8xWJvUAjCqMa8iJKNqUuc6rx4YDyugMHapc64TyilWpWI0RYu/KvM52FbH3zXdHQBwoo6T4tz5WcIDLlDbsw==}
+    peerDependencies:
+      '@angular/material': ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0
 
   nice-napi@1.0.2:
     resolution: {integrity: sha512-px/KnJAJZf5RuBGcfD+Sp2pAKq0ytz8j+1NehvgIGFkvtvFrDM3T8E4x/JJODXK9WZow8RRGrbA9QQ3hs+pDhA==}
@@ -8136,6 +8144,11 @@ snapshots:
   negotiator@0.6.4: {}
 
   neo-async@2.6.2: {}
+
+  ngx-mat-select-search@8.0.3(@angular/material@17.3.10(7638bce466a0bb409b14f5138dd8c0ed)):
+    dependencies:
+      '@angular/material': 17.3.10(7638bce466a0bb409b14f5138dd8c0ed)
+      tslib: 2.8.1
 
   nice-napi@1.0.2:
     dependencies:

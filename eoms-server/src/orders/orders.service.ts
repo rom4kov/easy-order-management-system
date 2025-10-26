@@ -5,6 +5,7 @@ import { Order } from './order.entity';
 import { InsertResult, DeleteResult } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { orders } from 'src/seed/orders';
+// import { Customer } from 'src/customers/customer.entity';
 
 @Injectable()
 export class OrdersService {
@@ -24,13 +25,25 @@ export class OrdersService {
 
   async getOrders(query: string, page: number): Promise<Order[] | []> {
     const result = await this.ordersRepository
-      .createQueryBuilder()
-      .take(10)
-      .skip(page * 10)
-      .where('"Order".title ilike :query', {
+      .createQueryBuilder('Order')
+      .leftJoin('Order.customer', 'Customer')
+      .select([
+        'Order.id',
+        'Order.title',
+        'Order.items',
+        'Order.orderDate',
+        'Order.dueDate',
+        'Order.status',
+        'Customer.id',
+        'Customer.name',
+      ])
+      .where('Order.title ilike :query', {
         query: `%${query}%`,
       })
+      .take(10)
+      .skip(page * 10)
       .getMany();
+    console.log('result:', result);
     return result;
   }
 
@@ -41,6 +54,7 @@ export class OrdersService {
         query: `%${query}%`,
       })
       .getCount();
+    console.log(result);
     return result;
   }
 
@@ -63,7 +77,7 @@ export class OrdersService {
     if (orderToUpdate) {
       orderToUpdate.id = Number(order.id);
       orderToUpdate.title = order.title;
-      orderToUpdate.customerId = order.customerId;
+      orderToUpdate.customer = order.customer;
       orderToUpdate.items = order.items;
       orderToUpdate.orderDate = order.orderDate;
       orderToUpdate.dueDate = order.dueDate;

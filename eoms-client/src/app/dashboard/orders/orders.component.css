@@ -58,6 +58,10 @@ table {
   background-color: #ffee8c90;
 }
 
+#status-chip-canceled {
+  background-color: #fa807280;
+}
+
 .mdc-evolution-chip__text-label:has(#status-chip-text) {
   display: flex;
   flex-direction: row;

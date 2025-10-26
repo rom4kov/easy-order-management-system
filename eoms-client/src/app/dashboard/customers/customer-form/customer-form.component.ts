@@ -43,8 +43,7 @@ export class CustomerFormComponent implements OnInit {
     private customerService: CustomersService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.customerForm = this.formBuilder.group({
@@ -85,8 +84,6 @@ export class CustomerFormComponent implements OnInit {
           }
         })
       } else {
-        const newCustomer = this.customerForm.value;
-        newCustomer.id = uuid.v4();
         this.customerService.addCustomer(this.customerForm.value).subscribe(res => {
           if (res) {
             this.router.navigate(['/dashboard/customers']);

@@ -46,7 +46,7 @@ export class CustomersComponent implements OnInit {
   ];
   customers: Customer[] = [];
   numOfCustomers: number = 0;
-  deletedCustomerId: number = 0;
+  deletedCustomerId: number = -1;
 
   constructor(
     private customerService: CustomersService,
@@ -55,14 +55,7 @@ export class CustomersComponent implements OnInit {
 
   ngOnInit(): void {
     this.customerService.getCustomers("", 0).subscribe((response) => {
-      const customers = response.data;
-      customers.forEach((customer) => {
-        const ordersSanitized = customer.orders?.replace(/'/g, '"');
-        if (ordersSanitized) {
-          customer.orders = JSON.parse(ordersSanitized);
-        }
-      });
-      this.customers = customers;
+      this.customers = response.data;
       this.getCount('');
     });
   }
@@ -73,14 +66,7 @@ export class CustomersComponent implements OnInit {
     this.getCount(searchTerm);
 
     this.customerService.getCustomers(searchTerm, 0).subscribe((response) => {
-      const customers = response.data;
-      customers.forEach((customer) => {
-        const ordersSanitized = customer.orders?.replace(/'/g, '"');
-        if (ordersSanitized) {
-          customer.orders = JSON.parse(ordersSanitized);
-        }
-      });
-      this.customers = customers;
+      this.customers = response.data;
     });
   }
 
@@ -89,14 +75,7 @@ export class CustomersComponent implements OnInit {
     console.log("clicked on delete");
     this.customerService.deleteCustomer(id).subscribe(() => {
       this.customerService.getCustomers("", 0).subscribe((response) => {
-        const customers = response.data;
-        customers.forEach((customer) => {
-          const ordersSanitized = customer.orders?.replace(/'/g, '"');
-          if (ordersSanitized) {
-            customer.orders = JSON.parse(ordersSanitized);
-          }
-        });
-        this.customers = customers;
+        this.customers = response.data;
         this.getCount('');
       });
     })
@@ -111,21 +90,14 @@ export class CustomersComponent implements OnInit {
   getNextPage(event: PageEvent): void {
     console.log(event);
     this.customerService.getCustomers("", event.pageIndex).subscribe((response) => {
-      const customers = response.data;
-      customers.forEach((customer) => {
-        const ordersSanitized = customer.orders?.replace(/'/g, '"');
-        if (ordersSanitized) {
-          customer.orders = JSON.parse(ordersSanitized);
-        }
-      });
-      this.customers = customers;
+      this.customers = response.data;
     });
   }
 
   goToCustomerView(id: number) {
     if (this.deletedCustomerId !== id) {
       this.router.navigate(['/dashboard/customers/' + id]);
-      this.deletedCustomerId = 0;
+      this.deletedCustomerId = -1;
     }
   }
 }

@@ -38,6 +38,11 @@
       <td mat-cell *matCellDef="let order">{{ order.title }}</td>
     </ng-container>
 
+    <ng-container matColumnDef="customer">
+      <th mat-header-cell *matHeaderCellDef>Kund:in</th>
+      <td mat-cell *matCellDef="let order">{{ order.customer.name }}</td>
+    </ng-container>
+
     <!-- Contact Name Column -->
     <ng-container matColumnDef="items">
       <th mat-header-cell *matHeaderCellDef>Posten</th>
@@ -65,7 +70,7 @@
       <th mat-header-cell *matHeaderCellDef>Status</th>
       <td mat-cell *matCellDef="let order">
         @switch (order.status) {
-          @case ("offen") {
+          @case ("angelegt") {
             <mat-chip
               id="status-chip-created"
               class="**:flex **:flex-row **:items-center **:gap-1"
@@ -84,15 +89,22 @@
             </mat-chip>
           }
           @case ("abgeschlossen") {
-            <mat-chip [style.background]="'#5be77bb0'">
-              <mat-icon style="scale: 0.8">construction</mat-icon>
+            <mat-chip
+              id="status-chip-completed"
+              class="**:flex **:flex-row **:items-center **:gap-1"
+            >
+              <mat-icon style="scale: 0.8">done_all</mat-icon>
               {{ order.status }}</mat-chip
             >
           }
           @case ("storniert") {
-            <mat-chip [style.background-color]="'#fa8072'">{{
-              order.status
-            }}</mat-chip>
+            <mat-chip
+              id="status-chip-canceled"
+              class="**:flex **:flex-row **:items-center **:gap-1"
+            >
+              <mat-icon style="scale: 0.8">cancel</mat-icon>
+              {{ order.status }}</mat-chip
+            >
           }
         }
       </td>
@@ -148,6 +160,7 @@
   <mat-paginator
     class="mt-8 ml-auto w-96 bold text-xl"
     id="orders-paginator"
+    (page)="getNextPage($event)"
     [pageSize]="10"
     [length]="numOfOrders"
     aria-label="Seite auswählen"
