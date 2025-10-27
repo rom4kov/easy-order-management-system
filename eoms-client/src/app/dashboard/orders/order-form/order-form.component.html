@@ -1,5 +1,5 @@
 <div class="mt-8 ml-12 w-fit">
-  <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="orderForm">
     <h3 class="mb-8 text-4xl">Auftragsdaten bearbeiten</h3>
     <h4 class="mt-4 mb-3 text-xl">Stammdaten</h4>
     <div class="order-form-container flex flex-row gap-5">
@@ -11,87 +11,126 @@
           formControlName="title"
           required
         />
-        @if (orderForm.get('name')?.invalid) {
-          <mat-error>{{orderForm.getError('name')}}</mat-error>
+        @if (orderForm.get("name")?.invalid) {
+          <mat-error>{{ orderForm.getError("name") }}</mat-error>
         }
       </mat-form-field>
 
+      <!-- <mat-form-field> -->
+      <!--   <mat-label>Kunde</mat-label> -->
+      <!--   <input -->
+      <!--     matInput -->
+      <!--     placeholder="Kunde" -->
+      <!--     formControlName="customerName" -->
+      <!--     required -->
+      <!--   /> -->
+      <!-- @if (name.invalid) { -->
+      <!--   <mat-error>{{ errorMessage }}</mat-error> -->
+      <!-- } -->
+      <!-- </mat-form-field> -->
+
       <mat-form-field>
         <mat-label>Kunde</mat-label>
-        <input
-          matInput
-          placeholder="Kunde"
-          formControlName="customerName"
-          required
-        />
-        <!-- @if (name.invalid) { -->
-        <!--   <mat-error>{{ errorMessage }}</mat-error> -->
-        <!-- } -->
+        <mat-select formControlName="customerName" required>
+          @for (customer of customers; track customer) {
+            <mat-option [value]="customer.name">{{ customer.name }}</mat-option>
+          }
+        </mat-select>
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Auftragsdatum</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="orderDate">
+        <input matInput [matDatepicker]="picker" formControlName="orderDate" />
         <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Fertigstellungsdatum</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="dueDate">
+        <input matInput [matDatepicker]="picker2" formControlName="dueDate" />
         <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker2"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
     </div>
 
     <h4 class="mt-4 mb-3 text-xl">Adresse</h4>
     <div class="order-form-container flex flex-row gap-5">
+      <div class="flex flex-col">
+        <mat-form-field>
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status" required>
+            <mat-option value="angelegt">angelegt</mat-option>
+            <mat-option value="in Bearbeitung">in Bearbeitung</mat-option>
+            <mat-option value="abgeschlossen">abgeschlossen</mat-option>
+            <mat-option value="storniert">storniert</mat-option>
+          </mat-select>
+        </mat-form-field>
 
+        <mat-form-field>
+          <mat-label>Auftragsposten hinzufügen</mat-label>
+          <input
+            matInput
+            placeholder="Posten"
+            formControlName="items"
+            hidden
+            required
+          />
+          <input
+            matInput
+            placeholder="Posten"
+            (keypress)="addItem($event)"
+            required
+          />
+        </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Auftragsposten</mat-label>
-        <input
+        <ul role="list" class="max-h-[13.25rem] overflow-y-auto bg-[#f5f5f5] border-b-1">
+          @for (item of orderForm.value.items; track item) {
+            <li
+              role="listitem"
+              id="mat-list-item"
+              class="h-12 w-full pt-3 pb-3 pl-3 p-0 relative top-0 z-0 flex flex-row items-center gap-1 justify-between hover:bg-[#dadada]"
+            >
+              <span class="w-3/4">{{ item }}</span>
+              <button
+                type="button"
+                mat-icon-button
+                style="scale: 0.8"
+                matTooltip="Posten löschen"
+                aria-label="Button zum Löschen des Auftragspostens"
+                (click)="deleteItem($event)"
+              >
+                <mat-icon>close</mat-icon>
+              </button>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <mat-form-field id="order-notes">
+        <mat-label>Details</mat-label>
+        <textarea
+          rows="14"
           matInput
-          placeholder="Posten"
-          formControlName="items"
+          formControlName="details"
           required
-        />
-        <!-- @if (name.invalid) { -->
-        <!--   <mat-error>{{ errorMessage }}</mat-error> -->
-        <!-- } -->
-      </mat-form-field>
-
-    </div>
-
-    <h4 class="mt-4 mb-3 text-xl">Zusatzdaten</h4>
-    <div class="order-form-container flex flex-row gap-5">
-
-
-      <mat-form-field>
-        <mat-label>Status</mat-label>
-        <mat-select formControlName="status" required>
-          <mat-option value="angelegt">angelegt</mat-option>
-          <mat-option value="in Bearbeitung">in Bearbeitung</mat-option>
-          <mat-option value="abgeschlossen">abgeschlossen</mat-option>
-          <mat-option value="storniert">storniert</mat-option>
-        </mat-select>
+        ></textarea>
       </mat-form-field>
     </div>
-
-    <h4 class="mt-4 mb-3 text-xl">Details</h4>
-    <mat-form-field id="order-notes">
-      <mat-label>Details</mat-label>
-      <textarea rows="6" matInput formControlName="details" required></textarea>
-    </mat-form-field>
-
 
     <button
       mat-flat-button
-      type="submit"
+      type="button"
       color="primary"
       id="order-form-button"
+      (click)="onSubmit($event)"
       [disabled]="orderForm.invalid"
     >
       Update

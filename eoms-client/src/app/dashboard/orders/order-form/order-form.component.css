@@ -10,3 +10,6 @@
   border-radius: 1.5rem;
 }
 
+mat-list:hover div.mat-mdc-focus-indicator {
+  background-color: #dadada !important;
+}

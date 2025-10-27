@@ -8,7 +8,7 @@ export interface Order {
   invoice: string;
   orderDate: Date;
   dueDate: Date;
-  status: 'offen' | 'in Bearbeitung' | 'abgeschlossen' | 'storniert';
+  status: 'angelegt' | 'in Bearbeitung' | 'abgeschlossen' | 'storniert';
   total: number;
   details: string;
 }
@@ -21,7 +21,7 @@ export interface OrderToEdit {
   invoice: string;
   orderDate: Date;
   dueDate: Date;
-  status: 'offen' | 'in Bearbeitung' | 'abgeschlossen' | 'storniert';
+  status: 'angelegt' | 'in Bearbeitung' | 'abgeschlossen' | 'storniert';
   total: number;
   details: string;
 }
