@@ -53,6 +53,7 @@ export class OrderFormComponent implements OnInit {
 
   orderForm: FormGroup = new FormGroup({});
   customers: Customer[] = [];
+  newOrder: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -65,12 +66,13 @@ export class OrderFormComponent implements OnInit {
   ngOnInit(): void {
     this.orderForm = this.formBuilder.group({
       title: ['', Validators.required],
+      customerId: [0],
       customerName: ['', Validators.required],
       orderDate: ['', Validators.required],
       dueDate: ['', Validators.required],
-      items: ['', Validators.required],
+      items: [[], Validators.required],
       status: ['', Validators.required],
-      details: ['', Validators.required],
+      details: [''],
     });
 
     this.customersService.getCustomers('', 0).subscribe((response) => {
@@ -80,6 +82,7 @@ export class OrderFormComponent implements OnInit {
     let id = this.activatedRoute.snapshot.paramMap.get('id');
 
     if (id) {
+      this.newOrder = false;
       this.ordersService.getOrder(id)?.subscribe((res) => {
         const orderToEdit: OrderToEdit =
           this.ordersService.transformOrderToEdit(res.data);
@@ -87,24 +90,30 @@ export class OrderFormComponent implements OnInit {
         if (ordersSanitized) {
           orderToEdit.items = JSON.parse(ordersSanitized);
         }
+        console.log(id);
         this.orderForm.patchValue(orderToEdit);
       });
     }
   }
 
   onSubmit(event: MouseEvent) {
-    event.preventDefault();
-    event.stopPropagation();
-    console.log(event);
-    console.log(this.orderForm.valid);
+    console.log(this.orderForm.value);
     if (this.orderForm.valid) {
       let id = this.activatedRoute.snapshot.paramMap.get('id');
 
       if (id) {
         const order: Order = this.orderForm.value;
-        console.log(order);
+
         order.items = JSON.stringify(order.items);
         order.id = id;
+
+        const customer = this.customers.find(
+          (customer) =>
+            customer.name === this.orderForm.get('customerName')?.value,
+        );
+        if (!customer) return;
+        order.customer = customer;
+
         this.ordersService
           .updateOrder(this.orderForm.value)
           .subscribe((res) => {
@@ -113,7 +122,17 @@ export class OrderFormComponent implements OnInit {
             }
           });
       } else {
-        this.ordersService.addOrder(this.orderForm.value).subscribe((res) => {
+        const order: Order = this.orderForm.value;
+
+        order.items = JSON.stringify(order.items);
+
+        const customer = this.customers.find(
+          (customer) =>
+            customer.name === this.orderForm.get('customerName')?.value,
+        );
+        if (!customer) return;
+        order.customer = customer;
+        this.ordersService.addOrder(order).subscribe((res) => {
           if (res) {
             this.router.navigate(['/dashboard/orders']);
           }
@@ -134,7 +153,8 @@ export class OrderFormComponent implements OnInit {
 
   deleteItem(event: MouseEvent) {
     const deleteBtnSpan = event.target as HTMLButtonElement;
-    const itemValue = deleteBtnSpan.parentElement?.parentElement?.firstElementChild?.innerHTML;
+    const itemValue =
+      deleteBtnSpan.parentElement?.parentElement?.firstElementChild?.innerHTML;
     const newItemsArray = this.orderForm.value.items.filter(
       (item: string) => item !== itemValue,
     );
@@ -143,6 +163,6 @@ export class OrderFormComponent implements OnInit {
   }
 
   checkIfEnterSubmit(event: KeyboardEvent) {
-    if (event.key === "Enter") return;
+    if (event.key === 'Enter') return;
   }
 }

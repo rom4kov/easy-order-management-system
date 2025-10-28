@@ -45,10 +45,17 @@ export class CustomersService {
     return result;
   }
 
-  getCustomer(id: number): Promise<Customer | null> {
-    return this.customersRepository.findOneBy({
-      id: id,
-    });
+  async getCustomer(id: number): Promise<Customer | null> {
+    const result = await this.customersRepository
+      .createQueryBuilder('Customer')
+      .leftJoinAndSelect('Customer.orders', 'Order')
+      .where('"Customer".id = :id', {
+        id: `${id}`,
+      })
+      .getOne();
+    console.log(result);
+
+    return result;
   }
 
   async addCustomer(customer: Customer): Promise<InsertResult> {

@@ -16,6 +16,7 @@ export interface Order {
 export interface OrderToEdit {
   id: string;
   title: string;
+  customerId: number;
   customerName: string;
   items: string;
   invoice: string;

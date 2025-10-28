@@ -1,6 +1,6 @@
 <div class="mt-8 ml-12 w-fit">
   <form [formGroup]="orderForm">
-    <h3 class="mb-8 text-4xl">Auftragsdaten bearbeiten</h3>
+    <h3 class="mb-8 text-4xl">{{newOrder ? 'Neuer Auftrag' : 'Auftragsdaten bearbeiten' }}</h3>
     <h4 class="mt-4 mb-3 text-xl">Stammdaten</h4>
     <div class="order-form-container flex flex-row gap-5">
       <mat-form-field>
@@ -15,19 +15,6 @@
           <mat-error>{{ orderForm.getError("name") }}</mat-error>
         }
       </mat-form-field>
-
-      <!-- <mat-form-field> -->
-      <!--   <mat-label>Kunde</mat-label> -->
-      <!--   <input -->
-      <!--     matInput -->
-      <!--     placeholder="Kunde" -->
-      <!--     formControlName="customerName" -->
-      <!--     required -->
-      <!--   /> -->
-      <!-- @if (name.invalid) { -->
-      <!--   <mat-error>{{ errorMessage }}</mat-error> -->
-      <!-- } -->
-      <!-- </mat-form-field> -->
 
       <mat-form-field>
         <mat-label>Kunde</mat-label>
@@ -75,9 +62,8 @@
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Auftragsposten hinzufügen</mat-label>
+          <mat-label>Neuer Auftragsposten</mat-label>
           <input
-            matInput
             placeholder="Posten"
             formControlName="items"
             hidden
@@ -85,13 +71,16 @@
           />
           <input
             matInput
-            placeholder="Posten"
+            placeholder="Neuer Posten"
             (keypress)="addItem($event)"
             required
           />
         </mat-form-field>
 
-        <ul role="list" class="max-h-[13.25rem] overflow-y-auto bg-[#f5f5f5] border-b-1">
+        <ul
+          role="list"
+          class="max-h-[13.25rem] overflow-y-auto bg-[#f5f5f5] border-b-1"
+        >
           @for (item of orderForm.value.items; track item) {
             <li
               role="listitem"
@@ -116,12 +105,7 @@
 
       <mat-form-field id="order-notes">
         <mat-label>Details</mat-label>
-        <textarea
-          rows="14"
-          matInput
-          formControlName="details"
-          required
-        ></textarea>
+        <textarea rows="14" matInput formControlName="details"></textarea>
       </mat-form-field>
     </div>
 
@@ -133,7 +117,7 @@
       (click)="onSubmit($event)"
       [disabled]="orderForm.invalid"
     >
-      Update
+      {{newOrder ? 'Speichern' : 'Update' }}
     </button>
   </form>
 </div>

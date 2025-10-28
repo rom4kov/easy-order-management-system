@@ -48,6 +48,15 @@ export class OrdersService {
   transformOrderToEdit({ customer, ...rest }: Order): OrderToEdit {
     return {
       ...rest,
+      customerId: Number(customer.id),
+      customerName: customer.name,
+    }
+  }
+
+  transformEditToOrder({ customer, ...rest }: Order): OrderToEdit {
+    return {
+      ...rest,
+      customerId: Number(customer.id),
       customerName: customer.name,
     }
   }

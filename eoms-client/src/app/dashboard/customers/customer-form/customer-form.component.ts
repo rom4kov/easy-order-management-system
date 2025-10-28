@@ -15,7 +15,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Customer } from '../../../models/customer';
-import * as uuid from 'uuid';
 
 @Component({
   selector: 'app-customer-form',

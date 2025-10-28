@@ -5,11 +5,12 @@ import { Customer } from '../../../models/customer';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule} from '@angular/material/card';
 import { DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-customers-view',
   standalone: true,
-  imports: [MatButtonModule, MatCardModule, DatePipe],
+  imports: [MatButtonModule, MatCardModule, DatePipe, RouterLink],
   templateUrl: './customers-view.component.html',
   styleUrl: './customers-view.component.css'
 })
@@ -40,15 +41,16 @@ export class CustomersViewComponent implements OnInit {
 
     if (id) {
       this.customerService.getCustomer(id)?.subscribe(res => {
-        const ordersSanitized = res.data.orders?.replace(/'/g, '"');
-        if (ordersSanitized) {
-          res.data.orders = JSON.parse(ordersSanitized);
-        }
+        // const ordersSanitized = res.data.orders?.replace(/'/g, '"');
+        // if (ordersSanitized) {
+        //   res.data.orders = JSON.parse(ordersSanitized);
+        // }
         const invoicesSanitized = res.data.invoices?.replace(/'/g, '"');
         if (invoicesSanitized) {
           res.data.invoices = JSON.parse(invoicesSanitized);
         }
         this.customer = res.data;
+        console.log(this.customer.orders);
       });
     }
   }

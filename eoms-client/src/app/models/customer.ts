@@ -1,3 +1,5 @@
+import { Order } from "./order";
+
 export interface Customer {
   id: string;
   name: string;
@@ -9,7 +11,7 @@ export interface Customer {
   zipcode: number;
   industry: string;
   type: string;
-  orders?: string;
+  orders?: Order[];
   invoices?: string;
   firstOrderDate: Date;
   status: string;
