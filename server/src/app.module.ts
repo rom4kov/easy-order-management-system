@@ -14,6 +14,8 @@ import { CustomersModule } from './customers/customers.module';
 import { OrdersController } from './orders/orders.controller';
 import { OrdersService } from './orders/orders.service';
 import { OrdersModule } from './orders/orders.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -31,6 +33,8 @@ import { OrdersModule } from './orders/orders.module';
     }),
     CustomersModule,
     OrdersModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController, CustomersController, OrdersController],
   providers: [AppService, CustomersService, OrdersService],

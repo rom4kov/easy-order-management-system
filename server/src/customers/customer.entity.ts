@@ -1,5 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { Order } from 'src/orders/order.entity';
+import { User } from 'src/users/user.entity';
 
 @Entity()
 export class Customer {
@@ -51,4 +59,8 @@ export class Customer {
 
   @OneToMany(() => Order, (order) => order.customer)
   orders: Order[];
+
+  @ManyToOne(() => User, (user) => user.customers, { eager: true })
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 }
