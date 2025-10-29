@@ -1,1 +1,107 @@
-<p>order-view works!</p>
+<div class="m-16">
+  <h3 class="mt-0 mb-8 ml-2 pt-2 text-4xl">Auftrag</h3>
+  <mat-card class="order-card">
+    <div class="flex flex-row gap-12">
+      <div class="relative top-0 min-h-92">
+        <mat-card-header>
+          <mat-card-title class="card-heading">{{
+            order.title
+          }}</mat-card-title>
+          <mat-card-subtitle
+            >Kund:in:
+            <a [routerLink]="['/dashboard', 'customers', order.customer.id]" class="hover:underline">{{
+              order.customer.name
+            }}</a></mat-card-subtitle
+          >
+        </mat-card-header>
+        <p class="mt-6 mb-2 pl-[16px]">
+          Auftrag angenommen am:
+          <strong>{{ order.orderDate | date: "dd.MM.yyyy" }}</strong>
+        </p>
+        <p class="mb-3 pl-[16px]">
+          Fertigstellung geplant am:
+          <strong>{{ order.dueDate | date: "dd.MM.yyyy" }}</strong>
+        </p>
+        <div class="mt-8 flex flex-row justify-start items-center">
+          <span class="ml-[16px]">Status: </span>
+          @switch (order.status) {
+            @case ("angelegt") {
+              <mat-chip
+                id="status-chip-created"
+                class="**:flex **:flex-row **:items-center **:gap-1"
+              >
+                <mat-icon style="scale: 0.8">create_new_folder</mat-icon>
+                <span id="status-chip-text">{{ order.status }}</span>
+              </mat-chip>
+            }
+            @case ("in Bearbeitung") {
+              <mat-chip
+                id="status-chip-progress"
+                class="**:flex **:flex-row **:items-center **:gap-1"
+              >
+                <mat-icon style="scale: 0.8">construction</mat-icon>
+                <span id="status-chip-text">{{ order.status }}</span>
+              </mat-chip>
+            }
+            @case ("abgeschlossen") {
+              <mat-chip
+                id="status-chip-completed"
+                class="**:flex **:flex-row **:items-center **:gap-1"
+              >
+                <mat-icon style="scale: 0.8">done_all</mat-icon>
+                {{ order.status }}</mat-chip
+              >
+            }
+            @case ("storniert") {
+              <mat-chip
+                id="status-chip-canceled"
+                class="**:flex **:flex-row **:items-center **:gap-1"
+              >
+                <mat-icon style="scale: 0.8">cancel</mat-icon>
+                {{ order.status }}</mat-chip
+              >
+            }
+          }
+        </div>
+        <mat-card-actions class="absolute bottom-0">
+          <button mat-button [routerLink]="['/dashboard', 'orders']">
+            Zurück
+          </button>
+          <button
+            mat-button
+            [routerLink]="['/dashboard', 'orders', 'edit', order.id]"
+          >
+            Bearbeiten
+          </button>
+          <button mat-button>Löschen</button>
+        </mat-card-actions>
+      </div>
+      <div>
+        <mat-card-content>
+          <h5 class="mb-3 text-2xl">Auftragsposten</h5>
+          <ul>
+            @for (item of order.items; track $index) {
+              <li class="w-full flex flex-row justify-between">
+                <span
+                  [routerLink]="['/dashboard', 'orders', order.id]"
+                  class="hover:underline cursor-pointer"
+                  >{{ $index + 1 }}. {{ item }}</span
+                >
+              </li>
+            }
+          </ul>
+          <h5 class="mt-12 mb-3 text-2xl">Rechnungen</h5>
+          <p class="underline">Rechnung #78-2025</p>
+        </mat-card-content>
+      </div>
+      <div>
+        <mat-card-content>
+          <h5 class="mb-3 text-2xl">Details</h5>
+          <p>
+            {{ order.details }}
+          </p>
+        </mat-card-content>
+      </div>
+    </div>
+  </mat-card>
+</div>

@@ -159,6 +159,7 @@
       mat-row
       *matRowDef="let row; columns: displayedColumns"
       class="order-row cursor-pointer"
+      (click)="goToOrderView(row.id)"
     ></tr>
   </table>
   <mat-paginator

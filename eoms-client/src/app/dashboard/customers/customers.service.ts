@@ -16,9 +16,9 @@ export class CustomersService {
 
   constructor(private http: HttpClient) {}
 
-  getCustomers(searchTerm: string, pageIdx: number): Observable<ApiResponse<Customer[]>> {
+  getCustomers(searchTerm: string, amount: number, pageIdx: number): Observable<ApiResponse<Customer[]>> {
     return this.http.get<ApiResponse<Customer[]>>(this.apiUrl, {
-      params: { search: searchTerm, page: pageIdx },
+      params: { search: searchTerm, page: pageIdx, amount: amount },
     });
   }
 

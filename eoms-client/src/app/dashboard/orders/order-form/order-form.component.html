@@ -1,7 +1,9 @@
 <div class="mt-8 ml-12 w-fit">
   <form [formGroup]="orderForm">
-    <h3 class="mb-8 text-4xl">{{newOrder ? 'Neuer Auftrag' : 'Auftragsdaten bearbeiten' }}</h3>
-    <h4 class="mt-4 mb-3 text-xl">Stammdaten</h4>
+    <h3 class="mb-8 text-4xl">
+      {{ newOrder ? "Neuer Auftrag" : "Auftragsdaten bearbeiten" }}
+    </h3>
+    <h4 class="mt-4 mb-3 text-xl">Basisdaten</h4>
     <div class="order-form-container flex flex-row gap-5">
       <mat-form-field>
         <mat-label>Auftragsname</mat-label>
@@ -48,7 +50,7 @@
       </mat-form-field>
     </div>
 
-    <h4 class="mt-4 mb-3 text-xl">Adresse</h4>
+    <h4 class="mt-4 mb-3 text-xl">Zusatzdaten</h4>
     <div class="order-form-container flex flex-row gap-5">
       <div class="flex flex-col">
         <mat-form-field>
@@ -63,12 +65,7 @@
 
         <mat-form-field>
           <mat-label>Neuer Auftragsposten</mat-label>
-          <input
-            placeholder="Posten"
-            formControlName="items"
-            hidden
-            required
-          />
+          <input placeholder="Posten" formControlName="items" hidden required />
           <input
             matInput
             placeholder="Neuer Posten"
@@ -109,15 +106,28 @@
       </mat-form-field>
     </div>
 
-    <button
-      mat-flat-button
-      type="button"
-      color="primary"
-      id="order-form-button"
-      (click)="onSubmit($event)"
-      [disabled]="orderForm.invalid"
-    >
-      {{newOrder ? 'Speichern' : 'Update' }}
-    </button>
+    <div class="flex flex-rox gap-3 justify-end">
+      <button
+        mat-flat-button
+        type="button"
+        color="accent"
+        id="order-form-button"
+        class="w-fit"
+        [routerLink]="['/dashboard', 'orders']"
+      >
+        Zurück
+      </button>
+      <button
+        mat-flat-button
+        type="button"
+        color="primary"
+        id="order-form-button"
+        class="w-fit ml-0"
+        (click)="onSubmit($event)"
+        [disabled]="orderForm.invalid"
+      >
+        {{ newOrder ? "Speichern" : "Update" }}
+      </button>
+    </div>
   </form>
 </div>

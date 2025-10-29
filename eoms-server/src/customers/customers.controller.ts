@@ -37,9 +37,10 @@ export class CustomersController {
   @Get()
   getCustomers(
     @Query('search') query: string,
+    @Query('amount') amount: number,
     @Query('page') page: number,
   ): Promise<Customer[]> {
-    return this.customerService.getCustomers(query, page);
+    return this.customerService.getCustomers(query, amount, page);
   }
 
   @Get('count')

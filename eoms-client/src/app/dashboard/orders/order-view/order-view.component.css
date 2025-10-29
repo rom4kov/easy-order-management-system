@@ -1,0 +1,48 @@
+:host {
+  --mdc-elevated-card-container-elevation: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+
+.order-card {
+  margin-top: 2rem;
+  padding: 1rem;
+  min-height: 400px;
+  min-width: 400px;
+  max-width: 900px;
+}
+
+.example-header-image {
+  background-image: url("../../../../assets/images/screenshot_2025-10-24-160257-modified.png");
+  margin-top: 3px;
+  background-size: cover;
+}
+
+.card-heading {
+  font-size: 1.8rem;
+  margin-bottom: 0.3rem
+}
+
+mat-card-actions {
+  margin-top: 2rem !important;
+}
+
+mat-chip {
+  margin-left: 10px !important;
+}
+
+#status-chip-completed {
+  background-color: #5be77550;
+}
+
+#status-chip-progress {
+  background-color: #ffee8c90;
+}
+
+#status-chip-canceled {
+  background-color: #fa807280;
+}
+
+.mdc-evolution-chip__text-label:has(#status-chip-text) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

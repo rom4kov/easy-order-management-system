@@ -21,14 +21,18 @@ export class CustomersService {
       .execute();
   }
 
-  async getCustomers(query: string, page: number): Promise<Customer[] | []> {
+  async getCustomers(
+    query: string,
+    amount: number,
+    page: number,
+  ): Promise<Customer[] | []> {
     const result = await this.customersRepository
       .createQueryBuilder('Customer')
       .leftJoinAndSelect('Customer.orders', 'Order')
       .where('"Customer".name ilike :query', {
         query: `%${query}%`,
       })
-      .take(10)
+      .take(amount >= 0 ? amount : undefined)
       .skip(page * 10)
       .getMany();
     console.log(result);

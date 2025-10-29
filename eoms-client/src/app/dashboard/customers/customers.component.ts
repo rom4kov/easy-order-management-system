@@ -54,7 +54,7 @@ export class CustomersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.customerService.getCustomers("", 0).subscribe((response) => {
+    this.customerService.getCustomers("", 10, 0).subscribe((response) => {
       this.customers = response.data;
       console.log(this.customers[0].orders)
       this.getCount('');
@@ -66,7 +66,7 @@ export class CustomersComponent implements OnInit {
 
     this.getCount(searchTerm);
 
-    this.customerService.getCustomers(searchTerm, 0).subscribe((response) => {
+    this.customerService.getCustomers(searchTerm, 10, 0).subscribe((response) => {
       this.customers = response.data;
     });
   }
@@ -75,7 +75,7 @@ export class CustomersComponent implements OnInit {
     this.deletedCustomerId = id;
     console.log("clicked on delete");
     this.customerService.deleteCustomer(id).subscribe(() => {
-      this.customerService.getCustomers("", 0).subscribe((response) => {
+      this.customerService.getCustomers("", 10, 0).subscribe((response) => {
         this.customers = response.data;
         this.getCount('');
       });
@@ -90,7 +90,7 @@ export class CustomersComponent implements OnInit {
 
   getNextPage(event: PageEvent): void {
     console.log(event);
-    this.customerService.getCustomers("", event.pageIndex).subscribe((response) => {
+    this.customerService.getCustomers("", 10, event.pageIndex).subscribe((response) => {
       this.customers = response.data;
     });
   }

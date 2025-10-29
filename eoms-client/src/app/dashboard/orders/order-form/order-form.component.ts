@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { OrdersService } from '../orders.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import {
   Validators,
   FormsModule,
@@ -44,6 +44,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     MatDatepickerModule,
     MatListModule,
     AngularSvgIconModule,
+    RouterLink,
   ],
   templateUrl: './order-form.component.html',
   styleUrl: './order-form.component.css',
@@ -75,7 +76,7 @@ export class OrderFormComponent implements OnInit {
       details: [''],
     });
 
-    this.customersService.getCustomers('', 0).subscribe((response) => {
+    this.customersService.getCustomers('', -1, 0).subscribe((response) => {
       this.customers = response.data;
     });
 
@@ -84,8 +85,10 @@ export class OrderFormComponent implements OnInit {
     if (id) {
       this.newOrder = false;
       this.ordersService.getOrder(id)?.subscribe((res) => {
+        console.log(res.data);
         const orderToEdit: OrderToEdit =
           this.ordersService.transformOrderToEdit(res.data);
+        console.log("orderToEdit:", orderToEdit);
         const ordersSanitized = orderToEdit.items?.replace(/'/g, '"');
         if (ordersSanitized) {
           orderToEdit.items = JSON.parse(ordersSanitized);
@@ -160,9 +163,5 @@ export class OrderFormComponent implements OnInit {
     );
     this.orderForm.value.items = newItemsArray;
     this.orderForm.patchValue(this.orderForm.value);
-  }
-
-  checkIfEnterSubmit(event: KeyboardEvent) {
-    if (event.key === 'Enter') return;
   }
 }

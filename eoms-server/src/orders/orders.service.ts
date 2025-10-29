@@ -58,10 +58,12 @@ export class OrdersService {
     return result;
   }
 
-  getOrder(id: number): Promise<Order | null> {
-    return this.ordersRepository.findOneBy({
+  async getOrder(id: number): Promise<Order | null> {
+    const result = await this.ordersRepository.findOneBy({
       id: id,
     });
+    console.log('getOrder result: ', result);
+    return result;
   }
 
   async addOrder(order: CreateOrderDto): Promise<InsertResult> {

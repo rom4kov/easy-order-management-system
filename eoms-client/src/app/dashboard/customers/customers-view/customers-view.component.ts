@@ -41,10 +41,6 @@ export class CustomersViewComponent implements OnInit {
 
     if (id) {
       this.customerService.getCustomer(id)?.subscribe(res => {
-        // const ordersSanitized = res.data.orders?.replace(/'/g, '"');
-        // if (ordersSanitized) {
-        //   res.data.orders = JSON.parse(ordersSanitized);
-        // }
         const invoicesSanitized = res.data.invoices?.replace(/'/g, '"');
         if (invoicesSanitized) {
           res.data.invoices = JSON.parse(invoicesSanitized);
