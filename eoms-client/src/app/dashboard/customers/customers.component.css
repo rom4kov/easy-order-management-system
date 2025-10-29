@@ -41,6 +41,30 @@ table {
   scale: 0.9;
 }
 
+.name-row-cell {
+  width: 20% !important;
+}
+
+.contact-name-row-cell {
+  width: 17.5% !important;
+}
+
+.phone-row-cell {
+  width: 12.5% !important;
+}
+
+.email-row-cell {
+  width: 20% !important;
+}
+
+.orders-row-cell {
+  width: 10% !important;
+}
+
+.status-row-cell {
+  width: 10% !important;
+}
+
 .trash-column td {
   max-width: 50px;
   padding-inline: 5px;

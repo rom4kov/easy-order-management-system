@@ -67,3 +67,31 @@ table {
   flex-direction: row;
   align-items: center;
 }
+
+.title-row-cell {
+  width: 17.5%;
+}
+
+.customer-row-cell {
+  width: 17.5%;
+}
+
+.items-row-cell {
+  width: 7.5%;
+}
+
+.order-date-row-cell {
+  width: 12.5%;
+}
+
+.due-date-row-cell {
+  width: 12.5%;
+}
+
+.remaining-days-row-cell {
+  width: 10%;
+}
+
+.status-row-cell {
+  width: 12.5%;
+}

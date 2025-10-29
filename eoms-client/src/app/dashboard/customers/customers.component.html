@@ -20,7 +20,8 @@
       </form>
 
       <button
-        mat-fab extended
+        mat-fab
+        extended
         color="primary"
         id="new-customer-button"
         class="flex flex-row -translate-y-8"
@@ -36,32 +37,38 @@
     [dataSource]="customers"
     *ngIf="customers.length; else noCustomers"
   >
-    <ng-container matColumnDef="name">
+    <ng-container matColumnDef="name" id="name-row">
       <th mat-header-cell *matHeaderCellDef>Firmenname</th>
-      <td mat-cell *matCellDef="let customer">{{ customer.name }}</td>
+      <td mat-cell *matCellDef="let customer" class="name-row-cell">
+        {{ customer.name }}
+      </td>
     </ng-container>
 
     <!-- Contact Name Column -->
     <ng-container matColumnDef="contactName">
       <th mat-header-cell *matHeaderCellDef>Kontaktperson</th>
-      <td mat-cell *matCellDef="let customer">{{ customer.contactName }}</td>
+      <td mat-cell *matCellDef="let customer" class="contact-name-row-cell">
+        {{ customer.contactName }}
+      </td>
     </ng-container>
 
     <!-- Phone Column -->
     <ng-container matColumnDef="phone">
       <th mat-header-cell *matHeaderCellDef>Telefon</th>
-      <td mat-cell *matCellDef="let customer">{{ customer.phone }}</td>
+      <td mat-cell *matCellDef="let customer" class="phone-row-cell">
+        {{ customer.phone }}
+      </td>
     </ng-container>
 
     <!-- Email Column -->
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef>Email</th>
-      <td mat-cell *matCellDef="let customer">{{ customer.email }}</td>
+      <td mat-cell *matCellDef="let customer" class="email-row-cell">{{ customer.email }}</td>
     </ng-container>
 
     <ng-container matColumnDef="orders">
       <th mat-header-cell *matHeaderCellDef>Aufträge</th>
-      <td mat-cell *matCellDef="let customer">
+      <td mat-cell *matCellDef="let customer" class="orders-row-cell">
         {{ customer.orders ? customer.orders.length : 0 }}
       </td>
     </ng-container>
@@ -69,7 +76,8 @@
     <!-- Status Column -->
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef>Status</th>
-      <td mat-cell *matCellDef="let customer">
+      <td mat-cell *matCellDef="let customer"
+      class="status-row-cell">
         <mat-chip
           *ngIf="customer.status === 'aktiv'; else inactive"
           style="background-color: #5be77550; color: #fff"

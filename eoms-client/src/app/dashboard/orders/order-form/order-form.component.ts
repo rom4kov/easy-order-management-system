@@ -99,8 +99,7 @@ export class OrderFormComponent implements OnInit {
     }
   }
 
-  onSubmit(event: MouseEvent) {
-    console.log(this.orderForm.value);
+  onSubmit() {
     if (this.orderForm.valid) {
       let id = this.activatedRoute.snapshot.paramMap.get('id');
 

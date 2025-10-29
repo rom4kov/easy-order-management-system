@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatChipsModule} from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { FormsModule } from '@angular/forms';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -32,7 +32,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     DatePipe,
   ],
   templateUrl: './orders.component.html',
-  styleUrl: './orders.component.css'
+  styleUrl: './orders.component.css',
 })
 export class OrdersComponent implements OnInit {
   displayedColumns: string[] = [
@@ -41,14 +41,15 @@ export class OrdersComponent implements OnInit {
     'items',
     'order_date',
     'due_date',
+    'remaining_days',
     'status',
-    'total',
     'edit',
     'delete',
   ];
   orders: Order[] = [];
   numOfOrders: number = 0;
   deletedOrderId: number = -1;
+  today: Date = new Date();
 
   constructor(
     private ordersService: OrdersService,
@@ -56,7 +57,7 @@ export class OrdersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.ordersService.getOrders("", 0).subscribe((response) => {
+    this.ordersService.getOrders('', 0).subscribe((response) => {
       const orders = response.data;
       orders.forEach((order) => {
         const ordersSanitized = order.items?.replace(/'/g, '"');
@@ -88,24 +89,24 @@ export class OrdersComponent implements OnInit {
 
   deleteCustomer(id: number) {
     this.deletedOrderId = id;
-    console.log("clicked on delete");
+    console.log('clicked on delete');
     this.ordersService.deleteOrder(id).subscribe(() => {
-      this.ordersService.getOrders("", 0).subscribe((response) => {
+      this.ordersService.getOrders('', 0).subscribe((response) => {
         this.orders = response.data;
         this.getCount('');
       });
-    })
+    });
   }
 
   getCount(query: string): void {
-    this.ordersService.getNumOfOrders(query).subscribe((res => {
+    this.ordersService.getNumOfOrders(query).subscribe((res) => {
       this.numOfOrders = res.data;
-    }))
+    });
   }
 
   getNextPage(event: PageEvent): void {
     console.log(event);
-    this.ordersService.getOrders("", event.pageIndex).subscribe((response) => {
+    this.ordersService.getOrders('', event.pageIndex).subscribe((response) => {
       const orders = response.data;
       orders.forEach((order) => {
         const ordersSanitized = order.items?.replace(/'/g, '"');
@@ -124,4 +125,11 @@ export class OrdersComponent implements OnInit {
     }
   }
 
+  getDiffDays(sDate: Date, eDate: Date) {
+    var startDate = new Date(sDate);
+    var endDate = new Date(eDate);
+
+    var Time = endDate.getTime() - startDate.getTime();
+    return Math.ceil(Time / (1000 * 3600 * 24));
+  }
 }

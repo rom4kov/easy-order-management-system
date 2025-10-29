@@ -35,28 +35,34 @@
   <table mat-table [dataSource]="orders" *ngIf="orders.length; else noOrders">
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef>Auftrag</th>
-      <td mat-cell *matCellDef="let order">{{ order.title }}</td>
+      <td mat-cell *matCellDef="let order"
+      class="title-row-cell">{{ order.title }}</td>
     </ng-container>
 
     <ng-container matColumnDef="customer">
       <th mat-header-cell *matHeaderCellDef>Kund:in</th>
-      <td mat-cell *matCellDef="let order">
-        <a [routerLink]="['/dashboard', 'customers', order.customer.id]" class="hover:underline">{{
-          order.customer.name
-        }}</a>
+      <td mat-cell *matCellDef="let order"
+      class="customer-row-cell">
+        <a
+          [routerLink]="['/dashboard', 'customers', order.customer.id]"
+          class="hover:underline"
+          >{{ order.customer.name }}</a
+        >
       </td>
     </ng-container>
 
     <!-- Contact Name Column -->
     <ng-container matColumnDef="items">
       <th mat-header-cell *matHeaderCellDef>Posten</th>
-      <td mat-cell *matCellDef="let order">{{ order.items?.length }}</td>
+      <td mat-cell *matCellDef="let order"
+      class="items-row-cell">{{ order.items?.length }}</td>
     </ng-container>
 
     <!-- Phone Column -->
     <ng-container matColumnDef="order_date">
       <th mat-header-cell *matHeaderCellDef>Auftragsdatum</th>
-      <td mat-cell *matCellDef="let order">
+      <td mat-cell *matCellDef="let order"
+      class="order-date-row-cell">
         {{ order.orderDate | date: "dd.M.yyyy" }}
       </td>
     </ng-container>
@@ -64,7 +70,7 @@
     <!-- Phone Column -->
     <ng-container matColumnDef="due_date">
       <th mat-header-cell *matHeaderCellDef>Fertigstellungsdatum</th>
-      <td mat-cell *matCellDef="let order">
+      <td mat-cell *matCellDef="let order" class="due-date-row-cell">
         {{ order.dueDate | date: "dd.M.yyyy" }}
       </td>
     </ng-container>
@@ -72,7 +78,8 @@
     <!-- Status Column -->
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef>Status</th>
-      <td mat-cell *matCellDef="let order">
+      <td mat-cell *matCellDef="let order"
+      class="status-row-cell">
         @switch (order.status) {
           @case ("angelegt") {
             <mat-chip
@@ -114,10 +121,26 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="total">
-      <th mat-header-cell *matHeaderCellDef>Betrag</th>
-      <td mat-cell *matCellDef="let order">
-        {{ order.total }}
+    <ng-container matColumnDef="remaining_days">
+      <th mat-header-cell *matHeaderCellDef>Verbleibende Zeit</th>
+      <td
+        mat-cell
+        *matCellDef="let order"
+        class="remaining_days-row-cell"
+        [style]="
+          getDiffDays(today, order.dueDate) > 0 &&
+          getDiffDays(today, order.dueDate) < 4
+            ? { color: 'red' }
+            : ''
+        "
+      >
+        {{ getDiffDays(today, order.dueDate) }}
+        {{
+          getDiffDays(today, order.dueDate) !== 1 &&
+          getDiffDays(today, order.dueDate) !== -1
+            ? "Tage"
+            : "Tag"
+        }}
       </td>
     </ng-container>
     <ng-container matColumnDef="edit">
@@ -143,6 +166,7 @@
         <button
           mat-icon-button
           class="p-1 border rounded cursor-pointer mat-icon-btn"
+          (click)="deleteCustomer(order.id)"
         >
           <svg-icon
             matSuffix
