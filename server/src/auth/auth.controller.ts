@@ -17,17 +17,20 @@ import { Request as ExpressRequest } from 'express';
 type AuthRequest = ExpressRequest & {
   user: unknown;
 };
+import { Public } from 'src/decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('register')
   signUp(@Body() signUpDto: SignUpDto) {
     return this.authService.signUp(signUpDto);
   }
 
+  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
   async signIn(@Body() signInDto: SignInDto) {
@@ -38,7 +41,7 @@ export class AuthController {
     return result;
   }
 
-  @UseGuards(AuthGuard)
+  @Public()
   @Get('profile')
   getProfile(@Request() req: AuthRequest) {
     return req.user;

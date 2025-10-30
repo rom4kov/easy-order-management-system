@@ -12,13 +12,17 @@ const saltRounds: number = 10;
 export class AuthService {
   passwordHash: string | undefined;
 
+  private token: string;
+
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
   ) {}
 
   async signUp(signUpData: SignUpDto): Promise<InsertResult> {
+    console.log('auth.service.ts signUpData:', signUpData);
     const result = await hash(signUpData.password, saltRounds);
+    console.log('auth.service.ts result:', result);
     return await this.usersService.addUser({ ...signUpData, password: result });
   }
 
@@ -33,7 +37,7 @@ export class AuthService {
     this.passwordHash = await hash(pass, saltRounds);
 
     if (!user) return { access_token: 'no user found' };
-    const isMatch = await this.verifyPassword(user?.password);
+    const isMatch = await this.verifyPassword(pass);
     console.log(isMatch);
     if (!isMatch) {
       throw new UnauthorizedException();

@@ -19,7 +19,7 @@ export class User {
   customers: Customer[];
 
   @Column()
-  created_at: Date;
+  createdAt: Date;
 
   @Column({
     nullable: true,

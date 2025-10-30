@@ -12,7 +12,10 @@ export class UsersService {
   ) {}
 
   async addUser(signUpDto: SignUpDto): Promise<InsertResult> {
-    return await this.usersRepository.insert(signUpDto);
+    console.log(signUpDto);
+    const result = await this.usersRepository.insert(signUpDto);
+    console.log('user.service.ts result:', result);
+    return result;
   }
 
   async findOne(username: string): Promise<User | null> {

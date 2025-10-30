@@ -7,11 +7,26 @@ import { OrdersComponent } from './dashboard/orders/orders.component';
 import { OrderFormComponent } from './dashboard/orders/order-form/order-form.component';
 import { OrderViewComponent } from './dashboard/orders/order-view/order-view.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: LandingpageComponent,
+  },
+  {
+    path: 'auth',
+    children: [
+      {
+        path: 'login',
+        component: LoginComponent,
+      },
+      {
+        path: 'register',
+        component: RegisterComponent,
+      },
+    ],
   },
   {
     path: 'dashboard',
