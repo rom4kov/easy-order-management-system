@@ -6,8 +6,13 @@ import { CustomersViewComponent } from './dashboard/customers/customers-view/cus
 import { OrdersComponent } from './dashboard/orders/orders.component';
 import { OrderFormComponent } from './dashboard/orders/order-form/order-form.component';
 import { OrderViewComponent } from './dashboard/orders/order-view/order-view.component';
+import { LandingpageComponent } from './landingpage/landingpage.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    component: LandingpageComponent,
+  },
   {
     path: 'dashboard',
     component: DashboardViewComponent,

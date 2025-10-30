@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { User } from './users/user.entity';
 import { Customer } from './customers/customer.entity';
 import { Order } from './orders/order.entity';
 
@@ -15,11 +16,12 @@ import { OrdersController } from './orders/orders.controller';
 import { OrdersService } from './orders/orders.service';
 import { OrdersModule } from './orders/orders.module';
 import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -27,14 +29,13 @@ import { UsersModule } from './users/users.module';
       username: 'eoms-user',
       password: '',
       database: 'eoms-db',
-      entities: [Customer, Order],
+      entities: [User, Customer, Order],
       synchronize: true,
       namingStrategy: new SnakeNamingStrategy(),
     }),
     CustomersModule,
     OrdersModule,
     AuthModule,
-    UsersModule,
   ],
   controllers: [AppController, CustomersController, OrdersController],
   providers: [AppService, CustomersService, OrdersService],

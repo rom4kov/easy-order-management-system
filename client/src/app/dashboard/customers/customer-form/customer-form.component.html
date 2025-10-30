@@ -1,6 +1,8 @@
 <div class="mt-8 ml-12 w-fit">
   <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
-    <h3 class="mb-8 text-4xl">Kundendaten bearbeiten</h3>
+    <h3 class="mb-8 text-4xl">
+      {{ newCustomer ? "Neuer Kunde" : "Kundendaten bearbeiten" }}
+    </h3>
     <h4 class="mt-4 mb-3 text-xl">Stammdaten</h4>
     <div class="customer-form-container flex flex-row gap-5">
       <mat-form-field>
@@ -11,8 +13,8 @@
           formControlName="name"
           required
         />
-        @if (customerForm.get('name')?.invalid) {
-          <mat-error>{{customerForm.getError('name')}}</mat-error>
+        @if (customerForm.get("name")?.invalid) {
+          <mat-error>{{ customerForm.getError("name") }}</mat-error>
         }
       </mat-form-field>
 
@@ -51,7 +53,7 @@
           formControlName="email"
           required
         />
-        @if (customerForm.get('email')?.invalid) {
+        @if (customerForm.get("email")?.invalid) {
           <mat-error>Kein gültige Email</mat-error>
         }
       </mat-form-field>
@@ -97,7 +99,6 @@
         <!--   <mat-error>{{ errorMessage }}</mat-error> -->
         <!-- } -->
       </mat-form-field>
-
     </div>
 
     <h4 class="mt-4 mb-3 text-xl">Zusatzdaten</h4>
@@ -128,12 +129,18 @@
         <!-- } -->
       </mat-form-field>
 
-
       <mat-form-field>
         <mat-label>Kunde seit</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="firstOrderDate">
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="firstOrderDate"
+        />
         <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
@@ -152,7 +159,6 @@
       <textarea rows="6" matInput formControlName="notes" required></textarea>
     </mat-form-field>
 
-
     <button
       mat-flat-button
       type="submit"
@@ -160,7 +166,7 @@
       id="customer-form-button"
       [disabled]="customerForm.invalid"
     >
-      Update
+      {{ newCustomer ? 'Speichern' : 'Update' }}
     </button>
   </form>
 </div>

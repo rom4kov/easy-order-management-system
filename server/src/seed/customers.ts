@@ -17,6 +17,15 @@ export const customers: Customer[] = [
     firstOrderDate: new Date(),
     status: 'aktiv',
     notes: 'Bitte nur per E-Mail kontaktieren.',
+    user: {
+      id: 1,
+      username: 'Roman Kower',
+      email: 'rkowert@posteo.de',
+      password: '12346789',
+      customers: [],
+      created_at: new Date(),
+      details: '',
+    },
   },
   {
     id: 2,
@@ -35,6 +44,15 @@ export const customers: Customer[] = [
     status: 'aktiv',
     notes:
       'Frau Rieger im Juli nicht erreichbar, Ansprechpartner: Herr Baumgart.',
+    user: {
+      id: 1,
+      username: 'Roman Kower',
+      email: 'rkowert@posteo.de',
+      password: '12346789',
+      customers: [],
+      created_at: new Date(),
+      details: '',
+    },
   },
   {
     id: 3,
@@ -52,6 +70,15 @@ export const customers: Customer[] = [
     firstOrderDate: new Date(),
     status: 'aktiv',
     notes: 'Langjähriger Kunde, Sonderkonditionen vereinbart.',
+    user: {
+      id: 1,
+      username: 'Roman Kower',
+      email: 'rkowert@posteo.de',
+      password: '12346789',
+      customers: [],
+      created_at: new Date(),
+      details: '',
+    },
   },
   {
     id: 4,
@@ -70,6 +97,15 @@ export const customers: Customer[] = [
     status: 'aktiv',
     notes:
       'Letzte Lieferung verspätet – Kunde unzufrieden, Gutschrift angeboten.',
+    user: {
+      id: 1,
+      username: 'Roman Kower',
+      email: 'rkowert@posteo.de',
+      password: '12346789',
+      customers: [],
+      created_at: new Date(),
+      details: '',
+    },
   },
   {
     id: 5,
@@ -87,6 +123,15 @@ export const customers: Customer[] = [
     firstOrderDate: new Date(),
     status: 'aktiv',
     notes: 'Support-Anfrage bzgl. Rechnung #3 noch offen.',
+    user: {
+      id: 1,
+      username: 'Roman Kower',
+      email: 'rkowert@posteo.de',
+      password: '12346789',
+      customers: [],
+      created_at: new Date(),
+      details: '',
+    },
   },
   {
     id: 6,
@@ -104,6 +149,15 @@ export const customers: Customer[] = [
     firstOrderDate: new Date(),
     status: 'aktiv',
     notes: 'Interesse an Cloud-Service geäußert.',
+    user: {
+      id: 1,
+      username: 'Roman Kower',
+      email: 'rkowert@posteo.de',
+      password: '12346789',
+      customers: [],
+      created_at: new Date(),
+      details: '',
+    },
   },
   {
     id: 7,
@@ -121,6 +175,15 @@ export const customers: Customer[] = [
     firstOrderDate: new Date(),
     status: 'aktiv',
     notes: 'Kunde wird von Account Managerin Lisa betreut.',
+    user: {
+      id: 1,
+      username: 'Roman Kower',
+      email: 'rkowert@posteo.de',
+      password: '12346789',
+      customers: [],
+      created_at: new Date(),
+      details: '',
+    },
   },
   {
     id: 8,
@@ -138,6 +201,15 @@ export const customers: Customer[] = [
     firstOrderDate: new Date(),
     status: 'aktiv',
     notes: 'Wartungsvertrag läuft bis 30.06.2026.',
+    user: {
+      id: 1,
+      username: 'Roman Kower',
+      email: 'rkowert@posteo.de',
+      password: '12346789',
+      customers: [],
+      created_at: new Date(),
+      details: '',
+    },
   },
   {
     id: 9,
@@ -155,6 +227,15 @@ export const customers: Customer[] = [
     firstOrderDate: new Date(),
     status: 'aktiv',
     notes: 'Termin am Montag auf Mittwoch, 16 Uhr verschoben.',
+    user: {
+      id: 1,
+      username: 'Roman Kower',
+      email: 'rkowert@posteo.de',
+      password: '12346789',
+      customers: [],
+      created_at: new Date(),
+      details: '',
+    },
   },
   {
     id: 10,
@@ -172,6 +253,15 @@ export const customers: Customer[] = [
     firstOrderDate: new Date(),
     status: 'aktiv',
     notes: 'Rechnung #3 musste nachkorrigiert werden (falsche MwSt)',
+    user: {
+      id: 1,
+      username: 'Roman Kower',
+      email: 'rkowert@posteo.de',
+      password: '12346789',
+      customers: [],
+      created_at: new Date(),
+      details: '',
+    },
   },
   {
     id: 11,
@@ -189,6 +279,15 @@ export const customers: Customer[] = [
     firstOrderDate: new Date(),
     status: 'aktiv',
     notes: 'Besonderer Rabattvertrag über 10 % bis Ende 2025.',
+    user: {
+      id: 1,
+      username: 'Roman Kower',
+      email: 'rkowert@posteo.de',
+      password: '12346789',
+      customers: [],
+      created_at: new Date(),
+      details: '',
+    },
   },
   {
     id: 12,
@@ -206,6 +305,15 @@ export const customers: Customer[] = [
     firstOrderDate: new Date(),
     status: 'aktiv',
     notes: 'Neue Filiale eröffnet im März 2025 – evtl. Zusatzauftrag.',
+    user: {
+      id: 1,
+      username: 'Roman Kower',
+      email: 'rkowert@posteo.de',
+      password: '12346789',
+      customers: [],
+      created_at: new Date(),
+      details: '',
+    },
   },
   {
     id: 13,
@@ -223,6 +331,15 @@ export const customers: Customer[] = [
     firstOrderDate: new Date(),
     status: 'aktiv',
     notes: 'Kunde ruft bevorzugt vormittags an.',
+    user: {
+      id: 1,
+      username: 'Roman Kower',
+      email: 'rkowert@posteo.de',
+      password: '12346789',
+      customers: [],
+      created_at: new Date(),
+      details: '',
+    },
   },
   {
     id: 14,
@@ -241,5 +358,14 @@ export const customers: Customer[] = [
     status: 'aktiv',
     notes:
       'Langjähriger Kunde. Hat Interesse an digitalem Baustellenmanagement geäußert.',
+    user: {
+      id: 1,
+      username: 'Roman Kower',
+      email: 'rkowert@posteo.de',
+      password: '12346789',
+      customers: [],
+      created_at: new Date(),
+      details: '',
+    },
   },
 ];

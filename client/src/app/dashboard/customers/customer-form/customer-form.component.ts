@@ -34,8 +34,8 @@ import { Customer } from '../../../models/customer';
 })
 export class CustomerFormComponent implements OnInit {
   errorMessage = '';
-
   customerForm: FormGroup = new FormGroup({});
+  newCustomer: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -63,6 +63,7 @@ export class CustomerFormComponent implements OnInit {
     let id = this.activatedRoute.snapshot.paramMap.get('id');
 
     if (id) {
+      this.newCustomer = false;
       this.customerService.getCustomer(id)?.subscribe(res => {
         this.customerForm.patchValue(res.data);
       });
