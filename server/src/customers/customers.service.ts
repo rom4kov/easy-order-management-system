@@ -63,9 +63,7 @@ export class CustomersService {
   }
 
   async addCustomer(customer: Customer): Promise<InsertResult> {
-    console.log('service:', customer);
     const response = await this.customersRepository.insert(customer);
-    console.log(response);
     return response;
   }
 

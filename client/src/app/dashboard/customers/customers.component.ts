@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, AsyncPipe } from '@angular/common';
 import { Customer } from '../../models/customer';
 import { CustomersService } from './customers.service';
+import { LoadingService } from '../../loading/loading.service';
 import { RouterLink, Router } from '@angular/router';
 
 import { MatTableModule } from '@angular/material/table';
@@ -29,6 +30,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     FormsModule,
     MatPaginatorModule,
     AngularSvgIconModule,
+    AsyncPipe,
   ],
   templateUrl: './customers.component.html',
   styleUrl: './customers.component.css',
@@ -47,18 +49,27 @@ export class CustomersComponent implements OnInit {
   customers: Customer[] = [];
   numOfCustomers: number = 0;
   deletedCustomerId: number = -1;
+  loading$ = this.loadingService.loading$;
 
   constructor(
     private customerService: CustomersService,
+    private loadingService: LoadingService,
     private router: Router,
   ) {}
 
   ngOnInit(): void {
-    this.customerService.getCustomers("", 10, 0).subscribe((response) => {
-      this.customers = response.data;
-      console.log(this.customers[0].orders)
-      this.getCount('');
+    try {
+      this.loadingService.loadingOn();
+      this.customerService.getCustomers("", 10, 0).subscribe((response) => {
+        this.customers = response.data;
+        console.log(this.customers[0].orders)
+        this.getCount('');
     });
+    } catch (error) {
+      console.error(error)
+    } finally {
+      this.loadingService.loadingOff();
+    }
   }
 
   applyFilter(event: Event): void {

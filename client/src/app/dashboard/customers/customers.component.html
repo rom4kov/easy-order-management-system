@@ -142,6 +142,6 @@
   ></mat-paginator>
 
   <ng-template #noCustomers>
-    <p class="mt-8 text-xl">Keine Kund:innen gefunden</p>
+    <p *ngIf="loading$ | async" class="mt-8 text-xl">Keine Kund:innen gefunden</p>
   </ng-template>
 </div>

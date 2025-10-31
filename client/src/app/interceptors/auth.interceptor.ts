@@ -5,6 +5,7 @@ import {
   HttpHandler,
   HttpRequest,
   HttpErrorResponse,
+  HttpResponse,
 } from '@angular/common/http';
 
 import { catchError, Observable, throwError } from 'rxjs';
@@ -20,13 +21,11 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler,
   ): Observable<HttpEvent<any>> {
-    const token = this.authService.getToken();
 
-    if (token) {
-      req = req.clone({
-        setHeaders: { Authorization: `Bearer ${token}` },
-      });
-    }
+    req = req.clone({
+      withCredentials: true,
+    });
+
     return next.handle(req).pipe(
       catchError((err) => {
         if (err instanceof HttpErrorResponse) {
@@ -34,8 +33,8 @@ export class AuthInterceptor implements HttpInterceptor {
             console.error(err);
           }
         }
-        return throwError(err);
-      })
+        return throwError(() => err);
+      }),
     );
   }
 }

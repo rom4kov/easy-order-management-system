@@ -9,6 +9,7 @@ import { OrderViewComponent } from './dashboard/orders/order-view/order-view.com
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -31,6 +32,8 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardViewComponent,
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: 'customers',

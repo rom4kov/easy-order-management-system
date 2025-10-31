@@ -2,10 +2,12 @@ import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { CatchEverythingFilter } from './catch-filter';
 import { AppModule } from './app.module';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
+  app.enableCors({ origin: 'http://localhost:4200', credentials: true });
+  app.use(cookieParser());
 
   const config = new DocumentBuilder()
     .setTitle('EOMS')

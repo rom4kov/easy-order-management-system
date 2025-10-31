@@ -45,7 +45,8 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.loginForm.valid) {
       this.authService.loginUser(this.loginForm.value).subscribe(res => {
-        this.authService.setToken(res.access_token);
+        console.log(res);
+        this.authService.setCurrentUser(res);
         this.router.navigate(['/dashboard']);
       })
     }

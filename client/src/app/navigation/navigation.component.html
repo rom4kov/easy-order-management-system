@@ -1,10 +1,18 @@
 <div class="flex-none relative top-0 z-10">
   <mat-toolbar color="primary" class="flex flex-row gap-3">
-    <a [routerLink]="['']"
+    <a
+      [routerLink]="['']"
       class="w-48 text-center pl-0 -mt-1 -ml-4 text-3xl text-white font-bold underline underline-offset-6"
       >EOMS</a
     >
     <a [routerLink]="['/dashboard']" class="text-white">Dashboard</a>
     <a class="text-white">Account</a>
+    @if (isAuthenticated()) {
+      <a
+        (click)="logOut()"
+        class="ml-auto mr-2 text-white cursor-pointer hover:text-indigo-100"
+        >Logout</a
+      >
+    }
   </mat-toolbar>
 </div>

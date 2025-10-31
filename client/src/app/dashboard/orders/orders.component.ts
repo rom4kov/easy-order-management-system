@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, AsyncPipe } from '@angular/common';
 import { Order } from '../../models/order';
 import { OrdersService } from './orders.service';
+import { LoadingService } from '../../loading/loading.service';
 import { RouterLink, Router } from '@angular/router';
 
 import { MatTableModule } from '@angular/material/table';
@@ -30,6 +31,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     MatPaginatorModule,
     AngularSvgIconModule,
     DatePipe,
+    AsyncPipe,
   ],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css',
@@ -50,24 +52,33 @@ export class OrdersComponent implements OnInit {
   numOfOrders: number = 0;
   deletedOrderId: number = -1;
   today: Date = new Date();
+  loading$ = this.loadingService.loading$;
 
   constructor(
     private ordersService: OrdersService,
+    private loadingService: LoadingService,
     private router: Router,
   ) {}
 
   ngOnInit(): void {
-    this.ordersService.getOrders('', 0).subscribe((response) => {
-      const orders = response.data;
-      orders.forEach((order) => {
-        const ordersSanitized = order.items?.replace(/'/g, '"');
-        if (ordersSanitized) {
-          order.items = JSON.parse(ordersSanitized);
-        }
+    try {
+      this.loadingService.loadingOn();
+      this.ordersService.getOrders('', 0).subscribe((response) => {
+        const orders = response.data;
+        orders.forEach((order) => {
+          const ordersSanitized = order.items?.replace(/'/g, '"');
+          if (ordersSanitized) {
+            order.items = JSON.parse(ordersSanitized);
+          }
+        });
+        this.orders = orders;
+        this.getCount('');
       });
-      this.orders = orders;
-      this.getCount('');
-    });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      this.loadingService.loadingOff();
+    }
   }
 
   applyFilter(event: Event): void {

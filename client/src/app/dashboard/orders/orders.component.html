@@ -196,6 +196,6 @@
   ></mat-paginator>
 
   <ng-template #noOrders>
-    <p class="mt-8 text-xl">Keine Aufträge gefunden</p>
+    <p *ngIf="loading$ | async" class="mt-8 text-xl">Keine Aufträge gefunden</p>
   </ng-template>
 </div>

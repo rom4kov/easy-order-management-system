@@ -12,44 +12,40 @@ const saltRounds: number = 10;
 export class AuthService {
   passwordHash: string | undefined;
 
-  private token: string;
-
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
   ) {}
 
   async signUp(signUpData: SignUpDto): Promise<InsertResult> {
-    console.log('auth.service.ts signUpData:', signUpData);
     const result = await hash(signUpData.password, saltRounds);
-    console.log('auth.service.ts result:', result);
     return await this.usersService.addUser({ ...signUpData, password: result });
   }
 
   async signIn(
     username: string,
     pass: string,
-  ): Promise<{ access_token: string }> {
-    console.log('signin route request');
+  ): Promise<{ user: User | undefined; access_token: string }> {
     const user: User | null = await this.usersService.findOne(username);
-    console.log('user', user);
-    console.log(process.env.JWT_SECRET);
     this.passwordHash = await hash(pass, saltRounds);
 
-    if (!user) return { access_token: 'no user found' };
+    if (!user) return { user: undefined, access_token: 'no user found' };
     const isMatch = await this.verifyPassword(pass);
-    console.log(isMatch);
     if (!isMatch) {
       throw new UnauthorizedException();
     }
     const payload = { sub: user.id, username: user.username };
-    console.log('payload:', payload);
     const access_token: string = await this.jwtService.signAsync(payload);
-    console.log('access_token:', access_token);
+    user.password = '';
     return {
+      user: user,
       access_token: access_token,
     };
   }
+
+  // async signOut(username: string): Promise<void> {
+  //   await this.jwtService.
+  // }
 
   async verifyPassword(plainPassword: string): Promise<boolean> {
     if (plainPassword && this.passwordHash) {

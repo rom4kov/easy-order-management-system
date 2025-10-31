@@ -12,14 +12,11 @@ export class UsersService {
   ) {}
 
   async addUser(signUpDto: SignUpDto): Promise<InsertResult> {
-    console.log(signUpDto);
     const result = await this.usersRepository.insert(signUpDto);
-    console.log('user.service.ts result:', result);
     return result;
   }
 
   async findOne(username: string): Promise<User | null> {
-    console.log('findOne called');
     return await this.usersRepository.findOne({
       where: {
         username: username,
