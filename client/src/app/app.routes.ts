@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { DashboardViewComponent } from './dashboard/dashboard-view/dashboard-view.component';
+import { DashboardOverviewComponent } from './dashboard/dashboard-overview/dashboard-overview.component';
 import { CustomersComponent } from './dashboard/customers/customers.component';
 import { CustomerFormComponent } from './dashboard/customers/customer-form/customer-form.component';
 import { CustomersViewComponent } from './dashboard/customers/customers-view/customers-view.component';
@@ -35,6 +36,10 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     canActivateChild: [AuthGuard],
     children: [
+      {
+        path: '',
+        component: DashboardOverviewComponent,
+      },
       {
         path: 'customers',
         component: CustomersComponent,

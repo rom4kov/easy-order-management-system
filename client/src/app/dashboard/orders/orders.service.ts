@@ -16,9 +16,9 @@ export class OrdersService {
 
   constructor(private http: HttpClient) {}
 
-  getOrders(searchTerm: string, pageIdx: number): Observable<ApiResponse<Order[]>> {
+  getOrders(searchTerm: string, amount: number, pageIdx: number): Observable<ApiResponse<Order[]>> {
     return this.http.get<ApiResponse<Order[]>>(this.apiUrl, {
-      params: { search: searchTerm, page: pageIdx },
+      params: { search: searchTerm, amount: amount, page: pageIdx },
     });
   }
 

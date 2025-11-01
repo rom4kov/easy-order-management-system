@@ -63,7 +63,7 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void {
     try {
       this.loadingService.loadingOn();
-      this.ordersService.getOrders('', 0).subscribe((response) => {
+      this.ordersService.getOrders('', 10, 0).subscribe((response) => {
         const orders = response.data;
         orders.forEach((order) => {
           const ordersSanitized = order.items?.replace(/'/g, '"');
@@ -86,7 +86,7 @@ export class OrdersComponent implements OnInit {
 
     this.getCount(searchTerm);
 
-    this.ordersService.getOrders(searchTerm, 0).subscribe((response) => {
+    this.ordersService.getOrders(searchTerm, 10, 0).subscribe((response) => {
       const orders = response.data;
       orders.forEach((order) => {
         const ordersSanitized = order.items?.replace(/'/g, '"');
@@ -102,7 +102,7 @@ export class OrdersComponent implements OnInit {
     this.deletedOrderId = id;
     console.log('clicked on delete');
     this.ordersService.deleteOrder(id).subscribe(() => {
-      this.ordersService.getOrders('', 0).subscribe((response) => {
+      this.ordersService.getOrders('', 10, 0).subscribe((response) => {
         this.orders = response.data;
         this.getCount('');
       });
@@ -117,7 +117,7 @@ export class OrdersComponent implements OnInit {
 
   getNextPage(event: PageEvent): void {
     console.log(event);
-    this.ordersService.getOrders('', event.pageIndex).subscribe((response) => {
+    this.ordersService.getOrders('', 10, event.pageIndex).subscribe((response) => {
       const orders = response.data;
       orders.forEach((order) => {
         const ordersSanitized = order.items?.replace(/'/g, '"');
