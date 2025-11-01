@@ -25,6 +25,8 @@ export class CustomersService {
     query: string,
     amount: number,
     page: number,
+    orderBy: string,
+    orderMode: 'ASC' | 'DESC',
   ): Promise<Customer[] | []> {
     const result = await this.customersRepository
       .createQueryBuilder('Customer')
@@ -34,6 +36,7 @@ export class CustomersService {
       })
       .take(amount >= 0 ? amount : undefined)
       .skip(page * 10)
+      .orderBy(`Customer.${orderBy}`, orderMode)
       .getMany();
     console.log(result);
     return result;

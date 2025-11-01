@@ -1,91 +1,99 @@
 <div class="flex flex-row">
   <mat-card class="customer-card">
-    <mat-card-header>
-      <img mat-card-avatar class="example-header-image" />
-      <mat-card-title class="card-heading">{{ customer.name }}</mat-card-title>
-      <mat-card-subtitle
-        >Kontaktperson: {{ customer.contactName }}</mat-card-subtitle
-      >
-    </mat-card-header>
-    <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
-    <mat-card-content class="mt-4">
-      <p><strong>Telefon:</strong> {{ customer.phone }}</p>
-      <p><strong>Email:</strong> {{ customer.email }}</p>
-      <h5 class="text-xl mt-3 mb-1">Adresse</h5>
-      <p><strong>Straße:</strong> {{ customer.street }}</p>
-      <p><strong>PLZ:</strong> {{ customer.zipcode }}</p>
-      <p class="mb-3"><strong>Ort:</strong> {{ customer.city }}</p>
-      <p><strong>Branche:</strong> {{ customer.industry }}</p>
-      <p><strong>Kundentyp:</strong> {{ customer.type }}</p>
-      <p class="mb-3">
-        <strong>Kund:in seit:</strong>
-        {{ customer.firstOrderDate | date: "dd. MMMM yyyy" }}
-      </p>
-      <p><strong>Aufträge:</strong> {{ customer.orders?.length }}</p>
-      <p><strong>Rechnungen:</strong> {{ customer.invoices?.length }}</p>
-      <p><strong>Status:</strong> {{ customer.status }}</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>Zurück</button>
-      <button mat-button>Löschen</button>
-    </mat-card-actions>
-  </mat-card>
-  <mat-card class="customer-card">
-    <mat-card-header>
-      <mat-card-title class="card-heading">Aktuelles</mat-card-title>
-    </mat-card-header>
-    <mat-card-title class="text-xl pt-5 pl-4">Aufträge</mat-card-title>
-    <mat-card-content class="mt-3">
-      <ol>
-        @for (order of customer.orders; track $index) {
-          <li class="w-full flex flex-row justify-between">
-            <div class="flex flex-row items-center gap-1">
-              <span
-                [routerLink]="['/dashboard', 'orders', order.id]"
-                class="hover:underline cursor-pointer"
-                >{{ $index + 1 }}. {{ order.title }}</span
-              >
-              @switch (order.status) {
-                @case ("angelegt") {
-                  <mat-icon style="scale: 0.6; color: #dadada">circle</mat-icon>
+    <div class="customer-card-section">
+      <mat-card-header>
+        <img mat-card-avatar class="example-header-image" />
+        <mat-card-title class="card-heading">{{
+          customer.name
+        }}</mat-card-title>
+        <mat-card-subtitle
+          >Kontaktperson: {{ customer.contactName }}</mat-card-subtitle
+        >
+      </mat-card-header>
+      <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+      <mat-card-content class="mt-4">
+        <p><strong>Telefon:</strong> {{ customer.phone }}</p>
+        <p><strong>Email:</strong> {{ customer.email }}</p>
+        <h5 class="text-xl mt-3 mb-1">Adresse</h5>
+        <p><strong>Straße:</strong> {{ customer.street }}</p>
+        <p><strong>PLZ:</strong> {{ customer.zipcode }}</p>
+        <p class="mb-3"><strong>Ort:</strong> {{ customer.city }}</p>
+        <p><strong>Branche:</strong> {{ customer.industry }}</p>
+        <p><strong>Kundentyp:</strong> {{ customer.type }}</p>
+        <p class="mb-3">
+          <strong>Kund:in seit:</strong>
+          {{ customer.firstOrderDate | date: "dd. MMMM yyyy" }}
+        </p>
+        <p><strong>Aufträge:</strong> {{ customer.orders?.length }}</p>
+        <p><strong>Rechnungen:</strong> {{ customer.invoices?.length }}</p>
+        <p><strong>Status:</strong> {{ customer.status }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>Zurück</button>
+        <button mat-button>Löschen</button>
+      </mat-card-actions>
+    </div>
+
+    <div class="customer-card-section">
+      <mat-card-header>
+        <mat-card-title class="card-heading">Aktuelles</mat-card-title>
+      </mat-card-header>
+      <mat-card-title class="text-xl pt-5 pl-4">Aufträge</mat-card-title>
+      <mat-card-content class="mt-3">
+        <ol>
+          @for (order of customer.orders; track $index) {
+            <li class="w-full flex flex-row justify-between">
+              <div class="flex flex-row items-center gap-1">
+                <span
+                  [routerLink]="['/dashboard', 'orders', order.id]"
+                  class="hover:underline cursor-pointer"
+                  >{{ $index + 1 }}. {{ order.title }}</span
+                >
+                @switch (order.status) {
+                  @case ("angelegt") {
+                    <mat-icon style="scale: 0.6; color: #dadada"
+                      >circle</mat-icon
+                    >
+                  }
+                  @case ("in Bearbeitung") {
+                    <mat-icon style="scale: 0.6; color: #ffee8c"
+                      >circle</mat-icon
+                    >
+                  }
+                  @case ("abgeschlossen") {
+                    <mat-icon style="scale: 0.6; color: #5be775"
+                      >circle</mat-icon
+                    >
+                  }
+                  @case ("storniert") {
+                    <mat-icon style="scale: 0.6; color: #fa8072"
+                      >circle</mat-icon
+                    >
+                  }
                 }
-                @case ("in Bearbeitung") {
-                  <mat-icon style="scale: 0.6; color: #ffee8c"
-                    >circle</mat-icon
-                  >
-                }
-                @case ("abgeschlossen") {
-                  <mat-icon style="scale: 0.6; color: #5be775"
-                    >circle</mat-icon
-                  >
-                }
-                @case ("storniert") {
-                  <mat-icon style="scale: 0.6; color: #fa8072"
-                    >circle</mat-icon
-                  >
-                }
-              }
-            </div>
-            <span>bis: {{ order.dueDate | date: "dd.MM.yyyy" }}</span>
-          </li>
-        }
-      </ol>
-    </mat-card-content>
-    <mat-card-title class="text-xl pt-5 pl-4">Rechnungen</mat-card-title>
-    <mat-card-content class="mt-3">
-      <ol>
-        @for (invoices of customer.invoices; track $index) {
-          <li>{{ $index + 1 }}. {{ invoices }}</li>
-        }
-      </ol>
-    </mat-card-content>
-  </mat-card>
-  <mat-card class="customer-card">
-    <mat-card-header>
-      <mat-card-title class="card-heading">Notizen</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="mt-3">
-      <p>{{ customer.notes }}</p>
-    </mat-card-content>
+              </div>
+              <span class="me-4">bis: {{ order.dueDate | date: "dd.MM.yyyy" }}</span>
+            </li>
+          }
+        </ol>
+      </mat-card-content>
+      <mat-card-title class="text-xl pt-5 pl-4">Rechnungen</mat-card-title>
+      <mat-card-content class="mt-3">
+        <ol>
+          @for (invoices of customer.invoices; track $index) {
+            <li>{{ $index + 1 }}. {{ invoices }}</li>
+          }
+        </ol>
+      </mat-card-content>
+    </div>
+
+    <div class="customer-card-section">
+      <mat-card-header>
+        <mat-card-title class="card-heading">Notizen</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="mt-3">
+        <p>{{ customer.notes }}</p>
+      </mat-card-content>
+    </div>
   </mat-card>
 </div>

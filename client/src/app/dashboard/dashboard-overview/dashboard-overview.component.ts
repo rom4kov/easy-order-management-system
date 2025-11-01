@@ -35,18 +35,20 @@ export class DashboardOverviewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.customersService.getCustomers('', -1, 0).subscribe((res) => {
-      this.customers = res.data;
-      this.customerCount = this.customers.length;
-      for (const customer of this.customers) {
-        if (customer.status === 'aktiv') {
-          this.customerData.active++;
-        } else {
-          this.customerData.inactive++;
+    this.customersService
+      .getCustomers('', -1, 0, 'id', 'ASC')
+      .subscribe((res) => {
+        this.customers = res.data;
+        this.customerCount = this.customers.length;
+        for (const customer of this.customers) {
+          if (customer.status === 'aktiv') {
+            this.customerData.active++;
+          } else {
+            this.customerData.inactive++;
+          }
         }
-      }
-    });
-    this.orderssService.getOrders('', -1, 0).subscribe((res) => {
+      });
+    this.orderssService.getOrders('', -1, 0, 'id', 'ASC').subscribe((res) => {
       this.orders = res.data;
       this.orderCount = this.orders.length;
       for (const order of this.orders) {

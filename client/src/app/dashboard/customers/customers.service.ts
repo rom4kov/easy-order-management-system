@@ -16,9 +16,21 @@ export class CustomersService {
 
   constructor(private http: HttpClient) {}
 
-  getCustomers(searchTerm: string, amount: number, pageIdx: number): Observable<ApiResponse<Customer[]>> {
+  getCustomers(
+    searchTerm: string,
+    amount: number,
+    pageIdx: number,
+    orderBy: string,
+    orderMode: 'ASC' | 'DESC',
+  ): Observable<ApiResponse<Customer[]>> {
     return this.http.get<ApiResponse<Customer[]>>(this.apiUrl, {
-      params: { search: searchTerm, page: pageIdx, amount: amount },
+      params: {
+        search: searchTerm,
+        page: pageIdx,
+        amount: amount,
+        orderBy: orderBy,
+        orderMode: orderMode,
+      },
     });
   }
 

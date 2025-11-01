@@ -1,18 +1,23 @@
 :host {
-  --mdc-elevated-card-container-elevation: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --mdc-elevated-card-container-elevation: 0 10px 40px -10px rgb(0 0 0 / 0.25);
 }
 
 .customer-card {
   margin: 5rem 0 0 5rem;
   padding: 1rem;
   min-width: 400px;
-  max-width: 400px;
+  max-width: fit-content;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
 
-.example-header-image {
-  background-image: url("../../../../assets/images/screenshot_2025-10-24-160257-modified.png");
-  margin-top: 3px;
-  background-size: cover;
+.customer-card-section {
+  width: 400px !important;
+}
+
+.customer-card-section:not(:last-child) {
+  border-right: 1px solid #00000025;
 }
 
 .card-heading {

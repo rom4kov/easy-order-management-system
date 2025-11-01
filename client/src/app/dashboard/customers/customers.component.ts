@@ -10,10 +10,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatChipsModule} from '@angular/material/chips';
+import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
 import { FormsModule } from '@angular/forms';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { ClickStopPropagationDirective } from '../../directives/click-stop-propagation.directive';
 
 @Component({
   selector: 'app-customers',
@@ -26,11 +28,13 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     MatIconModule,
     MatInputModule,
     MatFormFieldModule,
+    MatSelectModule,
     MatChipsModule,
     FormsModule,
     MatPaginatorModule,
     AngularSvgIconModule,
     AsyncPipe,
+    ClickStopPropagationDirective,
   ],
   templateUrl: './customers.component.html',
   styleUrl: './customers.component.css',
@@ -50,6 +54,9 @@ export class CustomersComponent implements OnInit {
   numOfCustomers: number = 0;
   deletedCustomerId: number = -1;
   loading$ = this.loadingService.loading$;
+  searchTerm: string = '';
+  filterBy: string = 'id';
+  filterMode: 'ASC' | 'DESC' = 'DESC';
 
   constructor(
     private customerService: CustomersService,
@@ -60,50 +67,87 @@ export class CustomersComponent implements OnInit {
   ngOnInit(): void {
     try {
       this.loadingService.loadingOn();
-      this.customerService.getCustomers("", 10, 0).subscribe((response) => {
-        this.customers = response.data;
-        console.log(this.customers[0].orders)
-        this.getCount('');
-    });
+      this.customerService
+        .getCustomers('', 10, 0, this.filterBy, this.filterMode)
+        .subscribe((response) => {
+          this.customers = response.data;
+          this.getCount('');
+        });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     } finally {
       this.loadingService.loadingOff();
     }
   }
 
-  applyFilter(event: Event): void {
-    const searchTerm = (event.target as HTMLInputElement).value;
+  applySearchFilter(event: Event): void {
+    this.searchTerm = (event.target as HTMLInputElement).value;
 
-    this.getCount(searchTerm);
+    this.getCount(this.searchTerm);
 
-    this.customerService.getCustomers(searchTerm, 10, 0).subscribe((response) => {
-      this.customers = response.data;
-    });
+    this.customerService
+      .getCustomers(this.searchTerm, 10, 0, this.filterBy, this.filterMode)
+      .subscribe((response) => {
+        this.customers = response.data;
+      });
+  }
+
+  applySortFilter(value: string): void {
+    this.filterBy = value;
+
+    this.getCount(this.searchTerm);
+
+    this.customerService
+      .getCustomers(this.searchTerm, 10, 0, this.filterBy, this.filterMode)
+      .subscribe((response) => {
+        this.customers = response.data;
+      });
+  }
+
+  applySortFilterMode(value: 'ASC' | 'DESC'): void {
+    this.filterMode = value;
+
+    this.getCount(this.searchTerm);
+
+    this.customerService
+      .getCustomers(this.searchTerm, 10, 0, this.filterBy, this.filterMode)
+      .subscribe((response) => {
+        this.customers = response.data;
+      });
   }
 
   deleteCustomer(id: number) {
     this.deletedCustomerId = id;
-    console.log("clicked on delete");
+    console.log('clicked on delete');
     this.customerService.deleteCustomer(id).subscribe(() => {
-      this.customerService.getCustomers("", 10, 0).subscribe((response) => {
-        this.customers = response.data;
-        this.getCount('');
-      });
-    })
+      this.customerService
+        .getCustomers(this.searchTerm, 10, 0, this.filterBy, this.filterMode)
+        .subscribe((response) => {
+          this.customers = response.data;
+          this.getCount('');
+        });
+    });
   }
 
   getCount(query: string): void {
-    this.customerService.getNumOfCustomers(query).subscribe((res => {
+    this.customerService.getNumOfCustomers(query).subscribe((res) => {
       this.numOfCustomers = res.data;
-    }))
+    });
   }
 
   getNextPage(event: PageEvent): void {
     console.log(event);
-    this.customerService.getCustomers("", 10, event.pageIndex).subscribe((response) => {
-      this.customers = response.data;
-    });
+    this.customerService
+      .getCustomers(
+        this.searchTerm,
+        10,
+        event.pageIndex,
+        this.filterBy,
+        this.filterMode,
+      )
+      .subscribe((response) => {
+        this.customers = response.data;
+      });
   }
 
   goToCustomerView(id: number) {

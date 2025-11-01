@@ -39,14 +39,14 @@ export class OrdersController {
     @Query('search') query: string,
     @Query('amount') amount: number,
     @Query('page') page: number,
+    @Query('orderBy') orderBy: string,
+    @Query('orderMode') orderMode: 'ASC' | 'DESC',
   ): Promise<Order[]> {
-    console.log('get orders api endpoint');
-    return this.orderService.getOrders(query, amount, page);
+    return this.orderService.getOrders(query, amount, page, orderBy, orderMode);
   }
 
   @Get('count')
   getCount(@Query() query: Query): Promise<number> {
-    console.log('get orders count api endpoint');
     return this.orderService.getNumOfOrders(query.search);
   }
 

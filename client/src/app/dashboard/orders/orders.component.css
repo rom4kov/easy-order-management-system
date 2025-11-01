@@ -41,6 +41,11 @@ table {
   scale: 0.9;
 }
 
+.sort-filter-select {
+  min-width: 180px;
+  scale: 0.9;
+}
+
 .trash-column td {
   max-width: 50px;
   padding-inline: 5px;

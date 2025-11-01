@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
 import { OrdersService } from '../orders.service';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import {
@@ -13,10 +12,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
-import {
-  MatSelectSearchOptions,
-  NgxMatSelectSearchModule,
-} from 'ngx-mat-select-search';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -40,7 +35,6 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     MatSelectModule,
     MatIconModule,
     MatTooltipModule,
-    NgxMatSelectSearchModule,
     MatDatepickerModule,
     MatListModule,
     AngularSvgIconModule,
@@ -76,7 +70,7 @@ export class OrderFormComponent implements OnInit {
       details: [''],
     });
 
-    this.customersService.getCustomers('', -1, 0).subscribe((response) => {
+    this.customersService.getCustomers('', -1, 0, 'id', 'ASC').subscribe((response) => {
       this.customers = response.data;
     });
 

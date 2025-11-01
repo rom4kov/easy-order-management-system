@@ -2,22 +2,43 @@
   <div class="flex flex-row items-end">
     <h3 class="mt-0 mb-8 ml-2 pt-2 text-4xl">Kunden</h3>
     <div class="w-full flex flex-row gap-8 justify-end items-end mt-2">
-      <form class="search-input">
-        <mat-form-field class="search-input-full-width mb-[6px]">
-          <mat-label>Suchen...</mat-label>
-          <input
-            type="tel"
-            matInput
-            placeholder="Suchen..."
-            (keyup)="applyFilter($event)"
-          />
-          <svg-icon
-            matSuffix
-            src="assets/svg/8666693_search_icon.svg"
-            [svgStyle]="{ 'width.px': 60 }"
-          ></svg-icon>
+      <div class="flex flex-row gap-3">
+        <form class="search-input">
+          <mat-form-field class="search-input-full-width mb-[6px]">
+            <mat-label>Suchen...</mat-label>
+            <input
+              type="text"
+              matInput
+              placeholder="Suchen..."
+              (keyup)="applySearchFilter($event)"
+            />
+            <svg-icon
+              matSuffix
+              src="assets/svg/8666693_search_icon.svg"
+              [svgStyle]="{ 'width.px': 60 }"
+            ></svg-icon>
+          </mat-form-field>
+        </form>
+        <mat-form-field class="sort-filter-select mb-[6px]">
+          <mat-label>Sortieren nach</mat-label>
+          <mat-select (valueChange)="applySortFilter($event)">
+            <mat-option>None</mat-option>
+            <mat-option value="name">Firmenname</mat-option>
+            <mat-option value="contactName">Kontaktperson</mat-option>
+            <mat-option value="phone">Telefon</mat-option>
+            <mat-option value="email">Email</mat-option>
+            <mat-option value="firstOrderDate">Kunde seit</mat-option>
+            <mat-option value="orders.length">Aufträge</mat-option>
+          </mat-select>
         </mat-form-field>
-      </form>
+        <mat-form-field class="sort-filter-select mb-[6px]">
+          <mat-label>Sortierrichtung</mat-label>
+          <mat-select (valueChange)="applySortFilterMode($event)">
+            <mat-option value="ASC">aufsteigend</mat-option>
+            <mat-option value="DESC">absteigend</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
       <button
         mat-fab
@@ -63,7 +84,9 @@
     <!-- Email Column -->
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef>Email</th>
-      <td mat-cell *matCellDef="let customer" class="email-row-cell">{{ customer.email }}</td>
+      <td mat-cell *matCellDef="let customer" class="email-row-cell">
+        {{ customer.email }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="orders">
@@ -76,8 +99,7 @@
     <!-- Status Column -->
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef>Status</th>
-      <td mat-cell *matCellDef="let customer"
-      class="status-row-cell">
+      <td mat-cell *matCellDef="let customer" class="status-row-cell">
         <mat-chip
           *ngIf="customer.status === 'aktiv'; else inactive"
           style="background-color: #5be77550; color: #fff"
@@ -94,6 +116,7 @@
       <td mat-cell *matCellDef="let customer" class="customer-row-edit-button">
         <button
           mat-icon-button
+          click-stop-propagation
           [routerLink]="['/dashboard', 'customers', 'edit', customer.id]"
           class="p-1 border rounded cursor-pointer mat-icon-btn"
         >
@@ -142,6 +165,11 @@
   ></mat-paginator>
 
   <ng-template #noCustomers>
-    <p *ngIf="loading$ | async" class="mt-8 text-xl">Keine Kund:innen gefunden</p>
+    <p
+      *ngIf="(loading$ | async) && customers.length === 0"
+      class="mt-8 text-xl"
+    >
+      Keine Kund:innen gefunden
+    </p>
   </ng-template>
 </div>
