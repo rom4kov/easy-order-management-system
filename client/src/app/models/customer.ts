@@ -1,7 +1,7 @@
 import { Order } from "./order";
 
 export interface Customer {
-  id: number;
+  id: string;
   name: string;
   contactName: string;
   phone: number;
