@@ -31,6 +31,7 @@ export class CustomersController {
 
   @Get('seed')
   seedCustomers(): Promise<InsertResult> {
+    console.log('seeding (controller)');
     return this.customerService.seedCustomers();
   }
 

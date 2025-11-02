@@ -13,6 +13,7 @@ export class CustomersService {
   ) {}
 
   async seedCustomers(): Promise<InsertResult> {
+    console.log('seeding (service)');
     return await this.customersRepository
       .createQueryBuilder()
       .insert()
