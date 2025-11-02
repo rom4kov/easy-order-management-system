@@ -25,7 +25,7 @@ interface Query {
 }
 
 @UseInterceptors(TransformInterceptor)
-@Controller('api/orders')
+@Controller('orders')
 export class OrdersController {
   constructor(private readonly orderService: OrdersService) {}
 
