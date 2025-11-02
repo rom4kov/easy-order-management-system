@@ -18,7 +18,7 @@ export const customers: Customer[] = [
     status: 'aktiv',
     notes: 'Bitte nur per E-Mail kontaktieren.',
     user: {
-      id: 1,
+      id: 2,
       username: 'user',
       email: 'user@user.de',
       password: '12345678',
@@ -45,7 +45,7 @@ export const customers: Customer[] = [
     notes:
       'Frau Rieger im Juli nicht erreichbar, Ansprechpartner: Herr Baumgart.',
     user: {
-      id: 1,
+      id: 2,
       username: 'user',
       email: 'user@user.de',
       password: '12345678',
@@ -71,7 +71,7 @@ export const customers: Customer[] = [
     status: 'aktiv',
     notes: 'Langjähriger Kunde, Sonderkonditionen vereinbart.',
     user: {
-      id: 1,
+      id: 2,
       username: 'user',
       email: 'user@user.de',
       password: '12345678',
@@ -98,7 +98,7 @@ export const customers: Customer[] = [
     notes:
       'Letzte Lieferung verspätet – Kunde unzufrieden, Gutschrift angeboten.',
     user: {
-      id: 1,
+      id: 2,
       username: 'user',
       email: 'user@user.de',
       password: '12345678',
@@ -124,7 +124,7 @@ export const customers: Customer[] = [
     status: 'aktiv',
     notes: 'Support-Anfrage bzgl. Rechnung #3 noch offen.',
     user: {
-      id: 1,
+      id: 2,
       username: 'user',
       email: 'user@user.de',
       password: '12345678',
@@ -150,7 +150,7 @@ export const customers: Customer[] = [
     status: 'aktiv',
     notes: 'Interesse an Cloud-Service geäußert.',
     user: {
-      id: 1,
+      id: 2,
       username: 'user',
       email: 'user@user.de',
       password: '12345678',
@@ -176,7 +176,7 @@ export const customers: Customer[] = [
     status: 'aktiv',
     notes: 'Kunde wird von Account Managerin Lisa betreut.',
     user: {
-      id: 1,
+      id: 2,
       username: 'user',
       email: 'user@user.de',
       password: '12345678',
@@ -202,7 +202,7 @@ export const customers: Customer[] = [
     status: 'aktiv',
     notes: 'Wartungsvertrag läuft bis 30.06.2026.',
     user: {
-      id: 1,
+      id: 2,
       username: 'user',
       email: 'user@user.de',
       password: '12345678',
@@ -228,7 +228,7 @@ export const customers: Customer[] = [
     status: 'aktiv',
     notes: 'Termin am Montag auf Mittwoch, 16 Uhr verschoben.',
     user: {
-      id: 1,
+      id: 2,
       username: 'user',
       email: 'user@user.de',
       password: '12345678',
@@ -254,7 +254,7 @@ export const customers: Customer[] = [
     status: 'aktiv',
     notes: 'Rechnung #3 musste nachkorrigiert werden (falsche MwSt)',
     user: {
-      id: 1,
+      id: 2,
       username: 'user',
       email: 'user@user.de',
       password: '12345678',
@@ -280,7 +280,7 @@ export const customers: Customer[] = [
     status: 'aktiv',
     notes: 'Besonderer Rabattvertrag über 10 % bis Ende 2025.',
     user: {
-      id: 1,
+      id: 2,
       username: 'user',
       email: 'user@user.de',
       password: '12345678',
@@ -306,7 +306,7 @@ export const customers: Customer[] = [
     status: 'aktiv',
     notes: 'Neue Filiale eröffnet im März 2025 – evtl. Zusatzauftrag.',
     user: {
-      id: 1,
+      id: 2,
       username: 'user',
       email: 'user@user.de',
       password: '12345678',
@@ -332,7 +332,7 @@ export const customers: Customer[] = [
     status: 'aktiv',
     notes: 'Kunde ruft bevorzugt vormittags an.',
     user: {
-      id: 1,
+      id: 2,
       username: 'user',
       email: 'user@user.de',
       password: '12345678',
@@ -359,7 +359,7 @@ export const customers: Customer[] = [
     notes:
       'Langjähriger Kunde. Hat Interesse an digitalem Baustellenmanagement geäußert.',
     user: {
-      id: 1,
+      id: 2,
       username: 'user',
       email: 'user@user.de',
       password: '12345678',
