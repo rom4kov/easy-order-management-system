@@ -4,17 +4,13 @@ import { Observable, tap, catchError, of } from 'rxjs';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
 import { User } from '../models/user';
-
-type AuthResponse = Response & {
-  access_token: string;
-  user: User;
-};
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  apiUrl: string = 'http://localhost:3000/auth/';
+  private apiUrl: string = `${environment.apiUrl}/auth/`;
   currentUser: User | null = null;
 
   constructor(private http: HttpClient) {}

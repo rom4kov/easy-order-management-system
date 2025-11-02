@@ -19,7 +19,7 @@ type AuthRequest = ExpressRequest & {
 };
 import { Public } from 'src/decorators/public.decorator';
 
-@Controller('auth')
+@Controller('api/auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Order, OrderToEdit } from '../../models/order';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 interface ApiResponse<T> {
   data: T;
@@ -12,7 +13,7 @@ interface ApiResponse<T> {
   providedIn: 'root'
 })
 export class OrdersService {
-  private apiUrl = "http://localhost:3000/orders";
+  private apiUrl = environment.apiUrl + "/orders";
 
   constructor(private http: HttpClient) {}
 
