@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'https://eoms-user.de/api'
+  apiUrl: 'https://easy-oms.de/api'
 };
