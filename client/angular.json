@@ -64,7 +64,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "allowedHosts": ["easy-oms.de", "www.easy-oms.de"]
-          }
+          },
           "configurations": {
             "production": {
               "buildTarget": "easy-order-management-system:build:production"
