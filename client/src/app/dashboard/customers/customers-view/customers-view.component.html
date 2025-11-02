@@ -2,7 +2,11 @@
   <mat-card class="customer-card">
     <div class="customer-card-section">
       <mat-card-header>
-        <img mat-card-avatar class="example-header-image" />
+        <img
+          mat-card-avatar
+          src="/assets/images/customer.png"
+          class="customer-image"
+        />
         <mat-card-title class="card-heading">{{
           customer.name
         }}</mat-card-title>
@@ -10,7 +14,6 @@
           >Kontaktperson: {{ customer.contactName }}</mat-card-subtitle
         >
       </mat-card-header>
-      <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
       <mat-card-content class="mt-4">
         <p><strong>Telefon:</strong> {{ customer.phone }}</p>
         <p><strong>Email:</strong> {{ customer.email }}</p>
@@ -72,7 +75,9 @@
                   }
                 }
               </div>
-              <span class="me-4">bis: {{ order.dueDate | date: "dd.MM.yyyy" }}</span>
+              <span class="me-4"
+                >bis: {{ order.dueDate | date: "dd.MM.yyyy" }}</span
+              >
             </li>
           }
         </ol>
