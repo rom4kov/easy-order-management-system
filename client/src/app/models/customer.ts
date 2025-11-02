@@ -1,5 +1,4 @@
 import { Order } from "./order";
-import { User } from "./user";
 
 export interface Customer {
   id: number;
@@ -17,5 +16,4 @@ export interface Customer {
   firstOrderDate: Date;
   status: string;
   notes: string;
-  user: User;
 }
