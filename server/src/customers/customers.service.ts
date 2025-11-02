@@ -13,13 +13,27 @@ export class CustomersService {
   ) {}
 
   async seedCustomers(): Promise<InsertResult> {
-    console.log('seeding (service)');
-    return await this.customersRepository
-      .createQueryBuilder()
-      .insert()
-      .into(Customer)
-      .values(customers)
-      .execute();
+    console.log('seeding');
+    try {
+      const result = await this.customersRepository
+        .createQueryBuilder()
+        .insert()
+        .into(Customer)
+        .values(customers)
+        .execute();
+
+      console.log('✅ Seeding successful:', result);
+      return result;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('❌ Error during seeding:', error.message);
+        console.error(error.stack);
+        throw new Error(`Seeding failed: ${error.message}`);
+      } else {
+        console.error('❌ Unknown error during seeding:', error);
+        throw new Error('Seeding failed: Unknown error');
+      }
+    }
   }
 
   async getCustomers(

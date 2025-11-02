@@ -31,6 +31,7 @@ import { AuthModule } from './auth/auth.module';
       database: 'eoms_db',
       entities: [User, Customer, Order],
       synchronize: true,
+      logging: ['error', 'query'],
       namingStrategy: new SnakeNamingStrategy(),
     }),
     CustomersModule,
