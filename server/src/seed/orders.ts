@@ -10,7 +10,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-10'),
     dueDate: new Date('2025-11-10'),
     status: 'in Bearbeitung',
-    details: '',
+    details: 'Serverzugänge vom Kunden erhalten, Testphase läuft bis 05.11.',
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-18'),
     dueDate: new Date('2025-11-12'),
     status: 'in Bearbeitung',
-    details: '',
+    details: 'Schnittstelle zur Buchhaltung wird noch abgestimmt.',
   },
   {
     id: 3,
@@ -31,7 +31,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Termin für Vor-Ort-Termin mit Kunde noch offen.',
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-9-26'),
     dueDate: new Date('2025-10-12'),
     status: 'abgeschlossen',
-    details: '',
+    details: 'System erfolgreich abgenommen, Backup läuft täglich automatisch.',
   },
   {
     id: 5,
@@ -53,7 +53,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-20'),
     dueDate: new Date('2025-10-23'),
     status: 'abgeschlossen',
-    details: '',
+    details: 'Kunde zufrieden, zusätzliche Speichererweiterung geplant.',
   },
   {
     id: 6,
@@ -64,7 +64,8 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-12'),
     dueDate: new Date('2025-10-19'),
     status: 'storniert',
-    details: '',
+    details:
+      'Projekt storniert, Kunde hat sich für externen Anbieter entschieden.',
   },
   {
     id: 7,
@@ -75,7 +76,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-11'),
     dueDate: new Date('2025-10-25'),
     status: 'abgeschlossen',
-    details: '',
+    details: 'Bericht über Sicherheitslücken wurde übergeben.',
   },
   {
     id: 8,
@@ -86,7 +87,8 @@ export const orders: Order[] = [
     orderDate: new Date('2025-9-30'),
     dueDate: new Date('2025-10-19'),
     status: 'abgeschlossen',
-    details: '',
+    details:
+      'Backup-Plan erfolgreich implementiert, wöchentliche Kontrolle eingerichtet.',
   },
   {
     id: 9,
@@ -97,7 +99,8 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-10'),
     dueDate: new Date('2025-11-10'),
     status: 'in Bearbeitung',
-    details: '',
+    details:
+      'Schulungstermine mit IT-Abteilung abgestimmt, Präsentation in Vorbereitung.',
   },
   {
     id: 10,
@@ -108,7 +111,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-18'),
     dueDate: new Date('2025-11-12'),
     status: 'in Bearbeitung',
-    details: '',
+    details: 'Modul "Lagerverwaltung" wird aktuell implementiert.',
   },
   {
     id: 11,
@@ -119,7 +122,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Warten auf Freigabe durch IT-Leitung des Kunden.',
   },
   {
     id: 12,
@@ -130,7 +133,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Standort für Backup-Server muss noch bestätigt werden.',
   },
   {
     id: 13,
@@ -141,7 +144,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Hardware bereits geliefert, Installation geplant für 05.11.',
   },
   {
     id: 14,
@@ -151,7 +154,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Zugangsdaten für Mailserver stehen noch aus.',
   },
   {
     id: 15,
@@ -162,7 +165,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Audit-Termin mit Kunden für 07.11. vereinbart.',
   },
   {
     id: 16,
@@ -173,7 +176,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Lizenzschlüssel vom Hersteller wird noch benötigt.',
   },
   {
     id: 17,
@@ -184,7 +187,8 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details:
+      'Benutzerkonten sollen mit Active Directory synchronisiert werden.',
   },
   {
     id: 18,
@@ -195,7 +199,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Testlauf für Backup-Restore wird am 12.11. durchgeführt.',
   },
   {
     id: 19,
@@ -206,7 +210,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Strategieworkshop für IT-Roadmap am 10.11. geplant.',
   },
   {
     id: 20,
@@ -217,7 +221,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Konfiguration erfolgt nach Abschluss des ERP-Projekts.',
   },
   {
     id: 21,
@@ -227,7 +231,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Kunde wünscht zusätzlich Mobilintegration.',
   },
   {
     id: 22,
@@ -237,7 +241,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Lizenztransfer von altem Account noch offen.',
   },
   {
     id: 23,
@@ -247,7 +251,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Trainingstermin mit Belegschaft auf 14.11. terminiert.',
   },
   {
     id: 24,
@@ -258,7 +262,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Testumgebung wird derzeit vorbereitet.',
   },
   {
     id: 25,
@@ -269,7 +273,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Netzwerkscan abgeschlossen, Bericht in Arbeit.',
   },
   {
     id: 26,
@@ -280,7 +284,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Lieferung der Geräte für KW45 erwartet.',
   },
   {
     id: 27,
@@ -291,7 +295,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Analyse der Firewall-Konfiguration steht noch aus.',
   },
   {
     id: 28,
@@ -302,7 +306,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Backup-Zeitplan soll täglich um 23:00 laufen.',
   },
   {
     id: 29,
@@ -312,7 +316,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'VPN-Zugangsdaten müssen noch eingerichtet werden.',
   },
   {
     id: 30,
@@ -322,7 +326,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Testlauf des Backups für 06.11. angesetzt.',
   },
   {
     id: 31,
@@ -332,7 +336,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'SSL-Zertifikate werden vor Deployment erstellt.',
   },
   {
     id: 32,
@@ -342,7 +346,7 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Dashboard soll Echtzeit-Alerts per Mail ausgeben.',
   },
   {
     id: 33,
@@ -352,6 +356,6 @@ export const orders: Order[] = [
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
     status: 'angelegt',
-    details: '',
+    details: 'Altdatenübernahme aus PST-Dateien erforderlich.',
   },
 ];
