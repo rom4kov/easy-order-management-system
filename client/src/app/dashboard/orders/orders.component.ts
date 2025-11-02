@@ -81,6 +81,7 @@ export class OrdersComponent implements OnInit {
             }
           });
           this.orders = orders;
+          console.log(orders);
           this.getCount('');
         });
     } catch (error) {
