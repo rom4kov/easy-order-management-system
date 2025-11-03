@@ -16,6 +16,8 @@ import { OrdersController } from './orders/orders.controller';
 import { OrdersService } from './orders/orders.service';
 import { OrdersModule } from './orders/orders.module';
 import { AuthModule } from './auth/auth.module';
+import { InvoicesController } from './invoices/invoices.controller';
+import { InvoicesService } from './invoices/invoices.service';
 
 @Module({
   imports: [
@@ -38,8 +40,8 @@ import { AuthModule } from './auth/auth.module';
     OrdersModule,
     AuthModule,
   ],
-  controllers: [AppController, CustomersController, OrdersController],
-  providers: [AppService, CustomersService, OrdersService],
+  controllers: [AppController, CustomersController, OrdersController, InvoicesController],
+  providers: [AppService, CustomersService, OrdersService, InvoicesService],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}

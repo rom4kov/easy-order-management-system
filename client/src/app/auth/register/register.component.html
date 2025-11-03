@@ -23,8 +23,8 @@
           formControlName="email"
           required
         />
-        @if (registerForm.get("email")?.invalid) {
-        <mat-error>Kein gültige Email</mat-error>
+        @if (registerForm.get("email")) {
+          <mat-error>Kein gültige Email</mat-error>
         }
       </mat-form-field>
 
