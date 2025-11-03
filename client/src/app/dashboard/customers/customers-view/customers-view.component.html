@@ -27,8 +27,14 @@
           <strong>Kund:in seit:</strong>
           {{ customer.firstOrderDate | date: "dd. MMMM yyyy" }}
         </p>
-        <p><strong>Aufträge:</strong> {{ customer.orders?.length }}</p>
-        <p><strong>Rechnungen:</strong> {{ customer.invoices?.length }}</p>
+        <p>
+          <strong>Aufträge:</strong>
+          {{ customer.orders ? customer.orders.length : 0 }}
+        </p>
+        <p>
+          <strong>Rechnungen:</strong>
+          {{ customer.invoices ? customer.invoices.length : 0 }}
+        </p>
         <p><strong>Status:</strong> {{ customer.status }}</p>
       </mat-card-content>
       <mat-card-actions>

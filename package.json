@@ -1,1 +1,8 @@
-{}
+{
+  "dependencies": {
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@angular/language-service": "^17.3.12"
+  }
+}

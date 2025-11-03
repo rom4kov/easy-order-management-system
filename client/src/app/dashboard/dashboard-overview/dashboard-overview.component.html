@@ -12,7 +12,7 @@
       </mat-card-title-group>
     </mat-card-header>
     <mat-card-content>
-      <p class="text-lg">Gesamt: {{ customers?.length }}</p>
+      <p class="text-lg">Gesamt: {{ customers ? customers.length : 0 }}</p>
       <p class="text-lg">Aktiv: {{ customerData.active }}</p>
       <p class="text-lg">Inaktiv: {{ customerData.inactive }}</p>
     </mat-card-content>
@@ -34,7 +34,7 @@
       <p class="text-lg">Gesamt: {{ orderCount }}</p>
       <p class="text-lg">Abgeschlossen: {{ orderData.completed }}</p>
       <p class="text-lg">Angelegt: {{ orderData.created }}</p>
-      <p class="text-lg">In Bearbeitung: {{ orderData.inProgress }}</p>
+      <p class="text-lg">{{'In Bearbeitung: '}}{{ orderData.inProgress }}</p>
       <p class="text-lg">Storniert: {{ orderData.canceled }}</p>
       <p class="mt-5 text-lg">⌀ Aufträge / Kunde: {{ getAvgOrders() }}</p>
     </mat-card-content>
