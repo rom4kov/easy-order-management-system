@@ -70,6 +70,7 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void {
     try {
       this.loadingService.loadingOn();
+      console.log("order component frontend");
       this.ordersService
         .getOrders('', 10, 0, this.filterBy, this.filterMode)
         .subscribe((response) => {

@@ -30,7 +30,7 @@ export class OrdersController {
   constructor(private readonly orderService: OrdersService) {}
 
   @Get('seed')
-  seedOrders(): Promise<InsertResult> {
+  seedOrders(): Promise<void> {
     return this.orderService.seedOrders();
   }
 
@@ -42,11 +42,13 @@ export class OrdersController {
     @Query('orderBy') orderBy: string,
     @Query('orderMode') orderMode: 'ASC' | 'DESC',
   ): Promise<Order[]> {
+    console.log(query, amount, page);
     return this.orderService.getOrders(query, amount, page, orderBy, orderMode);
   }
 
   @Get('count')
   getCount(@Query() query: Query): Promise<number> {
+    console.log('count route');
     return this.orderService.getNumOfOrders(query.search);
   }
 

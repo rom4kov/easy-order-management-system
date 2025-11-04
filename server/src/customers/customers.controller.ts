@@ -29,11 +29,11 @@ interface Query {
 export class CustomersController {
   constructor(private readonly customerService: CustomersService) {}
 
-  @Get('seed')
-  seedCustomers(): Promise<InsertResult> {
-    console.log('seeding (controller)');
-    return this.customerService.seedCustomers();
-  }
+  // @Get('seed')
+  // seedCustomers(): Promise<InsertResult> {
+  //   console.log('seeding (controller)');
+  //   return this.customerService.seedCustomers();
+  // }
 
   @Get()
   getCustomers(

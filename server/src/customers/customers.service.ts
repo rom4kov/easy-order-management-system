@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { InsertResult, DeleteResult } from 'typeorm';
 import { Repository } from 'typeorm';
 import { Customer } from './customer.entity';
-import { customers } from '../seed/customers';
 
 @Injectable()
 export class CustomersService {
@@ -12,28 +11,28 @@ export class CustomersService {
     private customersRepository: Repository<Customer>,
   ) {}
 
-  async seedCustomers(): Promise<InsertResult> {
-    console.log('seeding');
-    try {
-      const result = await this.customersRepository
-        .createQueryBuilder()
-        .insert()
-        .into(Customer)
-        .values(customers)
-        .execute();
-
-      console.log('✅ Seeding successful:', result);
-      return result;
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error('❌ Error during seeding:', error.message);
-        console.error(error.stack);
-        throw new Error(`Seeding failed: ${error.message}`);
-      } else {
-        console.error('❌ Unknown error during seeding:', error);
-        throw new Error('Seeding failed: Unknown error');
-      }
-    }
+  async seedCustomers(): Promise<void> {
+    // console.log('seeding');
+    // try {
+    //   const result = await this.customersRepository
+    //     .createQueryBuilder()
+    //     .insert()
+    //     .into(Customer)
+    //     .values(customers)
+    //     .execute();
+    //
+    //   console.log('✅ Seeding successful:', result);
+    //   return result;
+    // } catch (error: unknown) {
+    //   if (error instanceof Error) {
+    //     console.error('❌ Error during seeding:', error.message);
+    //     console.error(error.stack);
+    //     throw new Error(`Seeding failed: ${error.message}`);
+    //   } else {
+    //     console.error('❌ Unknown error during seeding:', error);
+    //     throw new Error('Seeding failed: Unknown error');
+    //   }
+    // }
   }
 
   async getCustomers(

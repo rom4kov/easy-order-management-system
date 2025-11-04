@@ -8,6 +8,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { User } from './users/user.entity';
 import { Customer } from './customers/customer.entity';
 import { Order } from './orders/order.entity';
+import { Invoice } from './invoices/invoice.entity';
 
 import { CustomersController } from './customers/customers.controller';
 import { CustomersService } from './customers/customers.service';
@@ -18,6 +19,7 @@ import { OrdersModule } from './orders/orders.module';
 import { AuthModule } from './auth/auth.module';
 import { InvoicesController } from './invoices/invoices.controller';
 import { InvoicesService } from './invoices/invoices.service';
+import { InvoicesModule } from './invoices/invoices.module';
 
 @Module({
   imports: [
@@ -31,16 +33,22 @@ import { InvoicesService } from './invoices/invoices.service';
       username: 'postgres',
       password: '',
       database: 'eoms-db',
-      entities: [User, Customer, Order],
+      entities: [User, Customer, Order, Invoice],
       synchronize: true,
       logging: ['error', 'query'],
       namingStrategy: new SnakeNamingStrategy(),
     }),
     CustomersModule,
     OrdersModule,
+    InvoicesModule,
     AuthModule,
   ],
-  controllers: [AppController, CustomersController, OrdersController, InvoicesController],
+  controllers: [
+    AppController,
+    CustomersController,
+    OrdersController,
+    InvoicesController,
+  ],
   providers: [AppService, CustomersService, OrdersService, InvoicesService],
 })
 export class AppModule {

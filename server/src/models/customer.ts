@@ -1,18 +1,20 @@
-// export interface Customer {
-//   id: string;
-//   name: string;
-//   contactName: string;
-//   phone: number;
-//   email: string;
-//   address: {
-//     street: string;
-//     city: string;
-//     zip: number;
-//   };
-//   industry: string;
-//   type: string;
-//   orders: string[];
-//   invoices: string[];
-//   firstOrderDate: Date;
-//   status: string;
-// }
+import { Order } from './order';
+import { Invoice } from './invoice';
+
+export interface Customer {
+  name: string;
+  contactName: string;
+  phone: number;
+  email: string;
+  street: string;
+  city: string;
+  zipcode: number;
+  industry: string;
+  type: string;
+  orders?: Order[];
+  invoices?: Invoice[];
+  firstOrderDate: Date;
+  status: string;
+  notes: string;
+  user: number;
+}

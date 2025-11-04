@@ -13,7 +13,7 @@ interface ApiResponse<T> {
   providedIn: 'root'
 })
 export class OrdersService {
-  private apiUrl = environment.apiUrl + "/orders";
+  private apiUrl: string = `${environment.apiUrl}/orders`;
 
   constructor(private http: HttpClient) {}
 
@@ -24,6 +24,7 @@ export class OrdersService {
     orderBy: string,
     orderMode: 'ASC' | 'DESC',
   ): Observable<ApiResponse<Order[]>> {
+    console.log("order service frontend");
     return this.http.get<ApiResponse<Order[]>>(this.apiUrl, {
       params: {
         search: searchTerm,

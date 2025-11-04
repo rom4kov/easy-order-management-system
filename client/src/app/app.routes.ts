@@ -7,6 +7,9 @@ import { CustomersViewComponent } from './dashboard/customers/customers-view/cus
 import { OrdersComponent } from './dashboard/orders/orders.component';
 import { OrderFormComponent } from './dashboard/orders/order-form/order-form.component';
 import { OrderViewComponent } from './dashboard/orders/order-view/order-view.component';
+import { InvoicesComponent } from './dashboard/invoices/invoices.component';
+import { InvoicesFormComponent } from './dashboard/invoices/invoices-form/invoices-form.component';
+import { InvoicesViewComponent } from './dashboard/invoices/invoices-view/invoices-view.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
@@ -71,6 +74,22 @@ export const routes: Routes = [
       {
         path: 'orders/edit/:id',
         component: OrderFormComponent,
+      },
+      {
+        path: 'invoices',
+        component: InvoicesComponent,
+      },
+      {
+        path: 'invoices/new',
+        component: InvoicesFormComponent,
+      },
+      {
+        path: 'invoices/:id',
+        component: InvoicesViewComponent,
+      },
+      {
+        path: 'invoices/edit/:id',
+        component: InvoicesFormComponent,
       },
     ],
   },

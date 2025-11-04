@@ -48,10 +48,10 @@ export class CustomersViewComponent implements OnInit {
 
     if (id) {
       this.customerService.getCustomer(id)?.subscribe((res) => {
-        const invoicesSanitized = res.data.invoices?.replace(/'/g, '"');
-        if (invoicesSanitized) {
-          res.data.invoices = JSON.parse(invoicesSanitized);
-        }
+        // const invoicesSanitized = res.data.invoices?.replace(/'/g, '"');
+        // if (invoicesSanitized) {
+        //   res.data.invoices = JSON.parse(invoicesSanitized);
+        // }
         this.customer = res.data;
         console.log(this.customer.orders);
       });

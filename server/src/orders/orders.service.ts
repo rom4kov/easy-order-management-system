@@ -5,6 +5,7 @@ import { Order } from './order.entity';
 import { InsertResult, DeleteResult } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { orders } from 'src/seed/orders';
+import { Customer } from 'src/customers/customer.entity';
 // import { Customer } from 'src/customers/customer.entity';
 
 @Injectable()
@@ -12,15 +13,33 @@ export class OrdersService {
   constructor(
     @InjectRepository(Order)
     private ordersRepository: Repository<Order>,
+    @InjectRepository(Order)
+    private customersRepository: Repository<Customer>,
   ) {}
 
-  async seedOrders(): Promise<InsertResult> {
-    return await this.ordersRepository
-      .createQueryBuilder()
-      .insert()
-      .into(Order)
-      .values(orders)
-      .execute();
+  async seedOrders(): Promise<void> {
+    for (const o of orders) {
+      if (o instanceof Order) {
+        const customer = await this.customersRepository.findOneBy({
+          id: o.customer,
+        });
+
+        if (!customer) continue;
+
+        const order = this.ordersRepository.create({
+          ...o,
+          customer,
+        });
+
+        await this.ordersRepository.save(order);
+      }
+    }
+    // return await this.ordersRepository
+    //   .createQueryBuilder()
+    //   .insert()
+    //   .into(Order)
+    //   .values(orders)
+    //   .execute();
   }
 
   async getOrders(
@@ -50,6 +69,7 @@ export class OrdersService {
       .skip(page * 10)
       .orderBy(`Order.${orderBy}`, orderMode)
       .getMany();
+    console.log(result);
     return result;
   }
 

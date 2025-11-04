@@ -1,1 +1,237 @@
-<p>invoices works!</p>
+<div class="m-8">
+  <div class="flex flex-row items-end">
+    <h3 class="mt-0 mb-8 ml-2 pt-2 text-4xl">Rechnungen</h3>
+    <div class="w-full flex flex-row gap-8 justify-end items-end mt-2">
+      <div class="flex flex-row gap-3">
+        <form class="search-input">
+          <mat-form-field class="search-input-full-width mb-[6px]">
+            <mat-label>Suchen...</mat-label>
+            <input
+              type="text"
+              matInput
+              placeholder="Suchen..."
+              (keyup)="applySearchFilter($event)"
+            />
+            <svg-icon
+              matSuffix
+              src="assets/svg/8666693_search_icon.svg"
+              [svgStyle]="{ 'width.px': 60 }"
+            ></svg-icon>
+          </mat-form-field>
+        </form>
+        <mat-form-field class="sort-filter-select mb-[6px]">
+          <mat-label>Sortieren nach</mat-label>
+          <mat-select (valueChange)="applySortFilter($event)">
+            <mat-option>Kein Filter</mat-option>
+            <mat-option value="invoiceNumber">Rechnungsnr.</mat-option>
+            <mat-option value="order">Auftrag</mat-option>
+            <mat-option value="items">Posten</mat-option>
+            <mat-option value="createdAt">Erstellt</mat-option>
+            <mat-option value="updatedAt">Bearbeitet</mat-option>
+            <mat-option value="dueDate">Zahlfrist</mat-option>
+            <mat-option value="status">Status</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="sort-filter-select mb-[6px]">
+          <mat-label>Sortierrichtung</mat-label>
+          <mat-select (valueChange)="applySortFilterMode($event)">
+            <mat-option value="ASC">aufsteigend</mat-option>
+            <mat-option value="DESC">absteigend</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <button
+        mat-fab
+        extended
+        color="primary"
+        id="new-invoice-button"
+        class="flex flex-row -translate-y-8"
+        [routerLink]="['/dashboard', 'invoices', 'new']"
+      >
+        Neue Rechnung
+        <mat-icon>person_add</mat-icon>
+      </button>
+    </div>
+  </div>
+  <table
+    mat-table
+    [dataSource]="invoices"
+    *ngIf="invoices.length; else noInvoices"
+  >
+    <ng-container matColumnDef="invoiceNumber" id="name-row">
+      <th mat-header-cell *matHeaderCellDef>Rechnungsnr.</th>
+      <td mat-cell *matCellDef="let invoice" class="invoice-number-row-cell">
+        {{ invoice.invoiceNumber }}
+      </td>
+    </ng-container>
+
+    <!-- Contact Name Column -->
+    <ng-container matColumnDef="order">
+      <th mat-header-cell *matHeaderCellDef>Auftrag</th>
+      <td mat-cell *matCellDef="let invoice" class="contact-name-row-cell">
+        {{ invoice.order.title }}
+      </td>
+    </ng-container>
+
+    <!-- Phone Column -->
+    <ng-container matColumnDef="customer">
+      <th mat-header-cell *matHeaderCellDef>Kunde</th>
+      <td mat-cell *matCellDef="let invoice" class="phone-row-cell">
+        {{ invoice.customer.name }}
+      </td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="items">
+      <th mat-header-cell *matHeaderCellDef>Posten</th>
+      <td mat-cell *matCellDef="let invoice" class="email-row-cell">
+        {{ invoice.items.length }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef>Erstellt am</th>
+      <td mat-cell *matCellDef="let invoice" class="orders-row-cell">
+        {{ invoice.createdAt | date: "dd.M.yyyy" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="updatedAt">
+      <th mat-header-cell *matHeaderCellDef>Bearbeitet am</th>
+      <td mat-cell *matCellDef="let invoice" class="orders-row-cell">
+        {{ invoice.updatedAt | date: "dd.M.yyyy" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dueDate">
+      <th mat-header-cell *matHeaderCellDef>Zahlfrist</th>
+      <td mat-cell *matCellDef="let invoice" class="orders-row-cell">
+        {{ invoice.dueDate | date: "dd.M.yyyy" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef>Betrag</th>
+      <td mat-cell *matCellDef="let invoice" class="orders-row-cell">
+        {{ invoice.total | currency:"€" }}
+      </td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let invoice" class="status-row-cell"
+      class="status-row-cell">
+        @switch (invoice.status) {
+          @case ("angelegt") {
+            <mat-chip
+              id="status-chip-created"
+              class="**:flex **:flex-row **:items-center **:gap-1"
+            >
+              <mat-icon style="scale: 0.8">create_new_folder</mat-icon>
+              <span id="status-chip-text">{{ invoice.status }}</span>
+            </mat-chip>
+          }
+          @case ("offen") {
+            <mat-chip
+              id="status-chip-pending"
+              class="**:flex **:flex-row **:items-center **:gap-1"
+            >
+              <mat-icon style="scale: 0.8">construction</mat-icon>
+              <span id="status-chip-text">{{ invoice.status }}</span>
+            </mat-chip>
+          }
+          @case ("beglichen") {
+            <mat-chip
+              id="status-chip-paid"
+              class="**:flex **:flex-row **:items-center **:gap-1"
+            >
+              <mat-icon style="scale: 0.8">done_all</mat-icon>
+              {{ invoice.status }}</mat-chip
+            >
+          }
+          @case ("überfällig") {
+            <mat-chip
+              id="status-chip-overdue"
+              class="**:flex **:flex-row **:items-center **:gap-1"
+            >
+              <mat-icon style="scale: 0.8">done_all</mat-icon>
+              {{ invoice.status }}</mat-chip
+            >
+          }
+          @case ("storniert") {
+            <mat-chip
+              id="status-chip-canceled"
+              class="**:flex **:flex-row **:items-center **:gap-1"
+            >
+              <mat-icon style="scale: 0.8">cancel</mat-icon>
+              {{ invoice.status }}</mat-chip
+            >
+          }
+        }
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let invoice" class="invoice-row-edit-button">
+        <button
+          mat-icon-button
+          click-stop-propagation
+          [routerLink]="['/dashboard', 'invoices', 'edit', invoice.id]"
+          class="p-1 border rounded cursor-pointer mat-icon-btn"
+        >
+          <svg-icon
+            matSuffix
+            src="assets/svg/edit.svg"
+            [svgStyle]="{ 'width.px': 18 }"
+          ></svg-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete" class="trash-column">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let invoice" class="invoice-row-trash-button">
+        <button
+          mat-icon-button
+          (click)="deleteInvoice(invoice.id)"
+          class="p-1 border rounded cursor-pointer mat-icon-btn"
+        >
+          <svg-icon
+            matSuffix
+            src="assets/svg/trash.svg"
+            [svgStyle]="{ 'width.px': 18 }"
+          ></svg-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Header and Row Definitions -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      class="invoice-row cursor-pointer"
+      (click)="goToInvoiceView(row.id)"
+    ></tr>
+  </table>
+  <mat-paginator
+    (page)="getNextPage($event)"
+    class="mt-8 ml-auto w-96 bold text-xl"
+    id="invoices-paginator"
+    [length]="numOfInvoices"
+    [pageSize]="10"
+    aria-label="Seite auswählen"
+  ></mat-paginator>
+
+  <ng-template #noInvoices>
+    <p
+      *ngIf="(loading$ | async) && invoices.length === 0"
+      class="mt-8 text-xl"
+    >
+      Keine Rechnungen gefunden
+    </p>
+  </ng-template>
+</div>

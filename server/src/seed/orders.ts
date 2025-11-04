@@ -1,11 +1,9 @@
-import { Order } from 'src/orders/order.entity';
-import { customers } from './customers';
+import { Order } from 'src/models/order';
 
 export const orders: Order[] = [
   {
-    id: 1,
     title: 'Cloud Umgebung',
-    customer: customers[0],
+    customer: 1,
     items: '["Lieferung Hardware", "Installation", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-10'),
     dueDate: new Date('2025-11-10'),
@@ -13,9 +11,8 @@ export const orders: Order[] = [
     details: 'Serverzugänge vom Kunden erhalten, Testphase läuft bis 05.11.',
   },
   {
-    id: 2,
     title: 'ERP-System',
-    customer: customers[0],
+    customer: 1,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-18'),
@@ -24,9 +21,8 @@ export const orders: Order[] = [
     details: 'Schnittstelle zur Buchhaltung wird noch abgestimmt.',
   },
   {
-    id: 3,
     title: 'Server-Backup',
-    customer: customers[0],
+    customer: 1,
     items: '["Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
@@ -34,9 +30,8 @@ export const orders: Order[] = [
     details: 'Termin für Vor-Ort-Termin mit Kunde noch offen.',
   },
   {
-    id: 4,
     title: 'Datensicherung',
-    customer: customers[1],
+    customer: 2,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-9-26'),
@@ -45,9 +40,8 @@ export const orders: Order[] = [
     details: 'System erfolgreich abgenommen, Backup läuft täglich automatisch.',
   },
   {
-    id: 5,
     title: 'Server-Backup',
-    customer: customers[1],
+    customer: 2,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-20'),
@@ -56,9 +50,8 @@ export const orders: Order[] = [
     details: 'Kunde zufrieden, zusätzliche Speichererweiterung geplant.',
   },
   {
-    id: 6,
     title: 'Email-Archivierung',
-    customer: customers[2],
+    customer: 3,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-12'),
@@ -68,9 +61,8 @@ export const orders: Order[] = [
       'Projekt storniert, Kunde hat sich für externen Anbieter entschieden.',
   },
   {
-    id: 7,
     title: 'Sicherheits-Analyse',
-    customer: customers[3],
+    customer: 4,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-11'),
@@ -79,9 +71,8 @@ export const orders: Order[] = [
     details: 'Bericht über Sicherheitslücken wurde übergeben.',
   },
   {
-    id: 8,
     title: 'Server-Backup',
-    customer: customers[3],
+    customer: 4,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-9-30'),
@@ -91,9 +82,8 @@ export const orders: Order[] = [
       'Backup-Plan erfolgreich implementiert, wöchentliche Kontrolle eingerichtet.',
   },
   {
-    id: 9,
     title: 'Anti-Phishing Training',
-    customer: customers[4],
+    customer: 5,
     items:
       '["Besprechung", "Planung & Vorbereitung", "Durchführung", "Nachbesprechung"]',
     orderDate: new Date('2025-10-10'),
@@ -103,9 +93,8 @@ export const orders: Order[] = [
       'Schulungstermine mit IT-Abteilung abgestimmt, Präsentation in Vorbereitung.',
   },
   {
-    id: 10,
     title: 'ERP-System',
-    customer: customers[4],
+    customer: 5,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-18'),
@@ -114,9 +103,8 @@ export const orders: Order[] = [
     details: 'Modul "Lagerverwaltung" wird aktuell implementiert.',
   },
   {
-    id: 11,
     title: 'Server-Backup',
-    customer: customers[5],
+    customer: 6,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
@@ -125,9 +113,8 @@ export const orders: Order[] = [
     details: 'Warten auf Freigabe durch IT-Leitung des Kunden.',
   },
   {
-    id: 12,
     title: 'Datensicherung',
-    customer: customers[5],
+    customer: 6,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
@@ -136,9 +123,8 @@ export const orders: Order[] = [
     details: 'Standort für Backup-Server muss noch bestätigt werden.',
   },
   {
-    id: 13,
     title: 'Server-Backup',
-    customer: customers[6],
+    customer: 7,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
@@ -147,9 +133,8 @@ export const orders: Order[] = [
     details: 'Hardware bereits geliefert, Installation geplant für 05.11.',
   },
   {
-    id: 14,
     title: 'Email-Archivierung',
-    customer: customers[6],
+    customer: 7,
     items: '["Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
@@ -157,9 +142,8 @@ export const orders: Order[] = [
     details: 'Zugangsdaten für Mailserver stehen noch aus.',
   },
   {
-    id: 15,
     title: 'Sicherheits-Analyse',
-    customer: customers[7],
+    customer: 8,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
@@ -168,9 +152,8 @@ export const orders: Order[] = [
     details: 'Audit-Termin mit Kunden für 07.11. vereinbart.',
   },
   {
-    id: 16,
     title: 'Server-Backup',
-    customer: customers[8],
+    customer: 9,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
@@ -179,9 +162,8 @@ export const orders: Order[] = [
     details: 'Lizenzschlüssel vom Hersteller wird noch benötigt.',
   },
   {
-    id: 17,
     title: 'Nextcloud',
-    customer: customers[8],
+    customer: 9,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
@@ -191,9 +173,8 @@ export const orders: Order[] = [
       'Benutzerkonten sollen mit Active Directory synchronisiert werden.',
   },
   {
-    id: 18,
     title: 'Datensicherung',
-    customer: customers[9],
+    customer: 10,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
@@ -202,9 +183,8 @@ export const orders: Order[] = [
     details: 'Testlauf für Backup-Restore wird am 12.11. durchgeführt.',
   },
   {
-    id: 19,
     title: 'IT-Beratung',
-    customer: customers[9],
+    customer: 10,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
@@ -213,9 +193,8 @@ export const orders: Order[] = [
     details: 'Strategieworkshop für IT-Roadmap am 10.11. geplant.',
   },
   {
-    id: 20,
     title: 'Email-Archivierung',
-    customer: customers[9],
+    customer: 10,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
@@ -224,9 +203,8 @@ export const orders: Order[] = [
     details: 'Konfiguration erfolgt nach Abschluss des ERP-Projekts.',
   },
   {
-    id: 21,
     title: 'Telefonanlage',
-    customer: customers[10],
+    customer: 11,
     items: '["Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
@@ -234,9 +212,8 @@ export const orders: Order[] = [
     details: 'Kunde wünscht zusätzlich Mobilintegration.',
   },
   {
-    id: 22,
     title: 'Microsoft 365',
-    customer: customers[10],
+    customer: 11,
     items: '["Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
@@ -244,9 +221,8 @@ export const orders: Order[] = [
     details: 'Lizenztransfer von altem Account noch offen.',
   },
   {
-    id: 23,
     title: 'Anti-Phishing Training',
-    customer: customers[10],
+    customer: 11,
     items: '["Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
@@ -254,9 +230,8 @@ export const orders: Order[] = [
     details: 'Trainingstermin mit Belegschaft auf 14.11. terminiert.',
   },
   {
-    id: 24,
     title: 'Server-Backup',
-    customer: customers[11],
+    customer: 12,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
@@ -265,9 +240,8 @@ export const orders: Order[] = [
     details: 'Testumgebung wird derzeit vorbereitet.',
   },
   {
-    id: 25,
     title: 'Sicherheits-Analyse',
-    customer: customers[11],
+    customer: 12,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
@@ -276,9 +250,8 @@ export const orders: Order[] = [
     details: 'Netzwerkscan abgeschlossen, Bericht in Arbeit.',
   },
   {
-    id: 26,
     title: 'Telefonanlage',
-    customer: customers[12],
+    customer: 13,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
@@ -287,9 +260,8 @@ export const orders: Order[] = [
     details: 'Lieferung der Geräte für KW45 erwartet.',
   },
   {
-    id: 27,
     title: 'Sicherheits-Analyse',
-    customer: customers[12],
+    customer: 13,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
@@ -298,9 +270,8 @@ export const orders: Order[] = [
     details: 'Analyse der Firewall-Konfiguration steht noch aus.',
   },
   {
-    id: 28,
     title: 'Server-Backup',
-    customer: customers[12],
+    customer: 13,
     items:
       '["Planung", "Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
@@ -309,9 +280,8 @@ export const orders: Order[] = [
     details: 'Backup-Zeitplan soll täglich um 23:00 laufen.',
   },
   {
-    id: 29,
     title: 'Remote Desktop',
-    customer: customers[13],
+    customer: 13,
     items: '["Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
@@ -319,9 +289,8 @@ export const orders: Order[] = [
     details: 'VPN-Zugangsdaten müssen noch eingerichtet werden.',
   },
   {
-    id: 30,
     title: 'Server-Backup',
-    customer: customers[13],
+    customer: 14,
     items: '["Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
@@ -329,9 +298,8 @@ export const orders: Order[] = [
     details: 'Testlauf des Backups für 06.11. angesetzt.',
   },
   {
-    id: 31,
     title: 'Nextcloud',
-    customer: customers[13],
+    customer: 13,
     items: '["Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
@@ -339,9 +307,8 @@ export const orders: Order[] = [
     details: 'SSL-Zertifikate werden vor Deployment erstellt.',
   },
   {
-    id: 32,
     title: 'Monitoring-System',
-    customer: customers[14],
+    customer: 13,
     items: '["Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),
@@ -349,9 +316,8 @@ export const orders: Order[] = [
     details: 'Dashboard soll Echtzeit-Alerts per Mail ausgeben.',
   },
   {
-    id: 33,
     title: 'Email-Archivierung',
-    customer: customers[14],
+    customer: 13,
     items: '["Entwicklung", "Installation vor Ort", "Konfiguration", "Testen"]',
     orderDate: new Date('2025-10-29'),
     dueDate: new Date('2025-11-19'),

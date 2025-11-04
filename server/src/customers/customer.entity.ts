@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Order } from 'src/orders/order.entity';
 import { User } from 'src/users/user.entity';
+import { Invoice } from 'src/invoices/invoice.entity';
 
 @Entity()
 export class Customer {
@@ -41,11 +42,6 @@ export class Customer {
   @Column()
   type: string;
 
-  @Column({
-    nullable: true,
-  })
-  invoices: string;
-
   @Column()
   firstOrderDate: Date;
 
@@ -59,6 +55,9 @@ export class Customer {
 
   @OneToMany(() => Order, (order) => order.customer)
   orders: Order[];
+
+  @OneToMany(() => Invoice, (invoice) => invoice.customer)
+  invoices: Invoice[];
 
   @ManyToOne(() => User, (user) => user.customers, { eager: true })
   @JoinColumn({ name: 'user_id' })

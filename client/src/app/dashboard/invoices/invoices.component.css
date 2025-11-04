@@ -1,0 +1,106 @@
+table {
+  width: 100%;
+}
+
+.invoice-row {
+  transition: 200ms ease-out;
+}
+
+.invoice-row:hover {
+  background: #eee;
+  transition: 200ms ease-out;
+}
+
+.invoice-row-edit-button {
+  max-width: 60px;
+  text-align: end;
+}
+
+.invoice-row-trash-button {
+  padding-inline: 2px;
+}
+
+.mat-icon-btn {
+  width: 35px;
+  height: 35px;
+  padding: 6px 8px 10px 9px;
+}
+
+#new-invoice-button {
+  color: white;
+}
+
+.search-input {
+  min-width: 120px;
+  max-width: 400px;
+  width: 100%;
+}
+
+.search-input-full-width {
+  width: 100%;
+  scale: 0.9;
+}
+
+.sort-filter-select {
+  min-width: 180px;
+  scale: 0.9;
+}
+
+.trash-column td {
+  max-width: 50px;
+  padding-inline: 5px;
+}
+
+#orders-paginator div div {
+  background-color: indigo;
+}
+
+#status-chip-paid {
+  background-color: #5be77550;
+}
+
+#status-chip-pending {
+  background-color: #ffee8c90;
+}
+
+#status-chip-overdue {
+  background-color: #fa8072aa;
+}
+
+#status-chip-canceled {
+  background-color: #fa807270;
+}
+
+.mdc-evolution-chip__text-label:has(#status-chip-text) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.invoice-number-row-cell {
+  width: 7.5%;
+}
+
+.customer-row-cell {
+  width: 17.5%;
+}
+
+.items-row-cell {
+  width: 7.5%;
+}
+
+.order-date-row-cell {
+  width: 12.5%;
+}
+
+.due-date-row-cell {
+  width: 12.5%;
+}
+
+.remaining-days-row-cell {
+  width: 10%;
+}
+
+.status-row-cell {
+  width: 12.5%;
+}
