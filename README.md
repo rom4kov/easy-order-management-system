@@ -92,9 +92,11 @@ pnpm run start
 
 Standardmäßig erreichbar unter http://localhost:4200
 
+
 📂 Projektstruktur
 
 frontend/        # Angular + RxJS + TailwindCSS + Angular Material
+
 backend/         # NestJS + TypeORM + PostgreSQL
 
 
