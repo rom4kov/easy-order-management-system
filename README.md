@@ -22,6 +22,7 @@ Das Projekt zeigt die Integration moderner Frontend- und Backend-Technologien so
 
 **Frontend:**
 - Angular
+- RxJS
 - Angular Material
 - TailwindCSS
 - TypeScript
@@ -30,11 +31,11 @@ Das Projekt zeigt die Integration moderner Frontend- und Backend-Technologien so
 - NestJS
 - TypeORM
 - PostgreSQL
+- Auth per JWT
 
 **Deployment:**
 - Hetzner VPS
 - nginx (Reverse Proxy)
-- Systemd für Service Management
 
 ---
 
