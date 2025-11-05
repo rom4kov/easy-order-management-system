@@ -1,7 +1,7 @@
 <div class="mt-8 ml-12 w-fit">
   <form [formGroup]="invoiceForm">
     <h3 class="mb-8 text-4xl">
-      {{ newInvoice ? "Neuer Rechnungs" : "Rechnungsdaten bearbeiten" }}
+      {{ newInvoice ? "Neuer Rechnung" : "Rechnungsdaten bearbeiten" }}
     </h3>
     <h4 class="mt-4 mb-3 text-xl">Basisdaten</h4>
     <div class="invoice-form-container flex flex-row gap-5">
@@ -14,24 +14,24 @@
           required
         />
         @if (invoiceForm.get("invoiceNumber")!.invalid) {
-          <mat-error>{{ invoiceForm.getError("name") }}</mat-error>
+          <mat-error>{{ invoiceForm.getError("invoiceNumber") }}</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Kunde</mat-label>
-        <mat-select formControlName="customer" required>
-          @for (order of orders; track order) {
-            <mat-option [value]="order.customer.name">{{ order.customer.name }}</mat-option>
+        <mat-label>Auftrag</mat-label>
+        <mat-select formControlName="orderTitle" required>
+          @for (title of orderTitles; track title) {
+            <mat-option [value]="title">{{ title }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Kunde</mat-label>
-        <mat-select formControlName="order" required>
-          @for (order of orders; track order) {
-            <mat-option [value]="order.title">{{ order.title }}</mat-option>
+        <mat-select formControlName="customerName" required>
+          @for (cName of customerNames; track cName) {
+            <mat-option [value]="cName">{{ cName }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
@@ -55,14 +55,15 @@
           <mat-label>Status</mat-label>
           <mat-select formControlName="status" required>
             <mat-option value="angelegt">angelegt</mat-option>
-            <mat-option value="in Bearbeitung">in Bearbeitung</mat-option>
-            <mat-option value="abgeschlossen">abgeschlossen</mat-option>
+            <mat-option value="offen">offen</mat-option>
+            <mat-option value="beglichen">beglichen</mat-option>
+            <mat-option value="überfällig">überfällig</mat-option>
             <mat-option value="storniert">storniert</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Neuer Auftragsposten</mat-label>
+          <mat-label>Neuer Rechnungsposten</mat-label>
           <input placeholder="Posten" formControlName="items" hidden required />
           <input
             matInput

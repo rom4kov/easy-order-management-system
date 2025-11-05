@@ -1,0 +1,10 @@
+#invoice-notes {
+  width: 100%;
+}
+
+#invoice-form-button {
+  display: block;
+  color: white;
+  border-radius: 1.5rem;
+}
+

@@ -100,6 +100,7 @@ export class OrderFormComponent implements OnInit {
       if (id) {
         const order: Order = this.orderForm.value;
 
+        const origItems = order.items;
         order.items = JSON.stringify(order.items);
         order.id = id;
 
@@ -117,6 +118,7 @@ export class OrderFormComponent implements OnInit {
               this.router.navigate(['/dashboard/orders']);
             }
           });
+        order.items = origItems;
       } else {
         const order: Order = this.orderForm.value;
 

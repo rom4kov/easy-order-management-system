@@ -13,7 +13,7 @@
           formControlName="title"
           required
         />
-        @if (orderForm.get("name")!.invalid) {
+        @if (orderForm.get("name")) {
           <mat-error>{{ orderForm.getError("name") }}</mat-error>
         }
       </mat-form-field>

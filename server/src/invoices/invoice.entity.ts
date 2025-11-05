@@ -41,4 +41,9 @@ export class Invoice {
 
   @Column()
   total: number;
+
+  @Column({
+    nullable: true,
+  })
+  details: string;
 }

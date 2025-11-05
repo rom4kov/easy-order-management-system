@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Invoice } from '../../models/invoice';
+import { Invoice, InvoiceToEdit } from '../../models/invoice';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
@@ -51,10 +51,21 @@ export class InvoicesService {
   }
 
   updateInvoice(invoice: Invoice): Observable<Response> {
+    console.log("invoice service frontend:", invoice);
     return this.http.put<Response>(this.apiUrl, invoice);
   }
 
   deleteInvoice(id: number): Observable<Response> {
     return this.http.delete<Response>(this.apiUrl + '/' + id);
+  }
+
+  transformInvoiceToEdit({ order, ...rest }: Invoice): InvoiceToEdit {
+    return {
+      ...rest,
+      order,
+      orderTitle: order.title,
+      customer: order.customer,
+      customerName: order.customer.name,
+    }
   }
 }

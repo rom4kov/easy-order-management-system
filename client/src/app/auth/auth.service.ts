@@ -41,7 +41,6 @@ export class AuthService {
     const response = this.http.post<User>(this.apiUrl + 'logout', null, {
       withCredentials: true,
     });
-    console.log(response);
     this.currentUser = null;
     return response;
   }
@@ -51,7 +50,6 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    console.log(this.currentUser);
     return this.currentUser ? true : false;
   }
 
