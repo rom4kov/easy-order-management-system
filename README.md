@@ -2,6 +2,8 @@
 
 **Easy Order Management System** ist ein Übungsprojekt, das ich zur Vertiefung meiner Kenntnisse in **Angular** und **NestJS** entwickelt habe. Es handelt sich um ein einfaches Order-Management-System (OMS) für kleine bis mittlere Unternehmen (KMUs).  
 
+<img width="1903" height="947" alt="screenshot_2025-11-03-001105" src="https://github.com/user-attachments/assets/6961c37d-e5b4-4b24-a023-2539f2697cf5" />
+<br>
 Das Projekt zeigt die Integration moderner Frontend- und Backend-Technologien sowie den Deployment-Prozess auf einem Linux-Server.
 
 ---
@@ -104,8 +106,10 @@ backend/         # NestJS + TypeORM + PostgreSQL
 
 🎬 Demo
 Ein kurzes Video zur Präsentation der Funktionalität:
+<br>
 https://youtu.be/n0Dl4qS727A
 <br>
 
 📌 Hinweis
 Dieses Projekt wurde im Rahmen einer Eigeninitiative entwickelt, um die Arbeit mit Angular, NestJS, TypeORM und modernen Deployment-Workflows zu vertiefen. Es ist nicht für den produktiven Einsatz gedacht.
+
