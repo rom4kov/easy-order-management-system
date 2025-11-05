@@ -71,7 +71,9 @@ Backend starten:
 pnpm run start:dev
 ```
 
+<br>
 Frontend
+<br>
 In das Frontend-Verzeichnis wechseln:
 
 ```
@@ -98,11 +100,13 @@ Standardmäßig erreichbar unter http://localhost:4200
 frontend/        # Angular + RxJS + TailwindCSS + Angular Material
 
 backend/         # NestJS + TypeORM + PostgreSQL
+<br>
 
 
 🎬 Demo
 Ein kurzes Video zur Präsentation der Funktionalität:
 https://youtu.be/n0Dl4qS727A
+<br>
 
 📌 Hinweis
 Dieses Projekt wurde im Rahmen einer Eigeninitiative entwickelt, um die Arbeit mit Angular, NestJS, TypeORM und modernen Deployment-Workflows zu vertiefen. Es ist nicht für den produktiven Einsatz gedacht.
