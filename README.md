@@ -71,9 +71,7 @@ Backend starten:
 pnpm run start:dev
 ```
 
-<br>
-Frontend
-<br>
+### Frontend
 In das Frontend-Verzeichnis wechseln:
 
 ```
