@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "github-linguist": "^2.4.4",
     "typescript": "^5.9.3"
   },
   "devDependencies": {

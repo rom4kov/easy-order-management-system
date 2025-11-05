@@ -1,5 +1,19 @@
-dist/* linguist-vendored
-**/node_modules/* linguist-vendored
-**/assets/* linguist-vendored
-**/environment* linguist-vendored
+# --- Exclude build artifacts and dependencies ---
+**/dist/**           linguist-vendored
+**/build/**          linguist-vendored
+**/node_modules/**   linguist-vendored
+
+# --- Exclude static assets ---
+**/assets/**         linguist-vendored
+**/static/**         linguist-vendored
+**/public/**         linguist-vendored
+
+# --- Exclude environment/config files if desired ---
+**/environment*.ts   linguist-vendored
+**/*.yaml            linguist-vendored
+**/*.yml             linguist-vendored
+**/*.json            linguist-vendored
+
+# --- Optional: ignore HTML templates if they dominate stats ---
+# **/*.html linguist-detectable=false
 
