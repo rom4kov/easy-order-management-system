@@ -35,7 +35,7 @@ import { InvoicesModule } from './invoices/invoices.module';
       database: 'eoms-db',
       entities: [User, Customer, Order, Invoice],
       synchronize: true,
-      logging: ['error', 'query'],
+      // logging: ['error', 'query'],
       namingStrategy: new SnakeNamingStrategy(),
     }),
     CustomersModule,

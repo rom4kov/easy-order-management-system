@@ -22,18 +22,25 @@
         <mat-label>Auftrag</mat-label>
         <mat-select formControlName="orderTitle" required>
           @for (title of orderTitles; track title) {
-            <mat-option [value]="title">{{ title }}</mat-option>
+            <mat-option [value]="title"
+              >{{ title }}<br /><span class="text-sm -mt-2"
+                >Kunde</span
+              ></mat-option
+            >
           }
         </mat-select>
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Kunde</mat-label>
-        <mat-select formControlName="customerName" required>
-          @for (cName of customerNames; track cName) {
-            <mat-option [value]="cName">{{ cName }}</mat-option>
-          }
-        </mat-select>
+        <mat-label>Betrag</mat-label>
+        <input
+          matInput
+          type="number"
+          placeholder="Betrag"
+          formControlName="total"
+          required
+        />
+        <mat-icon matIconSuffix>euro</mat-icon>
       </mat-form-field>
 
       <mat-form-field>

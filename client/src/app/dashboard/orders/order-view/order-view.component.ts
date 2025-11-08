@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { OrdersService } from '../orders.service';
 import { Order } from '../../../models/order';
+import { EMPTY_ORDER } from '../../../models/defaults';
 
 @Component({
   selector: 'app-order-view',
@@ -18,30 +19,7 @@ import { Order } from '../../../models/order';
 })
 export class OrderViewComponent implements OnInit {
   order: Order = {
-    id: "",
-    title: "",
-    customer: {
-      id: "",
-      name: "",
-      contactName: "",
-      phone: 0,
-      email: "",
-      street: "",
-      zipcode: 0,
-      city: "",
-      industry: "",
-      type: "",
-      firstOrderDate: new Date(),
-      status: "",
-      notes: "",
-    },
-    orderDate: new Date(),
-    dueDate: new Date(),
-    status: "angelegt",
-    items: "",
-    invoice: "",
-    total: 0,
-    details: "",
+    ...EMPTY_ORDER
   };
 
   constructor(

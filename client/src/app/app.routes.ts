@@ -9,7 +9,7 @@ import { OrderFormComponent } from './dashboard/orders/order-form/order-form.com
 import { OrderViewComponent } from './dashboard/orders/order-view/order-view.component';
 import { InvoicesComponent } from './dashboard/invoices/invoices.component';
 import { InvoicesFormComponent } from './dashboard/invoices/invoices-form/invoices-form.component';
-import { InvoicesViewComponent } from './dashboard/invoices/invoices-view/invoices-view.component';
+import { InvoiceViewComponent } from './dashboard/invoices/invoice-view/invoice-view.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
@@ -85,7 +85,7 @@ export const routes: Routes = [
       },
       {
         path: 'invoices/:id',
-        component: InvoicesViewComponent,
+        component: InvoiceViewComponent,
       },
       {
         path: 'invoices/edit/:id',

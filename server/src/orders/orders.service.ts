@@ -67,7 +67,10 @@ export class OrdersService {
       })
       .take(amount >= 0 ? amount : undefined)
       .skip(page * 10)
-      .orderBy(`Order.${orderBy}`, orderMode)
+      .orderBy(
+        `${orderBy === 'customer.name' ? 'Customer.name' : `Order.${orderBy}`}`,
+        orderMode,
+      )
       .getMany();
     console.log(result);
     return result;

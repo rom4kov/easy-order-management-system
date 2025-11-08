@@ -8,3 +8,11 @@
   border-radius: 1.5rem;
 }
 
+mat-icon {
+  scale: 0.9;
+  color: #707070;
+}
+
+mat-option {
+  padding-block: 0.2rem;
+}

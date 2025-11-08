@@ -78,6 +78,7 @@ export class InvoicesService {
       .skip(page * 10)
       .orderBy(`Invoice.${orderBy}`, orderMode)
       .getMany();
+    console.log(result);
     return result;
   }
 
@@ -104,7 +105,6 @@ export class InvoicesService {
         query: `%${query}%`,
       })
       .getCount();
-    console.log(result);
     return result;
   }
 

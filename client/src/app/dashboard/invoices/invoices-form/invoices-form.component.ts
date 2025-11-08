@@ -143,8 +143,8 @@ export class InvoicesFormComponent implements OnInit {
   }
 
   addItem(event: KeyboardEvent) {
-    const itemsInput = event.target as HTMLInputElement;
     if (event.key === 'Enter') {
+      const itemsInput = event.target as HTMLInputElement;
       this.invoiceForm.value.items.push(itemsInput.value);
       this.invoiceForm.patchValue(this.invoiceForm.value);
       itemsInput.value = '';
