@@ -10,10 +10,30 @@ export class User {
   username: string;
 
   @Column()
-  email: string;
+  password: string;
 
   @Column()
-  password: string;
+  email: string;
+
+  @Column({
+    default: '1',
+  })
+  phone: number;
+
+  @Column()
+  website: string;
+
+  @Column()
+  companyName: string;
+
+  @Column()
+  street: string;
+
+  @Column()
+  zipcode: number;
+
+  @Column()
+  city: string;
 
   @OneToMany(() => Customer, (customer) => customer.user)
   customers: Customer[];

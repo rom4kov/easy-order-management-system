@@ -27,10 +27,13 @@ export class AuthService {
     pass: string,
   ): Promise<{ user: User | undefined; access_token: string }> {
     const user: User | null = await this.usersService.findOne(username);
+    console.log('user:', user);
     this.passwordHash = await hash(pass, saltRounds);
 
     if (!user) return { user: undefined, access_token: 'no user found' };
     const isMatch = await this.verifyPassword(pass);
+    console.log('isMatch:', isMatch);
+
     if (!isMatch) {
       throw new UnauthorizedException();
     }

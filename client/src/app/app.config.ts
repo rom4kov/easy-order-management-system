@@ -3,10 +3,9 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { authInterceptorProvider } from './interceptors/auth.interceptor';
 import { importProvidersFrom } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 export const appConfig: ApplicationConfig = {
@@ -14,8 +13,8 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideHttpClient(),
-    importProvidersFrom(HttpClientModule, AngularSvgIconModule.forRoot()),
+    importProvidersFrom(AngularSvgIconModule.forRoot()),
     authInterceptorProvider,
+    provideHttpClient(withInterceptorsFromDi()),
   ],
 };

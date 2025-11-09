@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Invoice } from '../../../models/invoice';
 import { InvoicesService } from '../invoices.service';
+import { UserService } from '../../../user/user.service';
 
 import { EMPTY_INVOICE } from '../../../models/defaults';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
@@ -49,6 +50,7 @@ export class InvoiceViewComponent implements OnInit {
 
   constructor(
     private invoicesService: InvoicesService,
+    private userService: UserService,
     private activatedRoute: ActivatedRoute,
   ) {}
 
@@ -62,14 +64,22 @@ export class InvoiceViewComponent implements OnInit {
           res.data.items = JSON.parse(itemsSanitized);
         }
         this.invoice = res.data;
+
         console.log(this.invoice);
 
+        let user = this.userService.getUser();
         // const pdf = jsPDFInvoiceTemplate(props) as JsPDFReturnObject;
         //
         // console.log(pdf.dataUriString);
         // this.invoicePdfBlob = pdf.dataUriString;
-        const pdfOject = generateInvoicePdf(this.invoice);
-        this.pdfSrc = new Uint8Array(pdfOject.arrayBuffer);
+        if (!user) {
+          const storedUser = localStorage.getItem("user");
+          user = JSON.parse(storedUser ? storedUser : "");
+        }
+        if (user) {
+          const pdfOject = generateInvoicePdf(this.invoice, user);
+          this.pdfSrc = new Uint8Array(pdfOject.arrayBuffer);
+        }
       });
     }
   }

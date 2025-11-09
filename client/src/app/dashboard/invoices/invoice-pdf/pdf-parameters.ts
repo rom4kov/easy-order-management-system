@@ -3,16 +3,17 @@ import jsPDFInvoiceTemplate, {
   jsPDF,
 } from 'jspdf-invoice-template';
 import { Invoice } from '../../../models/invoice';
+import { User } from '../../../models/user';
 
 type JsPDFReturnObject = {
-  pagesNumber: number; // (always) - number of pages
-  jsPDFDocObject: jsPDF; // if (returnJsPDFDocObject: true) - the doc already created. You can use it to add new content, new  pages.
-  blob: Blob; // if (outputType: 'blob') - returns the created pdf file as a Blob object. So you can upload and save it to your server. (Idea from a comment on Twitter)
-  dataUriString: string; // if (outputType: 'datauristring')
-  arrayBuffer: ArrayBuffer; // if (outputType: 'arraybuffer')
-};
+  pagesNumber: number, // (always) - number of pages
+  jsPDFDocObject: jsPDF, // if (returnJsPDFDocObject: true) - the doc already created. You can use it to add new content, new  pages.
+  blob: Blob, // if (outputType: 'blob') - returns the created pdf file as a Blob object. So you can upload and save it to your server. (Idea from a comment on Twitter)
+  dataUriString: string, // if (outputType: 'datauristring')
+  arrayBuffer: ArrayBuffer // if (outputType: 'arraybuffer')
+}
 
-export const generateInvoicePdf = (invoice: Invoice): JsPDFReturnObject => {
+export const generateInvoicePdf = (invoice: Invoice, user: User) => {
   const props = {
     outputType: OutputType.ArrayBuffer,
     returnJsPDFDocObject: true,
@@ -41,26 +42,25 @@ export const generateInvoicePdf = (invoice: Invoice): JsPDFReturnObject => {
       },
     },
     business: {
-      name: 'Business Name',
-      address: 'Albania, Tirane ish-Dogana, Durres 2001',
-      phone: '(+355) 069 11 11 111',
-      email: 'email@example.com',
-      email_1: 'info@example.al',
-      website: 'www.example.al',
+      name: user.companyName,
+      address: `${user.street}, ${user.zipcode}, ${user.city}`,
+      phone: `${user.phone}`,
+      email: user.email,
+      website: user.website,
     },
     contact: {
       label: 'Rechnung für:',
       name: `${invoice.order.customer.name}`,
-      address: `${invoice.order.customer.street}, ${invoice.order.customer.zipcode} ${invoice.order.customer.city}`,
+      address: `${invoice.order.customer.street}, ${invoice.order.customer.zipcode}, ${invoice.order.customer.city}`,
       phone: `${invoice.order.customer.phone}`,
-      email: `${invoice.order.customer.email}`,
+      email: invoice.order.customer.email,
       otherInfo: 'www.website.al',
     },
     invoice: {
-      label: `Rechnungsnr.: ${invoice.invoiceNumber}`,
+      label: `Rechnung: ${invoice.invoiceNumber}`,
       num: 19,
-      invDate: `Zahlungstermin: ${invoice.dueDate}`,
-      invGenDate: `Rechnungsdatum: ${invoice.dueDate}`,
+      invDate: `${invoice.updatedAt}`,
+      invGenDate: `${invoice.createdAt}`,
       headerBorder: false,
       tableBodyBorder: false,
       header: [
@@ -71,21 +71,21 @@ export const generateInvoicePdf = (invoice: Invoice): JsPDFReturnObject => {
           },
         },
         {
-          title: 'Title',
+          title: 'Titel',
           style: {
             width: 30,
           },
         },
         {
-          title: 'Description',
+          title: 'Beschreibung',
           style: {
             width: 80,
           },
         },
-        { title: 'Price' },
-        { title: 'Quantity' },
-        { title: 'Unit' },
-        { title: 'Total' },
+        { title: 'Preis' },
+        { title: 'Anzahl' },
+        { title: 'Einheit' },
+        { title: 'Summe' },
       ],
       table: Array.from(Array(10), (_, index) => [
         index + 1,
@@ -98,15 +98,15 @@ export const generateInvoicePdf = (invoice: Invoice): JsPDFReturnObject => {
       ]),
       additionalRows: [
         {
-          col1: 'Total:',
-          col2: '145,250.50',
+          col1: 'Summe:',
+          col2: `${invoice.total}`,
           col3: 'ALL',
           style: {
             fontSize: 14, //optional, default 12
           },
         },
         {
-          col1: 'VAT:',
+          col1: 'MwSt:',
           col2: '20',
           col3: '%',
           style: {
@@ -114,8 +114,8 @@ export const generateInvoicePdf = (invoice: Invoice): JsPDFReturnObject => {
           },
         },
         {
-          col1: 'SubTotal:',
-          col2: '116,199.90',
+          col1: 'Zwischensumme:',
+          col2: `${invoice.total * 0.8}`,
           col3: 'ALL',
           style: {
             fontSize: 10, //optional, default 12
@@ -130,10 +130,8 @@ export const generateInvoicePdf = (invoice: Invoice): JsPDFReturnObject => {
       text: 'The invoice is created on a computer and is valid without the signature and stamp.',
     },
     pageEnable: true,
-    pageLabel: 'Page ',
+    pageLabel: 'Seite ',
   };
 
-  const pdfObject = jsPDFInvoiceTemplate(props) as JsPDFReturnObject;
-
-  return pdfObject;
+  return jsPDFInvoiceTemplate(props) as JsPDFReturnObject; //returns number of pages created
 };

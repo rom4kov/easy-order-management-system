@@ -27,6 +27,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('register')
   signUp(@Body() signUpDto: SignUpDto) {
+    console.log(signUpDto);
     return this.authService.signUp(signUpDto);
   }
 
@@ -59,8 +60,10 @@ export class AuthController {
     });
   }
 
+  @HttpCode(HttpStatus.OK)
   @Get('me')
   getProfile(@Request() req: AuthRequest) {
+    console.log('req.user:', req.user);
     return req.user;
   }
 }

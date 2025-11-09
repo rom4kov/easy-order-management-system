@@ -15,14 +15,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  registerUser({ username, email, password }: SignUpDto): Observable<Response> {
-    const newUser = {
-      username,
-      email,
-      password,
-      createdAt: new Date(),
-    };
-    return this.http.post<Response>(this.apiUrl + 'register', newUser);
+  registerUser(signUpDto: SignUpDto): Observable<Response> {
+    return this.http.post<Response>(this.apiUrl + 'register', signUpDto);
   }
 
   loginUser({ username, password }: SignInDto): Observable<User> {
@@ -38,6 +32,7 @@ export class AuthService {
   }
 
   logoutUser(): Observable<User> {
+    localStorage.removeItem("user");
     const response = this.http.post<User>(this.apiUrl + 'logout', null, {
       withCredentials: true,
     });

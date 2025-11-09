@@ -1,7 +1,14 @@
 export class SignUpDto {
+  id: number;
   username: string;
-  email: string;
   password: string;
-  created_at: Date;
+  email: string;
+  phone: number;
+  website: string;
+  companyName: string;
+  street: string;
+  zipcode: number;
+  city: string;
+  createdAt: Date;
   details?: string;
 }

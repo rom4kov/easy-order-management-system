@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { UserService } from '../../user/user.service';
 import { Router } from '@angular/router';
 import {
   Validators,
@@ -11,6 +12,7 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-login',
@@ -32,6 +34,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private userService: UserService,
     private router: Router,
   ) {}
 
@@ -47,6 +50,8 @@ export class LoginComponent implements OnInit {
       this.authService.loginUser(this.loginForm.value).subscribe(res => {
         console.log(res);
         this.authService.setCurrentUser(res);
+        this.userService.setUser(res);
+        localStorage.setItem("user", JSON.stringify(res));
         this.router.navigate(['/dashboard']);
       })
     }
