@@ -13,7 +13,7 @@ import { Invoice } from './invoice.entity';
 import { InvoicesService } from './invoices.service';
 import { DeleteResult } from 'typeorm';
 import { ApiCreatedResponse } from '@nestjs/swagger';
-import { TransformInterceptor } from 'src/interceptors/transform.interceptor';
+import TransformInterceptor from 'src/interceptors/transform.interceptor';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { Public } from 'src/decorators/public.decorator';
 

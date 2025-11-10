@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomersService } from '../customers/customers.service';
 import { OrdersService } from '../orders/orders.service';
+import { InvoicesService } from '../invoices/invoices.service';
 import { MatCardModule } from '@angular/material/card';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { Customer } from '../../models/customer';
 import { Order } from '../../models/order';
+import { Invoice } from '../../models/invoice';
 
 @Component({
   selector: 'app-dashboard-overview',
@@ -16,8 +18,10 @@ import { Order } from '../../models/order';
 export class DashboardOverviewComponent implements OnInit {
   customers: Customer[] | null = [];
   orders: Order[] | null = [];
+  invoices: Invoice[] | null = [];
   customerCount: number = 0;
   orderCount: number = 0;
+  invoiceCount: number = 0;
   customerData = {
     active: 0,
     inactive: 0,
@@ -28,10 +32,17 @@ export class DashboardOverviewComponent implements OnInit {
     inProgress: 0,
     canceled: 0,
   };
+  invoiceData = {
+    created: 0,
+    pending: 0,
+    paid: 0,
+    canceled: 0,
+  };
 
   constructor(
     private customersService: CustomersService,
-    private orderssService: OrdersService,
+    private ordersService: OrdersService,
+    private invoicesService: InvoicesService,
   ) {}
 
   ngOnInit(): void {
@@ -48,7 +59,7 @@ export class DashboardOverviewComponent implements OnInit {
           }
         }
       });
-    this.orderssService.getOrders('', -1, 0, 'id', 'ASC').subscribe((res) => {
+    this.ordersService.getOrders('', -1, 0, 'id', 'ASC').subscribe((res) => {
       this.orders = res.data;
       this.orderCount = this.orders.length;
       for (const order of this.orders) {
@@ -70,6 +81,29 @@ export class DashboardOverviewComponent implements OnInit {
         }
       }
       console.log(this.orderCount);
+    });
+    this.invoicesService.getInvoices('', -1, 0, 'id', 'ASC').subscribe((res) => {
+      this.invoices = res.data;
+      this.invoiceCount = this.invoices.length;
+      for (const invoice of this.invoices) {
+        switch (invoice.status) {
+          case 'angelegt':
+            this.invoiceData.created++;
+            break;
+          case 'offen':
+            this.invoiceData.pending++;
+            break;
+          case 'beglichen':
+            this.invoiceData.paid++;
+            break;
+          case 'storniert':
+            this.invoiceData.canceled++;
+            break;
+          default:
+            break;
+        }
+      }
+      console.log(this.invoiceCount);
     });
   }
 

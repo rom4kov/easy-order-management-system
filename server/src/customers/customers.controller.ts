@@ -13,7 +13,7 @@ import { Customer } from './customer.entity';
 import { CustomersService } from './customers.service';
 import { InsertResult, DeleteResult } from 'typeorm';
 import { ApiCreatedResponse } from '@nestjs/swagger';
-import { TransformInterceptor } from 'src/interceptors/transform.interceptor';
+import TransformInterceptor from 'src/interceptors/transform.interceptor';
 
 interface Params {
   id?: number;

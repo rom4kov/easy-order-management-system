@@ -1,5 +1,5 @@
 <div class="m-16 flex flex-row gap-8">
-  <mat-card class="orders-card">
+  <mat-card class="customers-card">
     <mat-card-header>
       <mat-card-title-group>
         <mat-card-title class="card-title">Kunden</mat-card-title>
@@ -40,7 +40,7 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card class="orders-card">
+  <mat-card class="invoices-card">
     <mat-card-header>
       <mat-card-title-group>
         <mat-card-title class="card-title">Rechnungen</mat-card-title>
@@ -53,9 +53,11 @@
       </mat-card-title-group>
     </mat-card-header>
     <mat-card-content>
-      <p class="text-lg">Gesamt: {{ orderCount }}</p>
-      <p class="text-lg">Beglichen: {{ orderCount }}</p>
-      <p class="text-lg">Offen: {{ orderCount }}</p>
+      <p class="text-lg">Gesamt: {{ invoiceCount }}</p>
+      <p class="text-lg">Angelegt: {{ invoiceData.created }}</p>
+      <p class="text-lg">Beglichen: {{ invoiceData.paid }}</p>
+      <p class="text-lg">Offen: {{ invoiceData.pending }}</p>
+      <p class="text-lg">Storniert: {{ invoiceData.canceled }}</p>
     </mat-card-content>
   </mat-card>
 </div>

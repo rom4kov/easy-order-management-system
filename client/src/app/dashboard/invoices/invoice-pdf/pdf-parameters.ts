@@ -87,9 +87,9 @@ export const generateInvoicePdf = (invoice: Invoice, user: User) => {
         { title: 'Einheit' },
         { title: 'Summe' },
       ],
-      table: Array.from(Array(10), (_, index) => [
+      table: Array.from(Array(invoice.items.length), (_, index) => [
         index + 1,
-        'There are many variations ',
+        invoice.items[index],
         'Lorem Ipsum is simply dummy text dummy text ',
         200.5,
         4.5,
@@ -99,7 +99,7 @@ export const generateInvoicePdf = (invoice: Invoice, user: User) => {
       additionalRows: [
         {
           col1: 'Summe:',
-          col2: `${invoice.total}`,
+          col2: `${invoice.total},00 €`,
           col3: 'ALL',
           style: {
             fontSize: 14, //optional, default 12
@@ -115,7 +115,7 @@ export const generateInvoicePdf = (invoice: Invoice, user: User) => {
         },
         {
           col1: 'Zwischensumme:',
-          col2: `${invoice.total * 0.8}`,
+          col2: `${invoice.total * 0.8},00 €`,
           col3: 'ALL',
           style: {
             fontSize: 10, //optional, default 12

@@ -1,9 +1,11 @@
 <div class="m-8">
-    <pdf-viewer
-      [src]="pdfSrc"
-      [render-text]="true"
-      [original-size]="false"
-      style="width: 500px; height: 725px"
-      class="pdf-viewer"
-    ></pdf-viewer>
+  <h2 class="text-2xl">Rechnung {{invoice.invoiceNumber}}</h2>
+  <h4 class="text-base font-bold text-[#bbb]">Auftrag: {{invoice.order.title}}, für: {{invoice.order.customer.name}}</h4>
+  <pdf-viewer
+    [src]="pdfSrc"
+    [render-text]="true"
+    [original-size]="false"
+    style="width: 500px; height: 725px"
+    class="pdf-viewer"
+  ></pdf-viewer>
 </div>
