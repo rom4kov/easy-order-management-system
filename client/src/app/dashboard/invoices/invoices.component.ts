@@ -76,6 +76,7 @@ export class InvoicesComponent implements OnInit {
           invoices.forEach((invoice) => {
             const invoicesSanitized = invoice.items?.replace(/'/g, '"');
             if (invoicesSanitized) {
+              console.log(invoicesSanitized);
               invoice.items = JSON.parse(invoicesSanitized);
             }
           });
@@ -134,6 +135,7 @@ export class InvoicesComponent implements OnInit {
         .subscribe((response) => {
           this.invoices = response.data;
           this.getCount('');
+          this.loadingService.loadingOff();
         });
     });
   }

@@ -2,10 +2,10 @@ import { Customer } from './customer';
 import { Order } from './order';
 
 export interface Invoice {
-  id: number;
+  id?: number;
   invoiceNumber: string;
   order: Order;
-  customer: Customer;
+  customer?: Customer;
   createdAt: Date;
   updatedAt: Date;
   dueDate: Date;

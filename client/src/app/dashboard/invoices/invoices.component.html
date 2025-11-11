@@ -136,18 +136,18 @@
           @case ("offen") {
             <mat-chip
               id="status-chip-pending"
-              class="**:flex **:flex-row **:items-center **:gap-1"
+              class="**:flex **:flex-row **:items-center **:gap-1 pe-2"
             >
-              <mat-icon style="scale: 0.8">construction</mat-icon>
+              <mat-icon style="scale: 0.7">alarm</mat-icon>
               <span id="status-chip-text">{{ invoice.status }}</span>
             </mat-chip>
           }
           @case ("beglichen") {
             <mat-chip
               id="status-chip-paid"
-              class="**:flex **:flex-row **:items-center **:gap-1"
+              class="**:flex **:flex-row **:items-center **:gap-1 *:pl-0"
             >
-              <mat-icon style="scale: 0.8">done_all</mat-icon>
+              <mat-icon style="scale: 0.7; margin-inline: -3px;">attach_money</mat-icon>
               {{ invoice.status }}</mat-chip
             >
           }
@@ -156,7 +156,7 @@
               id="status-chip-overdue"
               class="**:flex **:flex-row **:items-center **:gap-1"
             >
-              <mat-icon style="scale: 0.8">done_all</mat-icon>
+              <mat-icon style="scale: 0.8">error</mat-icon>
               {{ invoice.status }}</mat-chip
             >
           }
@@ -196,6 +196,7 @@
       <td mat-cell *matCellDef="let invoice" class="invoice-row-trash-button">
         <button
           mat-icon-button
+          click-stop-propagation
           (click)="deleteInvoice(invoice.id)"
           class="p-1 border rounded cursor-pointer mat-icon-btn"
         >

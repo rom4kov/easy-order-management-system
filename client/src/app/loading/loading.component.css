@@ -1,5 +1,5 @@
 .spinner-container {
-  position: fixed;
+  position: absolute;
   height: 100%;
   width: 100%;
   display: flex;
@@ -7,6 +7,6 @@
   align-items: center;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.32);
+  background: white;
   z-index: 2000;
 }

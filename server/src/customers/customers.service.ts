@@ -52,7 +52,6 @@ export class CustomersService {
       .skip(page * 10)
       .orderBy(`Customer.${orderBy}`, orderMode)
       .getMany();
-    console.log(result);
     return result;
   }
 
@@ -74,8 +73,6 @@ export class CustomersService {
         id: `${id}`,
       })
       .getOne();
-    console.log(result);
-
     return result;
   }
 

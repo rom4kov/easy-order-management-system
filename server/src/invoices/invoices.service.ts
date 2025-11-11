@@ -54,23 +54,9 @@ export class InvoicesService {
     orderMode: 'ASC' | 'DESC',
   ): Promise<Invoice[] | []> {
     const result = await this.invoicesRepository
-      .createQueryBuilder('Invoice')
-      .leftJoin('Invoice.customer', 'Customer')
-      .leftJoin('Invoice.order', 'Order')
-      .select([
-        'Invoice.id',
-        'Invoice.invoiceNumber',
-        'Invoice.items',
-        'Invoice.createdAt',
-        'Invoice.updatedAt',
-        'Invoice.dueDate',
-        'Invoice.status',
-        'Invoice.total',
-        'Customer.id',
-        'Customer.name',
-        'Order.id',
-        'Order.title',
-      ])
+      .createQueryBuilder()
+      .leftJoinAndSelect('Invoice.customer', 'Customer')
+      .leftJoinAndSelect('Invoice.order', 'Order')
       .where('Invoice.invoiceNumber ilike :query', {
         query: `%${query}%`,
       })
@@ -85,8 +71,8 @@ export class InvoicesService {
   async getNumOfInvoices(query: string): Promise<number> {
     const result = await this.invoicesRepository
       .createQueryBuilder()
-      .leftJoin('Invoice.customer', 'Customer')
       .leftJoin('Invoice.order', 'Order')
+      .leftJoin('Invoice.customer', 'Customer')
       .select([
         'Invoice.id',
         'Invoice.invoiceNumber',
@@ -101,7 +87,7 @@ export class InvoicesService {
         'Order.id',
         'Order.title',
       ])
-      .where('"Order".title ilike :query', {
+      .where('Order.title ilike :query', {
         query: `%${query}%`,
       })
       .getCount();
@@ -117,6 +103,7 @@ export class InvoicesService {
   }
 
   async addInvoice(invoice: CreateInvoiceDto): Promise<void> {
+    console.log('invoice service:', invoice);
     const order = await this.ordersRepository.findOneBy({
       id: invoice.order,
     });

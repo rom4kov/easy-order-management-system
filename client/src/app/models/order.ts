@@ -1,11 +1,12 @@
 import { Customer } from "./customer";
+import { Invoice } from "./invoice";
 
 export interface Order {
   id: string;
   title: string;
   customer: Customer;
   items: string;
-  invoice: string;
+  invoice: Invoice;
   orderDate: Date;
   dueDate: Date;
   status: 'angelegt' | 'in Bearbeitung' | 'abgeschlossen' | 'storniert';
@@ -19,7 +20,7 @@ export interface OrderToEdit {
   customerId: number;
   customerName: string;
   items: string;
-  invoice: string;
+  invoice: Invoice;
   orderDate: Date;
   dueDate: Date;
   status: 'angelegt' | 'in Bearbeitung' | 'abgeschlossen' | 'storniert';

@@ -27,7 +27,6 @@ export class AuthService {
     pass: string,
   ): Promise<{ user: User | undefined; access_token: string }> {
     const user: User | null = await this.usersService.findOne(username);
-    console.log('user:', user);
     this.passwordHash = await hash(pass, saltRounds);
 
     if (!user) return { user: undefined, access_token: 'no user found' };
@@ -40,6 +39,7 @@ export class AuthService {
     const payload = { sub: user.id, username: user.username };
     const access_token: string = await this.jwtService.signAsync(payload);
     user.password = '';
+    console.log('user:', user);
     return {
       user: user,
       access_token: access_token,

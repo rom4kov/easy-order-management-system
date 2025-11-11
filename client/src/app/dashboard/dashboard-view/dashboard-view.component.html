@@ -1,8 +1,9 @@
 <div class="h-full">
   <div class="flex flex-row h-full w-screen">
     <app-sidenav></app-sidenav>
-    <div class="dashboard-route-view">
+    <div class="dashboard-route-view relative">
       <router-outlet> </router-outlet>
+      <app-loading></app-loading>
     </div>
   </div>
 </div>

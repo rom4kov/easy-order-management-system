@@ -61,6 +61,7 @@ export class InvoicesController {
 
   @Get(':id')
   getInvoice(@Param() params: Params): Promise<Invoice | null> {
+    console.log('invoice controller:', params);
     return this.invoicesService.getInvoice(Number(params.id));
   }
 

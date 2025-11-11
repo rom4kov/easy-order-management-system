@@ -34,7 +34,6 @@ export class Order {
   status: 'angelegt' | 'in Bearbeitung' | 'abgeschlossen' | 'storniert';
 
   @OneToOne(() => Invoice, (invoice) => invoice.order)
-  @JoinColumn({ name: 'invoice_id' })
   invoice: Invoice;
 
   @Column({

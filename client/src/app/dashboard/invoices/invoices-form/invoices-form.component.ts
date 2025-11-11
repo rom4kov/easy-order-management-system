@@ -77,8 +77,12 @@ export class InvoicesFormComponent implements OnInit {
       .getOrders('', -1, 0, 'id', 'ASC')
       .subscribe((response) => {
         this.orders = response.data;
-        this.orderTitles = [...new Set(this.orders.map(order => order.title))];
-        this.customerNames = [...new Set(this.orders.map(order => order.customer.name))];
+        this.orderTitles = [
+          ...new Set(this.orders.map((order) => order.title)),
+        ];
+        this.customerNames = [
+          ...new Set(this.orders.map((order) => order.customer.name)),
+        ];
       });
 
     let id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -116,11 +120,9 @@ export class InvoicesFormComponent implements OnInit {
         if (!order) return;
         invoice.customer = order.customer;
 
-        this.invoicesService
-          .updateInvoice(invoice)
-          .subscribe(() => {
-              this.router.navigate(['/dashboard/invoices']);
-          });
+        this.invoicesService.updateInvoice(invoice).subscribe(() => {
+          this.router.navigate(['/dashboard/invoices']);
+        });
         invoice.items = origItems;
       } else {
         const invoice: Invoice = this.invoiceForm.value;
@@ -133,7 +135,13 @@ export class InvoicesFormComponent implements OnInit {
         if (!order) return;
         invoice.customer = order.customer;
 
-        this.invoicesService.addInvoice(invoice).subscribe((res) => {
+        const invoiceDto = {
+          ...invoice,
+          order: Number(invoice.order.id),
+          customer: Number(invoice.customer.id),
+        };
+
+        this.invoicesService.addInvoice(invoiceDto).subscribe((res) => {
           if (res) {
             this.router.navigate(['/dashboard/invoices']);
           }

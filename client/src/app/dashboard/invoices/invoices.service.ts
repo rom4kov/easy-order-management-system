@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Invoice, InvoiceToEdit } from '../../models/invoice';
+import { InvoiceDto } from './invoice-pdf/dto/invoice.dto';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
@@ -45,7 +46,7 @@ export class InvoicesService {
     return this.http.get<ApiResponse<Invoice>>(this.apiUrl + '/' + id);
   }
 
-  addInvoice(invoice: Invoice): Observable<Response> {
+  addInvoice(invoice: InvoiceDto): Observable<Response> {
     console.log(invoice);
     return this.http.post<Response>(this.apiUrl, invoice);
   }

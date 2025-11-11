@@ -34,12 +34,6 @@ export class OrdersService {
         await this.ordersRepository.save(order);
       }
     }
-    // return await this.ordersRepository
-    //   .createQueryBuilder()
-    //   .insert()
-    //   .into(Order)
-    //   .values(orders)
-    //   .execute();
   }
 
   async getOrders(
@@ -72,7 +66,6 @@ export class OrdersService {
         orderMode,
       )
       .getMany();
-    console.log(result);
     return result;
   }
 
@@ -83,21 +76,26 @@ export class OrdersService {
         query: `%${query}%`,
       })
       .getCount();
-    console.log(result);
     return result;
   }
 
   async getOrder(id: number): Promise<Order | null> {
-    const result = await this.ordersRepository.findOneBy({
-      id: id,
-    });
-    console.log('getOrder result: ', result);
+    // const result = await this.ordersRepository.findOneBy({
+    //   id: id,
+    // });
+    const result = await this.ordersRepository
+      .createQueryBuilder('Order')
+      .leftJoinAndSelect('Order.invoice', 'Invoice')
+      .leftJoinAndSelect('Order.customer', 'Customer')
+      .where('Order.id = :id', {
+        id: `${id}`,
+      })
+      .getOne();
     return result;
   }
 
   async addOrder(order: CreateOrderDto): Promise<InsertResult> {
     const response = await this.ordersRepository.insert(order);
-    console.log(response);
     return response;
   }
 

@@ -52,3 +52,8 @@ mat-chip {
   flex-direction: row;
   align-items: center;
 }
+
+.generate-invoice-btn {
+  height: 1.75rem;
+  border-radius: 20px;
+}

@@ -89,8 +89,24 @@
             </li>
           }
         </ul>
-        <h5 class="mt-12 mb-3 text-2xl">Rechnungen</h5>
-        <p class="underline">Rechnung #78-2025</p>
+        <h5 class="mt-12 mb-3 text-2xl">Rechnung</h5>
+        @if (order.invoice) {
+          <p class="underline">
+            <a [routerLink]="['/dashboard', 'invoices', order.invoice.id]">{{
+              order.invoice.invoiceNumber
+              }}</a>
+          </p>
+        }
+        @else {
+          <button
+            mat-flat-button
+            color="primary"
+            class="generate-invoice-btn *:text-white"
+            (click)="createInvoice()"
+          >
+            Generieren
+          </button>
+        }
       </mat-card-content>
     </div>
     <div class="order-card-section">

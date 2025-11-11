@@ -13,9 +13,9 @@ type JsPDFReturnObject = {
   arrayBuffer: ArrayBuffer // if (outputType: 'arraybuffer')
 }
 
-export const generateInvoicePdf = (invoice: Invoice, user: User) => {
+export const generateInvoicePdf = (invoice: Invoice, user: User, save: boolean) => {
   const props = {
-    outputType: OutputType.ArrayBuffer,
+    outputType: save ? OutputType.Save : OutputType.ArrayBuffer,
     returnJsPDFDocObject: true,
     fileName: `Invoice_${invoice.invoiceNumber}`,
     orientationLandscape: false,
@@ -58,7 +58,7 @@ export const generateInvoicePdf = (invoice: Invoice, user: User) => {
     },
     invoice: {
       label: `Rechnung: ${invoice.invoiceNumber}`,
-      num: 19,
+      num: invoice.id,
       invDate: `${invoice.updatedAt}`,
       invGenDate: `${invoice.createdAt}`,
       headerBorder: false,
