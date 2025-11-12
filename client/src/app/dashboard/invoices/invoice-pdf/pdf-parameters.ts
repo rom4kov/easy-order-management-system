@@ -6,14 +6,18 @@ import { Invoice } from '../../../models/invoice';
 import { User } from '../../../models/user';
 
 type JsPDFReturnObject = {
-  pagesNumber: number, // (always) - number of pages
-  jsPDFDocObject: jsPDF, // if (returnJsPDFDocObject: true) - the doc already created. You can use it to add new content, new  pages.
-  blob: Blob, // if (outputType: 'blob') - returns the created pdf file as a Blob object. So you can upload and save it to your server. (Idea from a comment on Twitter)
-  dataUriString: string, // if (outputType: 'datauristring')
-  arrayBuffer: ArrayBuffer // if (outputType: 'arraybuffer')
-}
+  pagesNumber: number; // (always) - number of pages
+  jsPDFDocObject: jsPDF; // if (returnJsPDFDocObject: true) - the doc already created. You can use it to add new content, new  pages.
+  blob: Blob; // if (outputType: 'blob') - returns the created pdf file as a Blob object. So you can upload and save it to your server. (Idea from a comment on Twitter)
+  dataUriString: string; // if (outputType: 'datauristring')
+  arrayBuffer: ArrayBuffer; // if (outputType: 'arraybuffer')
+};
 
-export const generateInvoicePdf = (invoice: Invoice, user: User, save: boolean) => {
+export const generateInvoicePdf = (
+  invoice: Invoice,
+  user: User,
+  save: boolean,
+) => {
   const props = {
     outputType: save ? OutputType.Save : OutputType.ArrayBuffer,
     returnJsPDFDocObject: true,
@@ -59,8 +63,8 @@ export const generateInvoicePdf = (invoice: Invoice, user: User, save: boolean) 
     invoice: {
       label: `Rechnung: ${invoice.invoiceNumber}`,
       num: invoice.id,
-      invDate: `${invoice.updatedAt}`,
-      invGenDate: `${invoice.createdAt}`,
+      invDate: `Zu zahlen am: ${new Date(invoice.dueDate).toLocaleDateString()}`,
+      invGenDate: `Erstellt am: ${new Date(invoice.createdAt).toLocaleDateString()}`,
       headerBorder: false,
       tableBodyBorder: false,
       header: [

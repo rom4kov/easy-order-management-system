@@ -18,6 +18,7 @@ type AuthRequest = ExpressRequest & {
   user: unknown;
 };
 import { Public } from 'src/decorators/public.decorator';
+import { RefreshTokenDto } from './dto/refresh-token.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -31,8 +32,8 @@ export class AuthController {
   }
 
   @Public()
-  @HttpCode(HttpStatus.OK)
   @Post('login')
+  @HttpCode(HttpStatus.OK)
   async signIn(
     @Body() signInDto: SignInDto,
     @Res({ passthrough: true }) response: Response,
@@ -46,11 +47,16 @@ export class AuthController {
       secure: false,
       sameSite: 'lax',
     });
+    response.cookie('refresh_token', result.refresh_token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: 'lax',
+    });
     return result.user;
   }
 
-  @HttpCode(HttpStatus.OK)
   @Post('logout')
+  @HttpCode(HttpStatus.OK)
   signOut(@Res({ passthrough: true }) response: Response) {
     response.clearCookie('access_token', {
       httpOnly: true,
@@ -59,9 +65,16 @@ export class AuthController {
     });
   }
 
-  @HttpCode(HttpStatus.OK)
   @Get('me')
+  @HttpCode(HttpStatus.OK)
   getProfile(@Request() req: AuthRequest) {
     return req.user;
+  }
+
+  @Public()
+  @Post('refresh')
+  @HttpCode(HttpStatus.OK)
+  async refreshToken(@Body() refreshTokenDto: RefreshTokenDto) {
+    await this.authService.refreshToken(refreshTokenDto);
   }
 }

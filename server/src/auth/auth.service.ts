@@ -5,6 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import { SignUpDto } from './dto/sign-up.dto';
 import { hash, compare } from 'bcrypt-ts';
 import { User } from 'src/users/user.entity';
+import { RefreshTokenDto } from './dto/refresh-token.dto';
 
 const saltRounds: number = 10;
 
@@ -17,19 +18,29 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signUp(signUpData: SignUpDto): Promise<InsertResult> {
+  public async signUp(signUpData: SignUpDto): Promise<InsertResult> {
     const result = await hash(signUpData.password, saltRounds);
     return await this.usersService.addUser({ ...signUpData, password: result });
   }
 
-  async signIn(
+  public async signIn(
     username: string,
     pass: string,
-  ): Promise<{ user: User | undefined; access_token: string }> {
+  ): Promise<{
+    user: User | undefined;
+    access_token: string;
+    refresh_token: string;
+  }> {
     const user: User | null = await this.usersService.findOne(username);
     this.passwordHash = await hash(pass, saltRounds);
 
-    if (!user) return { user: undefined, access_token: 'no user found' };
+    if (!user)
+      return {
+        user: undefined,
+        access_token: 'no user found',
+        refresh_token: 'no user',
+      };
+
     const isMatch = await this.verifyPassword(pass);
     console.log('isMatch:', isMatch);
 
@@ -37,12 +48,22 @@ export class AuthService {
       throw new UnauthorizedException();
     }
     const payload = { sub: user.id, username: user.username };
-    const access_token: string = await this.jwtService.signAsync(payload);
+    const accessToken: string = await this.jwtService.signAsync(payload);
+
+    const refreshPayload = { sub: user.id };
+    const refreshToken: string = await this.jwtService.signAsync(
+      refreshPayload,
+      {
+        expiresIn: 86400,
+      },
+    );
+
     user.password = '';
     console.log('user:', user);
     return {
       user: user,
-      access_token: access_token,
+      access_token: accessToken,
+      refresh_token: refreshToken,
     };
   }
 
@@ -50,10 +71,14 @@ export class AuthService {
   //   await this.jwtService.
   // }
 
-  async verifyPassword(plainPassword: string): Promise<boolean> {
+  public async verifyPassword(plainPassword: string): Promise<boolean> {
     if (plainPassword && this.passwordHash) {
       return await compare(plainPassword, this.passwordHash);
     }
     return false;
+  }
+
+  public async refreshToken(refreshTokenDto: RefreshTokenDto) {
+
   }
 }

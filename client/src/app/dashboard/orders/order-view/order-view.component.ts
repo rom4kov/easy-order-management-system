@@ -57,14 +57,19 @@ export class OrderViewComponent implements OnInit {
     console.log(items);
     this.invoicesService.getNumOfInvoices('').subscribe((res) => {
       const numOfinvoices = res.data;
-      const currYear = new Date().getFullYear();
+      const currDate = new Date();
+      const currYear = currDate.getFullYear();
+      const dueDate = new Date(
+        currDate.setDate(currDate.getDate() + 30)
+      );
+      console.log(dueDate);
       const invoice: InvoiceDto = {
         invoiceNumber: `RE-${currYear}-${(numOfinvoices + 1).toString().padStart(3, '0')}`,
         order: Number(this.order.id),
         customer: Number(this.order.customer.id),
         createdAt: new Date(),
         updatedAt: new Date(),
-        dueDate: new Date(),
+        dueDate: dueDate,
         status: 'angelegt',
         items: items,
         total: 10000,

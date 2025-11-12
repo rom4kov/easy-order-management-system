@@ -5,3 +5,19 @@
 .invoice-view-button {
   color: white !important;
 }
+
+#status-chip-paid {
+  background-color: #5be77550;
+}
+
+#status-chip-pending {
+  background-color: #ffee8c90;
+}
+
+#status-chip-overdue {
+  background-color: #fa8072aa;
+}
+
+#status-chip-canceled {
+  background-color: #fa807270;
+}
