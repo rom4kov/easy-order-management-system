@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap, catchError, of } from 'rxjs';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
-import { User } from '../models/user';
+import { User, UserAuth } from '../models/user';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
   private apiUrl: string = `${environment.apiUrl}/auth/`;
-  currentUser: User | null = null;
+  currentUser: UserAuth | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -28,11 +28,12 @@ export class AuthService {
       },
       { withCredentials: true },
     );
+    response.subscribe((res) => console.log(res));
     return response;
   }
 
   logoutUser(): Observable<User> {
-    localStorage.removeItem("user");
+    localStorage.removeItem('user');
     const response = this.http.post<User>(this.apiUrl + 'logout', null, {
       withCredentials: true,
     });
@@ -40,7 +41,7 @@ export class AuthService {
     return response;
   }
 
-  setCurrentUser(user: User) {
+  setCurrentUser(user: UserAuth) {
     this.currentUser = user;
   }
 
@@ -48,13 +49,34 @@ export class AuthService {
     return this.currentUser ? true : false;
   }
 
-  restoreAuthState(): Observable<User | null> {
-    return this.http.get<User>(this.apiUrl + 'me', { withCredentials: true }).pipe(
-      tap((user) => (this.currentUser = user)),
+  restoreAuthState(): Observable<UserAuth | null> {
+    return this.http
+      .get<UserAuth>(this.apiUrl + 'me', { withCredentials: true })
+      .pipe(
+        tap((user) => {
+          this.currentUser = user;
+          console.log(user);
+        }),
+        catchError(() => {
+          this.currentUser = null;
+          return of(null);
+        }),
+      );
+  }
+
+  refreshAccessToken(): Observable<UserAuth | null> {
+    return this.http.post<UserAuth>(this.apiUrl + 'refresh', {
+      withCredentials: true,
+    })
+    .pipe(
+      tap((user) => {
+        this.currentUser = user;
+        console.log(user);
+      }),
       catchError(() => {
         this.currentUser = null;
         return of(null);
-      })
-    );
-  };
+      }),
+    )
+  }
 }

@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Request,
+  Req,
   Res,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
@@ -18,7 +19,6 @@ type AuthRequest = ExpressRequest & {
   user: unknown;
 };
 import { Public } from 'src/decorators/public.decorator';
-import { RefreshTokenDto } from './dto/refresh-token.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -42,12 +42,12 @@ export class AuthController {
       signInDto.username,
       signInDto.password,
     );
-    response.cookie('access_token', result.access_token, {
+    response.cookie('refresh_token', result.refresh_token, {
       httpOnly: true,
       secure: false,
       sameSite: 'lax',
     });
-    response.cookie('refresh_token', result.refresh_token, {
+    response.cookie('access_token', result.access_token, {
       httpOnly: true,
       secure: false,
       sameSite: 'lax',
@@ -58,6 +58,11 @@ export class AuthController {
   @Post('logout')
   @HttpCode(HttpStatus.OK)
   signOut(@Res({ passthrough: true }) response: Response) {
+    response.clearCookie('refresh_token', {
+      httpOnly: true,
+      secure: false,
+      sameSite: 'lax',
+    });
     response.clearCookie('access_token', {
       httpOnly: true,
       secure: false,
@@ -68,13 +73,28 @@ export class AuthController {
   @Get('me')
   @HttpCode(HttpStatus.OK)
   getProfile(@Request() req: AuthRequest) {
+    console.log(req.user);
     return req.user;
   }
 
   @Public()
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
-  async refreshToken(@Body() refreshTokenDto: RefreshTokenDto) {
-    await this.authService.refreshToken(refreshTokenDto);
+  async refreshToken(
+    @Req() request: ExpressRequest,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const result = await this.authService.refreshToken(request);
+    response.cookie('refresh_token', result.refresh_token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: 'lax',
+    });
+    response.cookie('access_token', result.access_token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: 'lax',
+    });
+    return { success: true };
   }
 }

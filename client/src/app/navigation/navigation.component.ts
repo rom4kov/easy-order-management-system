@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
-import { User } from '../models/user';
+import { UserAuth } from '../models/user';
 
 @Component({
   selector: 'app-navigation',
   standalone: true,
   imports: [MatToolbarModule, RouterLink],
   templateUrl: './navigation.component.html',
-  styleUrl: './navigation.component.css'
+  styleUrl: './navigation.component.css',
 })
 export class NavigationComponent implements OnInit {
-  currentUser: User | null = null;
+  currentUser: UserAuth | null = null;
 
   constructor(
     private authService: AuthService,
@@ -20,9 +20,9 @@ export class NavigationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.restoreAuthState();
-    this.currentUser = this.authService.currentUser;
-    console.log(this.currentUser);
+    this.authService.restoreAuthState().subscribe((res) => {
+      this.currentUser = res;
+    });
   }
 
   isAuthenticated(): boolean {
@@ -30,7 +30,7 @@ export class NavigationComponent implements OnInit {
   }
 
   logOut() {
-    this.authService.logoutUser().subscribe(res => {
+    this.authService.logoutUser().subscribe((res) => {
       console.log(res);
       this.currentUser = null;
       this.router.navigate(['']);

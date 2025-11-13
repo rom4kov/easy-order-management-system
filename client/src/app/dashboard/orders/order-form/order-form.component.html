@@ -69,7 +69,7 @@
           <input
             matInput
             placeholder="Neuer Posten"
-            (keypress)="addItem($event)"
+            (keypress.enter)="addItem($event)"
             required
           />
         </mat-form-field>

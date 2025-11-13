@@ -49,7 +49,6 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.authService.loginUser(this.loginForm.value).subscribe(res => {
         console.log(res);
-        this.authService.setCurrentUser(res);
         this.userService.setUser(res);
         localStorage.setItem("user", JSON.stringify(res));
         this.router.navigate(['/dashboard']);

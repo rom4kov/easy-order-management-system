@@ -64,7 +64,6 @@ export class InvoicesService {
       .skip(page * 10)
       .orderBy(`Invoice.${orderBy}`, orderMode)
       .getMany();
-    console.log(result);
     return result;
   }
 
@@ -98,12 +97,12 @@ export class InvoicesService {
     const result = await this.invoicesRepository.findOneBy({
       id: id,
     });
-    console.log('getInvoice result: ', result);
+    // console.log('getInvoice result: ', result);
     return result;
   }
 
   async addInvoice(invoice: CreateInvoiceDto): Promise<void> {
-    console.log('invoice service:', invoice);
+    // console.log('invoice service:', invoice);
     const order = await this.ordersRepository.findOneBy({
       id: invoice.order,
     });

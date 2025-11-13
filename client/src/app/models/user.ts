@@ -11,3 +11,10 @@ export type User = {
   createdAt: Date;
   details?: string;
 }
+
+export type UserAuth = {
+  exp: number,
+  iat: number,
+  sub: number,
+  username: string,
+}

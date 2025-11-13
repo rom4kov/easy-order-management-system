@@ -27,10 +27,10 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
   standalone: true,
   providers: [provideNativeDateAdapter(), OrdersService],
   imports: [
-    MatFormFieldModule,
-    MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatButtonModule,
     MatSelectModule,
     MatIconModule,
@@ -139,14 +139,11 @@ export class OrderFormComponent implements OnInit {
     }
   }
 
-  addItem(event: KeyboardEvent) {
-    console.log(event);
+  addItem(event: Event) {
     const itemsInput = event.target as HTMLInputElement;
-    if (event.key === 'Enter') {
-      this.orderForm.value.items.push(itemsInput.value);
-      this.orderForm.patchValue(this.orderForm.value);
-      itemsInput.value = '';
-    }
+    this.orderForm.value.items.push(itemsInput.value);
+    this.orderForm.patchValue(this.orderForm.value);
+    itemsInput.value = '';
   }
 
   deleteItem(event: MouseEvent) {
