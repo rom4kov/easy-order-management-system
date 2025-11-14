@@ -99,6 +99,22 @@
         <!--   <mat-error>{{ errorMessage }}</mat-error> -->
         <!-- } -->
       </mat-form-field>
+
+      <button
+        type="button"
+        mat-raised-button
+        (click)="fileInput.click()"
+      >
+        Choose File
+      </button>
+      <input
+        hidden
+        (change)="onFileSelected($event)"
+        #fileInput
+        formControlName="imgFilePath"
+        type="file"
+        id="file"
+      />
     </div>
 
     <h4 class="mt-4 mb-3 text-xl">Zusatzdaten</h4>
@@ -166,7 +182,7 @@
       id="customer-form-button"
       [disabled]="customerForm.invalid"
     >
-      {{ newCustomer ? 'Speichern' : 'Update' }}
+      {{ newCustomer ? "Speichern" : "Update" }}
     </button>
   </form>
 </div>

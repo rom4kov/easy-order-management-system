@@ -69,6 +69,7 @@ export class CustomersController {
   async addCustomer(
     @Body() createCustomerDto: Customer,
   ): Promise<InsertResult> {
+    console.log('customer:', createCustomerDto);
     const response = await this.customerService.addCustomer(createCustomerDto);
     return response;
   }

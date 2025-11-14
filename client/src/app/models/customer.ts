@@ -10,6 +10,7 @@ export interface Customer {
   street: string;
   city: string;
   zipcode: number;
+  imgFilePath: string;
   industry: string;
   type: string;
   orders?: Order[];

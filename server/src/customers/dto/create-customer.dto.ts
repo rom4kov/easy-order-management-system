@@ -6,6 +6,7 @@ export class CreateCustomerDto {
   street: string;
   city: string;
   zipcode: number;
+  imgFilePath: string;
   industry: string;
   type: string;
   orders?: string;

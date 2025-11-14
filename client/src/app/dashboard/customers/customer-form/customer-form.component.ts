@@ -36,6 +36,7 @@ export class CustomerFormComponent implements OnInit {
   errorMessage = '';
   customerForm: FormGroup = new FormGroup({});
   newCustomer: boolean = true;
+  file: File | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -53,6 +54,7 @@ export class CustomerFormComponent implements OnInit {
       street: ['', Validators.required],
       zipcode: ['', Validators.required],
       city: ['', Validators.required],
+      imgFilePath: [null, Validators.required],
       industry: ['', Validators.required],
       type: ['', Validators.required],
       firstOrderDate: ['', Validators.required],
@@ -84,7 +86,11 @@ export class CustomerFormComponent implements OnInit {
           }
         })
       } else {
+        this.customerForm.value.imgFilePath = this.file?.name;
         this.customerService.addCustomer(this.customerForm.value).subscribe(res => {
+          if (this.file) {
+            this.customerService.uploadCustomerImage(this.file).subscribe();
+          }
           if (res) {
             this.router.navigate(['/dashboard/customers']);
           }
@@ -92,4 +98,28 @@ export class CustomerFormComponent implements OnInit {
       }
     }
   }
+
+  // Source - https://stackoverflow.com/a
+// Posted by JackMorrissey
+// Retrieved 2025-11-14, License - CC BY-SA 4.0
+
+  onFileSelected(event: Event) {
+    if (event.target) {
+      this.file = (event.target as HTMLInputElement).files![0];
+      // this.customerForm.get('image')?.updateValueAndValidity();
+    }
+    // const inputNode: any = document.querySelector('#file');
+    //
+    // if (typeof (FileReader) !== 'undefined') {
+    //   const reader = new FileReader();
+    //
+    //   reader.onload = (e: any) => {
+    //     this.srcResult = e.target;
+    //     console.log(this.srcResult);
+    //   };
+    //
+    //   reader.readAsArrayBuffer(inputNode.files[0]);
+    // }
+  }
+
 }

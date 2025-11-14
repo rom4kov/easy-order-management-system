@@ -46,7 +46,7 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    return this.currentUser ? true : false;
+    return this.currentUser || localStorage.getItem('user') ? true : false;
   }
 
   restoreAuthState(): Observable<UserAuth | null> {
@@ -65,18 +65,19 @@ export class AuthService {
   }
 
   refreshAccessToken(): Observable<UserAuth | null> {
-    return this.http.post<UserAuth>(this.apiUrl + 'refresh', {
-      withCredentials: true,
-    })
-    .pipe(
-      tap((user) => {
-        this.currentUser = user;
-        console.log(user);
-      }),
-      catchError(() => {
-        this.currentUser = null;
-        return of(null);
-      }),
-    )
+    return this.http
+      .post<UserAuth>(this.apiUrl + 'refresh', {
+        withCredentials: true,
+      })
+      .pipe(
+        tap((user) => {
+          this.currentUser = user;
+          console.log(user);
+        }),
+        catchError(() => {
+          this.currentUser = null;
+          return of(null);
+        }),
+      );
   }
 }

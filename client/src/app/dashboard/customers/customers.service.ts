@@ -46,8 +46,18 @@ export class CustomersService {
   }
 
   addCustomer(customer: Customer): Observable<Response> {
-    console.log(customer);
     return this.http.post<Response>(this.apiUrl, customer);
+  }
+
+  uploadCustomerImage(file: File): Observable<Response> {
+    const formData = new FormData();
+
+    formData.append('file', file);
+
+    return this.http.post<Response>(
+      'http://localhost:3000/api/upload',
+      formData,
+    );
   }
 
   updateCustomer(customer: Customer): Observable<Response> {

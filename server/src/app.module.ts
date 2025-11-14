@@ -5,6 +5,9 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+
 import { User } from './users/user.entity';
 import { Customer } from './customers/customer.entity';
 import { Order } from './orders/order.entity';
@@ -20,6 +23,9 @@ import { AuthModule } from './auth/auth.module';
 import { InvoicesController } from './invoices/invoices.controller';
 import { InvoicesService } from './invoices/invoices.service';
 import { InvoicesModule } from './invoices/invoices.module';
+import { UploadModule } from './upload/upload.module';
+import { UploadService } from './upload/upload.service';
+import { UploadController } from './upload/upload.controller';
 
 @Module({
   imports: [
@@ -38,18 +44,33 @@ import { InvoicesModule } from './invoices/invoices.module';
       // logging: ['error', 'query'],
       namingStrategy: new SnakeNamingStrategy(),
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads',
+      serveStaticOptions: {
+        index: false,
+      },
+    }),
     CustomersModule,
     OrdersModule,
     InvoicesModule,
     AuthModule,
+    UploadModule,
   ],
   controllers: [
     AppController,
     CustomersController,
     OrdersController,
     InvoicesController,
+    UploadController,
   ],
-  providers: [AppService, CustomersService, OrdersService, InvoicesService],
+  providers: [
+    AppService,
+    CustomersService,
+    OrdersService,
+    InvoicesService,
+    UploadService,
+  ],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}

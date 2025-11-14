@@ -36,6 +36,11 @@ export class Customer {
   @Column()
   zipcode: number;
 
+  @Column({
+    nullable: true,
+  })
+  imgFilePath: string;
+
   @Column()
   industry: string;
 

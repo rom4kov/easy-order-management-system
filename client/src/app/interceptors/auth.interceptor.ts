@@ -20,10 +20,14 @@ import { Provider } from '@angular/core';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { UserAuth } from '../models/user';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   private isRefreshing = false;
   private refreshTokenSubject = new BehaviorSubject<any>(null);
@@ -41,7 +45,7 @@ export class AuthInterceptor implements HttpInterceptor {
         if (err instanceof HttpErrorResponse && err.status === 401) {
           return this.handle401Error(req, next);
         }
-        return throwError(() => err);
+        return throwError(() => console.error(err));
       }),
     );
   }
@@ -63,6 +67,8 @@ export class AuthInterceptor implements HttpInterceptor {
         }),
         catchError((err) => {
           this.isRefreshing = false;
+          this.router.navigate(['']);
+          console.log("http401error");
           this.authService.logoutUser();
           return throwError(() => err);
         }),

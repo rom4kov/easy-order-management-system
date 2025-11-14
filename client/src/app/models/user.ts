@@ -13,8 +13,8 @@ export type User = {
 }
 
 export type UserAuth = {
-  exp: number,
-  iat: number,
   sub: number,
   username: string,
+  iat?: number,
+  exp?: number,
 }

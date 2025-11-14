@@ -24,6 +24,7 @@ export const EMPTY_CUSTOMER: Customer = {
   street: '',
   zipcode: 0,
   city: '',
+  imgFilePath: '',
   industry: '',
   type: '',
   firstOrderDate: new Date(),

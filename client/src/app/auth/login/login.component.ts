@@ -12,7 +12,7 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { User } from '../../models/user';
+import { UserAuth } from '../../models/user';
 
 @Component({
   selector: 'app-login',
@@ -50,6 +50,13 @@ export class LoginComponent implements OnInit {
       this.authService.loginUser(this.loginForm.value).subscribe(res => {
         console.log(res);
         this.userService.setUser(res);
+
+        const userAuth: UserAuth = {
+          sub: res.id,
+          username: res.username,
+        }
+
+        this.authService.setCurrentUser(userAuth);
         localStorage.setItem("user", JSON.stringify(res));
         this.router.navigate(['/dashboard']);
       })

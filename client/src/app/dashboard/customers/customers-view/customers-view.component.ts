@@ -30,6 +30,7 @@ export class CustomersViewComponent implements OnInit {
     email: '',
     street: '',
     zipcode: 0,
+    imgFilePath: '',
     city: '',
     industry: '',
     type: '',
@@ -37,6 +38,8 @@ export class CustomersViewComponent implements OnInit {
     status: '',
     notes: '',
   };
+
+  customerImgFilePath: string = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -53,6 +56,7 @@ export class CustomersViewComponent implements OnInit {
         //   res.data.invoices = JSON.parse(invoicesSanitized);
         // }
         this.customer = res.data;
+        this.customerImgFilePath = `http://localhost:3000/uploads/${this.customer.imgFilePath}`;
         console.log(this.customer.orders);
       });
     }

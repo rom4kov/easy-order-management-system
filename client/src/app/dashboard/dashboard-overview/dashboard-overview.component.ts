@@ -35,6 +35,7 @@ export class DashboardOverviewComponent implements OnInit {
   invoiceData = {
     created: 0,
     pending: 0,
+    overDue: 0,
     paid: 0,
     canceled: 0,
   };
@@ -92,6 +93,9 @@ export class DashboardOverviewComponent implements OnInit {
             break;
           case 'offen':
             this.invoiceData.pending++;
+            break;
+          case 'überfällig':
+            this.invoiceData.overDue++;
             break;
           case 'beglichen':
             this.invoiceData.paid++;
