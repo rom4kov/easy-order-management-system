@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomersService } from '../customers.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import {
   Validators,
   FormsModule,
@@ -28,6 +28,7 @@ import { Customer } from '../../../models/customer';
     MatButtonModule,
     MatSelectModule,
     MatDatepickerModule,
+    RouterLink,
   ],
   templateUrl: './customer-form.component.html',
   styleUrl: './customer-form.component.css',
@@ -80,7 +81,17 @@ export class CustomerFormComponent implements OnInit {
       if (id) {
         const customer: Customer = this.customerForm.value;
         customer.id = id;
-        this.customerService.updateCustomer(this.customerForm.value).subscribe(res => {
+        if (this.file) {
+          customer.imgFilePath = this.file?.name;
+        }
+        this.customerService.updateCustomer(customer).subscribe(res => {
+          console.log(this.customerForm.value.imgFilePath);
+          console.log(this.file?.name);
+          console.log(this.file);
+          if (this.file) {
+            console.log(this.file.name);
+            this.customerService.uploadCustomerImage(this.file).subscribe();
+          }
           if (res) {
             this.router.navigate(['/dashboard/customers']);
           }

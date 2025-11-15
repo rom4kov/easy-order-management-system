@@ -23,3 +23,8 @@
 .card-heading {
   font-size: 1.5rem;
 }
+
+.customer-image {
+  width: 4rem;
+  height: 4rem;
+}

@@ -78,6 +78,7 @@ export class CustomersService {
   }
 
   async addCustomer(customer: Customer): Promise<InsertResult> {
+    console.log(customer);
     const response = await this.customersRepository.insert(customer);
     return response;
   }
@@ -95,10 +96,12 @@ export class CustomersService {
       customerToUpdate.street = customer.street;
       customerToUpdate.zipcode = customer.zipcode;
       customerToUpdate.city = customer.city;
+      customerToUpdate.imgFilePath = customer.imgFilePath;
       customerToUpdate.industry = customer.industry;
       customerToUpdate.type = customer.type;
       customerToUpdate.firstOrderDate = customer.firstOrderDate;
       customerToUpdate.status = customer.status;
+      customerToUpdate.notes = customer.notes;
       return await this.customersRepository.save(customerToUpdate);
     }
     return null;

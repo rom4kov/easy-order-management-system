@@ -33,7 +33,6 @@ export class AuthService {
   }
 
   logoutUser(): Observable<User> {
-    localStorage.removeItem('user');
     const response = this.http.post<User>(this.apiUrl + 'logout', null, {
       withCredentials: true,
     });
@@ -46,7 +45,7 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    return this.currentUser || localStorage.getItem('user') ? true : false;
+    return this.currentUser != null;
   }
 
   restoreAuthState(): Observable<UserAuth | null> {
@@ -55,9 +54,11 @@ export class AuthService {
       .pipe(
         tap((user) => {
           this.currentUser = user;
-          console.log(user);
+          console.log('res', user);
         }),
-        catchError(() => {
+        catchError((err) => {
+          localStorage.removeItem('user');
+          console.log('res', err)
           this.currentUser = null;
           return of(null);
         }),
@@ -66,7 +67,7 @@ export class AuthService {
 
   refreshAccessToken(): Observable<UserAuth | null> {
     return this.http
-      .post<UserAuth>(this.apiUrl + 'refresh', {
+      .post<UserAuth>(this.apiUrl + 'refresh', {}, {
         withCredentials: true,
       })
       .pipe(

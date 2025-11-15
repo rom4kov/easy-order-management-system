@@ -56,19 +56,23 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     if (!this.isRefreshing) {
       this.isRefreshing = true;
+      console.log("shown")
       this.refreshTokenSubject.next(null);
+      console.log("shown")
 
       return this.authService.refreshAccessToken().pipe(
         switchMap((user) => {
+          console.log("not shown")
           this.isRefreshing = false;
           this.refreshTokenSubject.next(user);
 
           return next.handle(req);
         }),
         catchError((err) => {
+          console.log("not shown")
           this.isRefreshing = false;
           this.router.navigate(['']);
-          console.log("http401error");
+          console.log("not shown");
           this.authService.logoutUser();
           return throwError(() => err);
         }),

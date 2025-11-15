@@ -6,6 +6,8 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
+import { UsersService } from 'src/users/users.service';
+import { User } from 'src/users/user.entity';
 import { Request } from 'express';
 import { parse } from 'cookie';
 import { IS_PUBLIC_KEY } from 'src/decorators/public.decorator';
@@ -14,6 +16,7 @@ import { IS_PUBLIC_KEY } from 'src/decorators/public.decorator';
 export class AuthGuard implements CanActivate {
   constructor(
     private jwtService: JwtService,
+    private usersService: UsersService,
     private reflector: Reflector,
   ) {}
 
@@ -35,11 +38,15 @@ export class AuthGuard implements CanActivate {
     }
 
     try {
-      const payload: unknown = await this.jwtService.verifyAsync(token, {
-        secret: process.env.JWT_ACCESS_TOKEN_SECRET,
-      });
-      // console.log('payload:', payload);
-      request['user'] = payload;
+      const { sub }: { sub: number } = await this.jwtService.verifyAsync(
+        token,
+        {
+          secret: process.env.JWT_ACCESS_TOKEN_SECRET,
+        },
+      );
+      const user: User | null = await this.usersService.findOneById(sub);
+      delete (user as Partial<Pick<User, 'password'>>).password;
+      request['user'] = user as Omit<User, 'password'>;
     } catch {
       // console.error('error:', err);
       throw new UnauthorizedException();

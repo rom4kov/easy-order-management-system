@@ -100,11 +100,7 @@
         <!-- } -->
       </mat-form-field>
 
-      <button
-        type="button"
-        mat-raised-button
-        (click)="fileInput.click()"
-      >
+      <button type="button" mat-raised-button (click)="fileInput.click()">
         Choose File
       </button>
       <input
@@ -175,14 +171,25 @@
       <textarea rows="6" matInput formControlName="notes" required></textarea>
     </mat-form-field>
 
-    <button
-      mat-flat-button
-      type="submit"
-      color="primary"
-      id="customer-form-button"
-      [disabled]="customerForm.invalid"
-    >
-      {{ newCustomer ? "Speichern" : "Update" }}
-    </button>
+    <div class="flex flex-row gap-4 ms-auto justify-end">
+      <button
+        mat-flat-button
+        type="button"
+        color="primary"
+        id="customer-form-button"
+        [routerLink]="['/dashboard', 'customers']"
+      >
+        Zurück
+      </button>
+      <button
+        mat-flat-button
+        type="submit"
+        color="primary"
+        id="customer-form-button"
+        [disabled]="customerForm.invalid"
+      >
+        {{ newCustomer ? "Speichern" : "Update" }}
+      </button>
+    </div>
   </form>
 </div>

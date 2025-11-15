@@ -51,10 +51,6 @@ export class CustomersViewComponent implements OnInit {
 
     if (id) {
       this.customerService.getCustomer(id)?.subscribe((res) => {
-        // const invoicesSanitized = res.data.invoices?.replace(/'/g, '"');
-        // if (invoicesSanitized) {
-        //   res.data.invoices = JSON.parse(invoicesSanitized);
-        // }
         this.customer = res.data;
         this.customerImgFilePath = `http://localhost:3000/uploads/${this.customer.imgFilePath}`;
         console.log(this.customer.orders);
