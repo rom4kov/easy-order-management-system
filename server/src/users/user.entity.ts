@@ -17,6 +17,7 @@ export class User {
 
   @Column({
     default: '1',
+    nullable: true,
   })
   phone: number;
 
@@ -25,22 +26,32 @@ export class User {
   })
   website: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   companyName: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   street: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   zipcode: number;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   city: string;
 
   @OneToMany(() => Customer, (customer) => customer.user)
   customers: Customer[];
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   createdAt: Date;
 
   @Column({
