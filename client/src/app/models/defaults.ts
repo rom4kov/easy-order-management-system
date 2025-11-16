@@ -1,6 +1,7 @@
 import { Order } from './order';
 import type { Customer } from './customer';
 import type { Invoice } from './invoice';
+import { User } from './user';
 
 class InvoiceClass {
   id: number = 0;
@@ -57,3 +58,18 @@ export const EMPTY_INVOICE: Invoice = {
   items: '[]',
   total: 0,
 };
+
+export const EMPTY_USER: User = {
+  id: 0,
+  username: '',
+  email: '',
+  phone: 111,
+  website: '',
+  companyName: '',
+  street: '',
+  zipcode: 111,
+  city: '',
+  createdAt: new Date(),
+  details: '',
+};
+

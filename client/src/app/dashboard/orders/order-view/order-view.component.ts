@@ -60,7 +60,7 @@ export class OrderViewComponent implements OnInit {
       const currDate = new Date();
       const currYear = currDate.getFullYear();
       const dueDate = new Date(
-        currDate.setDate(currDate.getDate() + 30)
+        currDate.setDate(currDate.getDate() + 30),
       );
       console.log(dueDate);
       const invoice: InvoiceDto = {

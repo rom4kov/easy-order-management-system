@@ -78,10 +78,14 @@ export class AuthInterceptor implements HttpInterceptor {
         }),
       );
     } else {
+      this.router.navigate(['']);
       return this.refreshTokenSubject.pipe(
         filter((user: UserAuth) => user != null),
         take(1),
-        switchMap(() => next.handle(req)),
+        switchMap(() => {
+          console.log("not shown3");
+          return next.handle(req)
+        }),
       );
     }
   }

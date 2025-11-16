@@ -20,11 +20,11 @@
 
       <mat-form-field>
         <mat-label>Auftrag</mat-label>
-        <mat-select formControlName="orderTitle" required>
-          @for (title of orderTitles; track title) {
-            <mat-option [value]="title"
-              >{{ title }}<br /><span class="text-sm -mt-2"
-                >Kunde</span
+        <mat-select formControlName="order" required>
+          @for (order of orders; track $index) {
+            <mat-option [value]="order.title"
+              >{{ order.title }} <br /><span class="text-sm -mt-2"
+                >{{order.customer.name}}</span
               ></mat-option
             >
           }
@@ -84,7 +84,7 @@
           role="list"
           class="max-h-[13.25rem] overflow-y-auto bg-[#f5f5f5] binvoice-b-1"
         >
-          @for (item of invoiceForm.value.items; track item) {
+          @for (item of invoiceForm.value.items; track $index) {
             <li
               role="listitem"
               id="mat-list-item"

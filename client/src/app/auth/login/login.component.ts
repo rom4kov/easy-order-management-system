@@ -51,13 +51,8 @@ export class LoginComponent implements OnInit {
         console.log(res);
         this.userService.setUser(res);
 
-        const userAuth: UserAuth = {
-          sub: res.id,
-          username: res.username,
-        }
-
-        this.authService.setCurrentUser(userAuth);
-        localStorage.setItem("user", JSON.stringify(res));
+        this.authService.setCurrentUser(res);
+        // localStorage.setItem("user", JSON.stringify(res));
         this.router.navigate(['/dashboard']);
       })
     }

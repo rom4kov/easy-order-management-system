@@ -73,7 +73,7 @@ export class AuthController {
   @Get('me')
   @HttpCode(HttpStatus.OK)
   getProfile(@Request() req: AuthRequest) {
-    console.log(req.user);
+    // console.log(req.user);
     return req.user;
   }
 

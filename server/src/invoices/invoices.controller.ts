@@ -70,6 +70,7 @@ export class InvoicesController {
     description: 'The record has been successfully created.',
   })
   async addInvoice(@Body() createInvoiceDto: CreateInvoiceDto): Promise<void> {
+    console.log(createInvoiceDto);
     const response = await this.invoicesService.addInvoice(createInvoiceDto);
     console.log('response:', response);
     return response;

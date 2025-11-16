@@ -9,11 +9,14 @@ import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Invoice } from '../../../models/invoice';
 import { InvoicesService } from '../invoices.service';
+import { AuthService } from '../../../auth/auth.service';
 import { UserService } from '../../../user/user.service';
 import { LoadingService } from '../../../loading/loading.service';
 import { LoadingComponent } from '../../../loading/loading.component';
+import { User } from '../../../models/user';
 
 import { EMPTY_INVOICE } from '../../../models/defaults';
+import { EMPTY_USER } from '../../../models/defaults';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { generateInvoicePdf } from '../invoice-pdf/pdf-parameters';
 
@@ -39,11 +42,13 @@ export class InvoiceViewComponent implements OnInit {
     ...EMPTY_INVOICE
   };
 
+  user: User = EMPTY_USER;
   invoicePdfBlob: string = "";
   pdfSrc: Uint8Array = new Uint8Array();
 
   constructor(
     private invoicesService: InvoicesService,
+    private authService: AuthService,
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private loadingService: LoadingService,
@@ -67,14 +72,15 @@ export class InvoiceViewComponent implements OnInit {
           let user = this.userService.getUser();
 
           if (!user) {
-            const storedUser = localStorage.getItem("user");
-            user = JSON.parse(storedUser ? storedUser : "");
+            this.authService.restoreAuthState().subscribe(() => {
+              user = this.authService.getCurrentUser();
+              if (user) {
+                const pdfOject = generateInvoicePdf(this.invoice, user, false);
+                this.pdfSrc = new Uint8Array(pdfOject.arrayBuffer);
+              }
+              this.loadingService.loadingOff();
+            });
           }
-          if (user) {
-            const pdfOject = generateInvoicePdf(this.invoice, user, false);
-            this.pdfSrc = new Uint8Array(pdfOject.arrayBuffer);
-          }
-          this.loadingService.loadingOff();
         });
       } catch (error) {
         console.error(error);
@@ -86,11 +92,12 @@ export class InvoiceViewComponent implements OnInit {
     let user = this.userService.getUser();
 
     if (!user) {
-      const storedUser = localStorage.getItem("user");
-      user = JSON.parse(storedUser ? storedUser : "");
-    }
-    if (user) {
-      generateInvoicePdf(this.invoice, user, true);
+      this.authService.restoreAuthState().subscribe(() => {
+        user = this.authService.getCurrentUser();
+        if (user) {
+          generateInvoicePdf(this.invoice, user, true);
+        }
+      });
     }
   }
 }

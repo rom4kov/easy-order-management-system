@@ -102,19 +102,24 @@ export class InvoicesService {
   }
 
   async addInvoice(invoice: CreateInvoiceDto): Promise<void> {
-    // console.log('invoice service:', invoice);
+    console.log('invoice service:', invoice);
     const order = await this.ordersRepository.findOneBy({
       id: invoice.order,
     });
+    console.log(order);
     const customer = await this.customersRepository.findOneBy({
       id: invoice.customer,
     });
+    console.log(order);
     if (order instanceof Order && customer instanceof Customer) {
       const invoiceWithOrder = this.invoicesRepository.create({
         ...invoice,
+        createdAt: new Date(),
+        updatedAt: new Date(),
         order,
         customer,
       });
+      console.log(invoiceWithOrder);
       const response = await this.invoicesRepository.insert(invoiceWithOrder);
       console.log(response);
     }

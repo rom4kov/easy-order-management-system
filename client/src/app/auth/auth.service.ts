@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
   private apiUrl: string = `${environment.apiUrl}/auth/`;
-  currentUser: UserAuth | null = null;
+  currentUser: User | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -40,24 +40,28 @@ export class AuthService {
     return response;
   }
 
-  setCurrentUser(user: UserAuth) {
+  setCurrentUser(user: User) {
     this.currentUser = user;
+  }
+
+  getCurrentUser(): User | null {
+    return this.currentUser;
   }
 
   isAuthenticated() {
     return this.currentUser != null;
   }
 
-  restoreAuthState(): Observable<UserAuth | null> {
+  restoreAuthState(): Observable<User | null> {
     return this.http
-      .get<UserAuth>(this.apiUrl + 'me', { withCredentials: true })
+      .get<User>(this.apiUrl + 'me', { withCredentials: true })
       .pipe(
         tap((user) => {
           this.currentUser = user;
           console.log('res', user);
         }),
         catchError((err) => {
-          localStorage.removeItem('user');
+          // localStorage.removeItem('user');
           console.log('res', err)
           this.currentUser = null;
           return of(null);
@@ -65,9 +69,9 @@ export class AuthService {
       );
   }
 
-  refreshAccessToken(): Observable<UserAuth | null> {
+  refreshAccessToken(): Observable<User | null> {
     return this.http
-      .post<UserAuth>(this.apiUrl + 'refresh', {}, {
+      .post<User>(this.apiUrl + 'refresh', {}, {
         withCredentials: true,
       })
       .pipe(

@@ -64,8 +64,7 @@ export class InvoicesFormComponent implements OnInit {
   ngOnInit(): void {
     this.invoiceForm = this.formBuilder.group({
       invoiceNumber: ['', Validators.required],
-      customerName: ['', Validators.required],
-      orderTitle: ['', Validators.required],
+      order: ['', Validators.required],
       items: [[], Validators.required],
       dueDate: ['', Validators.required],
       total: ['', Validators.required],
@@ -99,6 +98,7 @@ export class InvoicesFormComponent implements OnInit {
         }
         console.log(invoiceToEdit);
         this.invoiceForm.patchValue(invoiceToEdit);
+        console.log(this.invoiceForm);
       });
     }
   }
@@ -115,7 +115,7 @@ export class InvoicesFormComponent implements OnInit {
         invoice.items = JSON.stringify(invoice.items);
 
         const order = this.orders.find(
-          (order) => order.title === this.invoiceForm.get('orderTitle')?.value,
+          (order) => order.title === this.invoiceForm.get('order')?.value.title,
         );
         if (!order) return;
         invoice.customer = order.customer;
@@ -130,14 +130,14 @@ export class InvoicesFormComponent implements OnInit {
         invoice.items = JSON.stringify(invoice.items);
 
         const order = this.orders.find(
-          (order) => order.title === this.invoiceForm.get('order.title')?.value,
+          (order) => order.title === this.invoiceForm.get('order')?.value,
         );
         if (!order) return;
         invoice.customer = order.customer;
 
         const invoiceDto = {
           ...invoice,
-          order: Number(invoice.order.id),
+          order: Number(order.id),
           customer: Number(invoice.customer.id),
         };
 
