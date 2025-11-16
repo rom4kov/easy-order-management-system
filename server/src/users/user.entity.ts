@@ -20,7 +20,9 @@ export class User {
   })
   phone: number;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   website: string;
 
   @Column()
