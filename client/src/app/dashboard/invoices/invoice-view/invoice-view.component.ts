@@ -71,7 +71,11 @@ export class InvoiceViewComponent implements OnInit {
 
           let user = this.userService.getUser();
 
-          if (!user) {
+          if (user) {
+            const pdfOject = generateInvoicePdf(this.invoice, user, false);
+            this.pdfSrc = new Uint8Array(pdfOject.arrayBuffer);
+          }
+          else {
             this.authService.restoreAuthState().subscribe(() => {
               user = this.authService.getCurrentUser();
               if (user) {
@@ -91,7 +95,10 @@ export class InvoiceViewComponent implements OnInit {
   downloadInvoicePdf(): void {
     let user = this.userService.getUser();
 
-    if (!user) {
+    if (user) {
+      generateInvoicePdf(this.invoice, user, true);
+    }
+    else {
       this.authService.restoreAuthState().subscribe(() => {
         user = this.authService.getCurrentUser();
         if (user) {

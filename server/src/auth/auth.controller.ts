@@ -38,6 +38,7 @@ export class AuthController {
     @Body() signInDto: SignInDto,
     @Res({ passthrough: true }) response: Response,
   ): Promise<User | undefined> {
+    console.log(process.env.NODE_ENV);
     const result = await this.authService.signIn(
       signInDto.username,
       signInDto.password,
