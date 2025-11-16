@@ -67,19 +67,22 @@ export class InvoiceViewComponent implements OnInit {
           }
           this.invoice = res.data;
 
-          console.log(this.invoice);
-
           let user = this.userService.getUser();
+          console.log('user from userService:', user);
 
           if (user) {
             const pdfOject = generateInvoicePdf(this.invoice, user, false);
+            console.log('pdfObject:', pdfOject);
             this.pdfSrc = new Uint8Array(pdfOject.arrayBuffer);
+            this.loadingService.loadingOff();
           }
           else {
             this.authService.restoreAuthState().subscribe(() => {
               user = this.authService.getCurrentUser();
+              console.log('user from authService:', user);
               if (user) {
                 const pdfOject = generateInvoicePdf(this.invoice, user, false);
+                console.log('pdfObject (authService):', pdfOject);
                 this.pdfSrc = new Uint8Array(pdfOject.arrayBuffer);
               }
               this.loadingService.loadingOff();

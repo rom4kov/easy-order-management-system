@@ -96,11 +96,13 @@
       </button>
     </div>
   </div>
-  <pdf-viewer
-    [src]="pdfSrc"
-    [render-text]="true"
-    [original-size]="false"
-    style="width: 550px; height: 800px; border-radius: 5px"
-    class="pdf-viewer"
-  ></pdf-viewer>
+  @if (pdfSrc) {
+    <pdf-viewer
+      [src]="pdfSrc"
+      [render-text]="true"
+      [original-size]="false"
+      style="width: 550px; height: 800px; border-radius: 5px"
+      class="pdf-viewer"
+    ></pdf-viewer>
+  }
 </div>
