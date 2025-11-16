@@ -12,7 +12,6 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { UserAuth } from '../../models/user';
 
 @Component({
   selector: 'app-login',
@@ -48,11 +47,9 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.loginForm.valid) {
       this.authService.loginUser(this.loginForm.value).subscribe(res => {
-        console.log(res);
         this.userService.setUser(res);
 
         this.authService.setCurrentUser(res);
-        // localStorage.setItem("user", JSON.stringify(res));
         this.router.navigate(['/dashboard']);
       })
     }

@@ -1,7 +1,3 @@
-import { Customer } from "../../../../models/customer";
-import { Order } from "../../../../models/order";
-import { EMPTY_CUSTOMER, EMPTY_ORDER } from "../../../../models/defaults";
-
 export class InvoiceDto {
   id?: number;
   invoiceNumber: string = '';
