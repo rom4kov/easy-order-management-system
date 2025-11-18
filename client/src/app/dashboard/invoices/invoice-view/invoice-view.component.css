@@ -1,5 +1,5 @@
 :host {
-  --mdc-filled-button-label-text-color: white;
+  --mdc-filled-button-label-text-color: white !important;
 }
 
 .pdf-viewer {

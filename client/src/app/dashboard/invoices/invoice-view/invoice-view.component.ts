@@ -14,6 +14,7 @@ import { UserService } from '../../../user/user.service';
 import { LoadingService } from '../../../loading/loading.service';
 import { LoadingComponent } from '../../../loading/loading.component';
 import { User } from '../../../models/user';
+import { environment } from '../../../../environments/environment';
 
 import { EMPTY_INVOICE } from '../../../models/defaults';
 import { EMPTY_USER } from '../../../models/defaults';
@@ -38,6 +39,8 @@ import { generateInvoicePdf } from '../invoice-pdf/pdf-parameters';
   styleUrl: './invoice-view.component.css',
 })
 export class InvoiceViewComponent implements OnInit {
+  private apiUrl: string = `${environment.apiUrl}/orders`;
+
   invoice: Invoice = {
     ...EMPTY_INVOICE
   };
@@ -68,21 +71,18 @@ export class InvoiceViewComponent implements OnInit {
           this.invoice = res.data;
 
           let user = this.userService.getUser();
-          console.log('user from userService:', user);
+          const userImgPath = "http://localhost:3000/uploads/screenshot_2025-11-16-181618.png"
 
           if (user) {
-            const pdfOject = generateInvoicePdf(this.invoice, user, false);
-            console.log('pdfObject:', pdfOject);
+            const pdfOject = generateInvoicePdf(this.invoice, user, userImgPath, false);
             this.pdfSrc = new Uint8Array(pdfOject.arrayBuffer);
             this.loadingService.loadingOff();
           }
           else {
             this.authService.restoreAuthState().subscribe(() => {
               user = this.authService.getCurrentUser();
-              console.log('user from authService:', user);
               if (user) {
-                const pdfOject = generateInvoicePdf(this.invoice, user, false);
-                console.log('pdfObject (authService):', pdfOject);
+                const pdfOject = generateInvoicePdf(this.invoice, user, userImgPath, false);
                 this.pdfSrc = new Uint8Array(pdfOject.arrayBuffer);
               }
               this.loadingService.loadingOff();
@@ -97,15 +97,16 @@ export class InvoiceViewComponent implements OnInit {
 
   downloadInvoicePdf(): void {
     let user = this.userService.getUser();
+    const userImgPath = "http://localhost:3000/uploads/screenshot_2025-11-16-181618.png"
 
     if (user) {
-      generateInvoicePdf(this.invoice, user, true);
+      generateInvoicePdf(this.invoice, user, userImgPath, true);
     }
     else {
       this.authService.restoreAuthState().subscribe(() => {
         user = this.authService.getCurrentUser();
         if (user) {
-          generateInvoicePdf(this.invoice, user, true);
+          generateInvoicePdf(this.invoice, user, userImgPath, true);
         }
       });
     }

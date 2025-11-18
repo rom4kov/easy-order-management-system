@@ -16,8 +16,10 @@ type JsPDFReturnObject = {
 export const generateInvoicePdf = (
   invoice: Invoice,
   user: User,
+  userImgPath: string,
   save: boolean,
 ) => {
+  console.log(userImgPath);
   const props = {
     outputType: save ? OutputType.Save : OutputType.ArrayBuffer,
     returnJsPDFDocObject: true,
@@ -25,7 +27,7 @@ export const generateInvoicePdf = (
     orientationLandscape: false,
     compress: true,
     logo: {
-      src: 'https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/logo.png',
+      src: userImgPath,
       type: 'PNG', //optional, when src= data:uri (nodejs case)
       width: 53.33, //aspect ratio = width/height
       height: 26.66,
@@ -36,7 +38,7 @@ export const generateInvoicePdf = (
     },
     stamp: {
       inAllPages: true, //by default = false, just in the last page
-      src: 'https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg',
+      src: userImgPath,
       type: 'JPG', //optional, when src= data:uri (nodejs case)
       width: 20, //aspect ratio = width/height
       height: 20,

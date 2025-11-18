@@ -81,7 +81,7 @@
       <button
         mat-flat-button
         color="primary"
-        class="invoice-view-btn me-3 *:text-white"
+        class="invoice-view-btn me-3 **:text-white"
         [routerLink]="['/dashboard', 'invoices', 'edit', invoice.id]"
       >
         Bearbeiten
@@ -89,7 +89,7 @@
       <button
         mat-flat-button
         color="primary"
-        class="invoice-view-btn *:text-white"
+        class="invoice-view-btn **:text-white"
         (click)="downloadInvoicePdf()"
       >
         PDF downloaden
